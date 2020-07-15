@@ -1,0 +1,15 @@
+name: Tag branch
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Push tag
+        uses: duchacekjan/github-tag-action@v1.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: Publish
