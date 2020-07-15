@@ -19,9 +19,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@master
-      - name: tagging
-        uses: hole19/git-tag-action@master
+      - name: Set Git tag
+        uses: weareyipyip/walking-tag-action@v1
         with:
-           TAG: Publish
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag-name: Publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
