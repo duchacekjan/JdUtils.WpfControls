@@ -11,5 +11,6 @@ jobs:
       - name: Bump version and push tag
         uses: laputansoft/github-tag-action@v4.6
         with:
+          default_bump: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ Publish }}
+          tag: Publish
