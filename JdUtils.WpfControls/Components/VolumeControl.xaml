@@ -3,18 +3,22 @@
                     xmlns:local="clr-namespace:JdUtils.WpfControls.Components"
                     xmlns:cnv="jgs:converters"
                     xmlns:cnvl="clr-namespace:JdUtils.WpfControls.Utils">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="..\Themes\Colors.xaml"/>
-        <ResourceDictionary Source="..\Themes\Vectors.xaml"/>
-    </ResourceDictionary.MergedDictionaries>
     <Style TargetType="{x:Type local:VolumeControl}">
+        <Style.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Colors.xaml"/>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Vectors.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Style.Resources>
         <Setter Property="Width" Value="80"/>
-        <Setter Property="Background" Value="{StaticResource VolumeBackgroundColor}"/>
-        <Setter Property="NormalLevelColor" Value="{StaticResource VolumeNormalLevelColor}"/>
-        <Setter Property="HigherLevelColor" Value="{StaticResource VolumeHigherLevelColor}"/>
-        <Setter Property="HighestLevelColor" Value="{StaticResource VolumeHighestLevelColor}"/>
-        <Setter Property="EmptyLevelColor" Value="{StaticResource VolumeEmptyLevelColor}"/>
-        <Setter Property="DisabledColor" Value="{StaticResource DisabledForegroudnColor}"/>
+        <Setter Property="Background" Value="{DynamicResource VolumeBackgroundColor}"/>
+        <Setter Property="NormalLevelColor" Value="{DynamicResource VolumeNormalLevelColor}"/>
+        <Setter Property="HigherLevelColor" Value="{DynamicResource VolumeHigherLevelColor}"/>
+        <Setter Property="HighestLevelColor" Value="{DynamicResource VolumeHighestLevelColor}"/>
+        <Setter Property="EmptyLevelColor" Value="{DynamicResource VolumeEmptyLevelColor}"/>
+        <Setter Property="DisabledColor" Value="{DynamicResource DisabledForegroudnColor}"/>
         <Setter Property="Height" Value="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, Converter={cnv:RatioConverter Ratio=0.25, MinValue=0}, Mode=OneWay}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Template">
@@ -51,26 +55,26 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="PART_DisplayValue" Property="Foreground" Value="{StaticResource DisabledForegroundColor}"/>
-                            <Setter TargetName="PART_Path" Property="Stroke" Value="{StaticResource DisabledForegroundColor}"/>
+                            <Setter TargetName="PART_Path" Property="Stroke" Value="{DynamicResource DisabledForegroundColor}"/>
                         </Trigger>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Value, Converter={cnvl:VolumeLevelConverter}}" Value="-1">
-                            <Setter TargetName="PART_IconButton" Property="Path" Value="{StaticResource Mute}"/>
+                            <Setter TargetName="PART_IconButton" Property="Path" Value="{DynamicResource Mute}"/>
                             <Setter TargetName="PART_IconButton" Property="Tag" Value="-1"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Value, Converter={cnvl:VolumeLevelConverter}}" Value="0">
-                            <Setter TargetName="PART_IconButton" Property="Path" Value="{StaticResource Volume0}"/>
+                            <Setter TargetName="PART_IconButton" Property="Path" Value="{DynamicResource Volume0}"/>
                             <Setter TargetName="PART_IconButton" Property="Tag" Value="0"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Value, Converter={cnvl:VolumeLevelConverter}}" Value="1">
-                            <Setter TargetName="PART_IconButton" Property="Path" Value="{StaticResource Volume1}"/>
+                            <Setter TargetName="PART_IconButton" Property="Path" Value="{DynamicResource Volume1}"/>
                             <Setter TargetName="PART_IconButton" Property="Tag" Value="1"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Value, Converter={cnvl:VolumeLevelConverter}}" Value="2">
-                            <Setter TargetName="PART_IconButton" Property="Path" Value="{StaticResource Volume2}"/>
+                            <Setter TargetName="PART_IconButton" Property="Path" Value="{DynamicResource Volume2}"/>
                             <Setter TargetName="PART_IconButton" Property="Tag" Value="2"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Value, Converter={cnvl:VolumeLevelConverter}}" Value="3">
-                            <Setter TargetName="PART_IconButton" Property="Path" Value="{StaticResource Volume3}"/>
+                            <Setter TargetName="PART_IconButton" Property="Path" Value="{DynamicResource Volume3}"/>
                             <Setter TargetName="PART_IconButton" Property="Tag" Value="3"/>
                         </DataTrigger>
                     </ControlTemplate.Triggers>
