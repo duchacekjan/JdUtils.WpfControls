@@ -44,7 +44,7 @@
                             <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource ButtonPressedBackgroundColor}" TargetName="MouseOverBorder"/>
+                            <Setter Property="Background" Value="{StaticResource ButtonPressedBackgroundColor}" TargetName="MouseOverBorder"/>
                             <Setter Property="BorderThickness" Value="1"/>
                             <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
                         </Trigger>

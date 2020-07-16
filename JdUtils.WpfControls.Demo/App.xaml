@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:JdUtils.WpfControls.Demo"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="ButtonPressedBackgroundColor" Color="LightBlue"/>
     </Application.Resources>
 </Application>

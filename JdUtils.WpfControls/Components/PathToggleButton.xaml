@@ -10,8 +10,8 @@
             </ResourceDictionary>
         </Style.Resources>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderColor}"/>
+        <Setter Property="Background" Value="{StaticResource ButtonBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderColor}"/>
         <Setter Property="IsThreeState" Value="False"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Width" Value="20"/>
@@ -46,15 +46,15 @@
                             <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="PART_Path" Property="Fill" Value="{DynamicResource DisabledForegroundColor}"/>
+                            <Setter TargetName="PART_Path" Property="Fill" Value="{StaticResource DisabledForegroundColor}"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource ButtonPressedBackgroundColor}" TargetName="MouseOverBorder"/>
+                            <Setter Property="Background" Value="{StaticResource ButtonPressedBackgroundColor}" TargetName="MouseOverBorder"/>
                             <Setter Property="BorderThickness" Value="1"/>
                             <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="{x:Null}">
-                            <Setter Property="Background" Value="{DynamicResource ButtonUndeterminedBackgroundColor}" TargetName="MouseOverBorder"/>
+                            <Setter Property="Background" Value="{StaticResource ButtonUndeterminedBackgroundColor}" TargetName="MouseOverBorder"/>
                             <Setter Property="BorderThickness" Value="1"/>
                             <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
                         </Trigger>
