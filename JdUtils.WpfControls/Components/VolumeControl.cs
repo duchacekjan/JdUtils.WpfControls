@@ -20,6 +20,11 @@ namespace JdUtils.WpfControls.Components
         public const string PartIconButton = "PART_IconButton";
 
         public static readonly DependencyProperty ValueProperty;
+        public static readonly DependencyProperty NormalLevelColorProperty;
+        public static readonly DependencyProperty HigherLevelColorProperty;
+        public static readonly DependencyProperty HighestLevelColorProperty;
+        public static readonly DependencyProperty EmptyLevelColorProperty;
+        public static readonly DependencyProperty DisabledColorProperty;
 
         private const double Max = 1.25d;
         private const double Min = 0d;
@@ -32,11 +37,17 @@ namespace JdUtils.WpfControls.Components
         private Border m_slider;
         private double m_valueInternal = 1d;
         private bool m_internalUpdate;
+        private double m_beforeMuteClickValue;
 
         static VolumeControl()
         {
             var owner = typeof(VolumeControl);
             ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), owner, new FrameworkPropertyMetadata(1d, OnValueChangedCallback));
+            NormalLevelColorProperty = DependencyProperty.Register(nameof(NormalLevelColor), typeof(Color), owner, new UIPropertyMetadata(Colors.LimeGreen));
+            HigherLevelColorProperty = DependencyProperty.Register(nameof(HigherLevelColor), typeof(Color), owner, new UIPropertyMetadata(Colors.Yellow));
+            HighestLevelColorProperty = DependencyProperty.Register(nameof(HighestLevelColor), typeof(Color), owner, new UIPropertyMetadata(Colors.Red));
+            EmptyLevelColorProperty = DependencyProperty.Register(nameof(EmptyLevelColor), typeof(Color), owner, new UIPropertyMetadata(Colors.Transparent));
+            DisabledColorProperty = DependencyProperty.Register(nameof(DisabledColor), typeof(Color), owner, new UIPropertyMetadata(Colors.LightGray));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }
 
@@ -45,9 +56,8 @@ namespace JdUtils.WpfControls.Components
             DependencyPropertyDescriptor.FromProperty(IsEnabledProperty, typeof(VolumeControl))
                 .AddValueChanged(this, OnIsEnabledChanged);
         }
-        public event ValueChangedEventHandler ValueChanged;
 
-        private double m_beforeMuteClickValue;
+        public event ValueChangedEventHandler ValueChanged;
 
         public double Value
         {
@@ -55,9 +65,39 @@ namespace JdUtils.WpfControls.Components
             set => SetValue(ValueProperty, value);
         }
 
-        private Color Green => IsEnabled ? Colors.LimeGreen : Colors.LightGray;
-        private Color Yellow => IsEnabled ? Colors.Yellow : Colors.LightGray;
-        private Color Red => IsEnabled ? Colors.Red : Colors.LightGray;
+        public Color NormalLevelColor
+        {
+            get => (Color)GetValue(NormalLevelColorProperty);
+            set => SetValue(NormalLevelColorProperty, value);
+        }
+
+        public Color HigherLevelColor
+        {
+            get => (Color)GetValue(HigherLevelColorProperty);
+            set => SetValue(HigherLevelColorProperty, value);
+        }
+
+        public Color HighestLevelColor
+        {
+            get => (Color)GetValue(HighestLevelColorProperty);
+            set => SetValue(HighestLevelColorProperty, value);
+        }
+
+        public Color EmptyLevelColor
+        {
+            get => (Color)GetValue(EmptyLevelColorProperty);
+            set => SetValue(EmptyLevelColorProperty, value);
+        }
+
+        public Color DisabledColor
+        {
+            get => (Color)GetValue(DisabledColorProperty);
+            set => SetValue(DisabledColorProperty, value);
+        }
+
+        private Color Green => IsEnabled ? NormalLevelColor : DisabledColor;
+        private Color Yellow => IsEnabled ? HigherLevelColor : DisabledColor;
+        private Color Red => IsEnabled ? HighestLevelColor : DisabledColor;
 
         public override void OnApplyTemplate()
         {
@@ -194,7 +234,7 @@ namespace JdUtils.WpfControls.Components
             brush.AddGradient(Green, greenPosition)
                  .AddGradient(Yellow, yellowPosition)
                  .AddGradient(Red)
-                 .AddGradient(Colors.Transparent);
+                 .AddGradient(EmptyLevelColor);
             return brush;
         }
 

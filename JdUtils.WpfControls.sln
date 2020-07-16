@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JdUtils.WpfControls", "JdUtils.WpfControls\JdUtils.WpfControls.csproj", "{C2E6FAD3-8D09-4FE0-9355-AD70B6E7884B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JdUtils.WpfControls", "JdUtils.WpfControls\JdUtils.WpfControls.csproj", "{C2E6FAD3-8D09-4FE0-9355-AD70B6E7884B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JdUtils.WpfControls.Demo", "JdUtils.WpfControls.Demo\JdUtils.WpfControls.Demo.csproj", "{638F4377-A74D-46C3-9491-EB449854FE7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C2E6FAD3-8D09-4FE0-9355-AD70B6E7884B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2E6FAD3-8D09-4FE0-9355-AD70B6E7884B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2E6FAD3-8D09-4FE0-9355-AD70B6E7884B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{638F4377-A74D-46C3-9491-EB449854FE7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{638F4377-A74D-46C3-9491-EB449854FE7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{638F4377-A74D-46C3-9491-EB449854FE7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{638F4377-A74D-46C3-9491-EB449854FE7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

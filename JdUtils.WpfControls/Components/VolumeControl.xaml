@@ -4,8 +4,21 @@
                     xmlns:cnv="jgs:converters"
                     xmlns:cnvl="clr-namespace:JdUtils.WpfControls.Utils">
     <Style TargetType="{x:Type local:VolumeControl}">
+        <Style.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Colors.xaml"/>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Vectors.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Style.Resources>
         <Setter Property="Width" Value="80"/>
-        <Setter Property="Background" Value="White"/>
+        <Setter Property="Background" Value="{StaticResource VolumeBackgroundColor}"/>
+        <Setter Property="NormalLevelColor" Value="{StaticResource VolumeNormalLevelColor}"/>
+        <Setter Property="HigherLevelColor" Value="{StaticResource VolumeHigherLevelColor}"/>
+        <Setter Property="HighestLevelColor" Value="{StaticResource VolumeHighestLevelColor}"/>
+        <Setter Property="EmptyLevelColor" Value="{StaticResource VolumeEmptyLevelColor}"/>
+        <Setter Property="DisabledColor" Value="{StaticResource DisabledForegroudnColor}"/>
         <Setter Property="Height" Value="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, Converter={cnv:RatioConverter Ratio=0.25, MinValue=0}, Mode=OneWay}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Template">
@@ -41,8 +54,8 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="PART_DisplayValue" Property="Foreground" Value="{StaticResource DisabledColor}"/>
-                            <Setter TargetName="PART_Path" Property="Stroke" Value="{StaticResource DisabledColor}"/>
+                            <Setter TargetName="PART_DisplayValue" Property="Foreground" Value="{StaticResource DisabledForegroundColor}"/>
+                            <Setter TargetName="PART_Path" Property="Stroke" Value="{StaticResource DisabledForegroundColor}"/>
                         </Trigger>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Value, Converter={cnvl:VolumeLevelConverter}}" Value="-1">
                             <Setter TargetName="PART_IconButton" Property="Path" Value="{StaticResource Mute}"/>

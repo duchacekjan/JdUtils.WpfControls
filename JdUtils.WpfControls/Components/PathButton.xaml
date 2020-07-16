@@ -2,9 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:JdUtils.WpfControls.Components">
     <Style TargetType="{x:Type local:PathButton}">
+        <Style.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Colors.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Style.Resources>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="Background" Value="{StaticResource ButtonBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderColor}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Width" Value="20"/>
         <Setter Property="Height" Value="20"/>
@@ -36,8 +43,13 @@
                             <Setter Property="BorderThickness" Value="1"/>
                             <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
                         </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ButtonPressedBackgroundColor}" TargetName="MouseOverBorder"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
+                        </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="PART_Path" Property="Fill" Value="{StaticResource DisabledColor}"/>
+                            <Setter TargetName="PART_Path" Property="Fill" Value="{StaticResource DisabledForegroundColor}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
