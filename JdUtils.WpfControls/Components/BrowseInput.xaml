@@ -3,9 +3,17 @@
                     xmlns:local="clr-namespace:JdUtils.WpfControls.Components"
                     xmlns:cnv="jgs:converters">
     <Style TargetType="{x:Type local:BrowseInput}">
+        <Style.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Colors.xaml"/>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/TextBox.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Style.Resources>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="White"/>
-        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}"/>
         <Setter Property="MinHeight" Value="22"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -21,14 +29,30 @@
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="2"
                                 x:Name="PART_Border">
+                            <DockPanel>
+                                <Button DockPanel.Dock="Right"
+                                        Content="Browse"/>
+                                <TextBox x:Name="PART_Input"
+                                         Style="{StaticResource BorderlessTextbox}"
+                                         IsReadOnly="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=UserCanWrite, Converter={cnv:NotConverter}}"/>
+                            </DockPanel>
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="PART_MouseOver" Property="Padding" Value="0"/>
                             <Setter TargetName="PART_Border" Property="BorderThickness" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={cnv:RatioConverter Ratio=2, MinValue=0}}"/>
-                            <Setter TargetName="PART_Border" Property="BorderBrush" Value="Blue"/>
                         </Trigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=PART_Input, Path=IsReadOnly}" Value="False"/>
+                                <Condition Binding="{Binding ElementName=PART_Input, Path=IsKeyboardFocused}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="PART_MouseOver" Property="Padding" Value="0"/>
+                                <Setter TargetName="PART_Border" Property="BorderThickness" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={cnv:RatioConverter Ratio=2, MinValue=0}}"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

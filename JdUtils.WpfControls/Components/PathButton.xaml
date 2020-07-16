@@ -10,8 +10,8 @@
             </ResourceDictionary>
         </Style.Resources>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Background" Value="{StaticResource ButtonBackgroundColor}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderColor}"/>
+        <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Width" Value="20"/>
         <Setter Property="Height" Value="20"/>
@@ -44,7 +44,7 @@
                             <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="{StaticResource ButtonPressedBackgroundColor}" TargetName="MouseOverBorder"/>
+                            <Setter Property="Background" Value="{StaticResource ButtonPressedBackgroundBrush}" TargetName="MouseOverBorder"/>
                             <Setter Property="BorderThickness" Value="1"/>
                             <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
                         </Trigger>
