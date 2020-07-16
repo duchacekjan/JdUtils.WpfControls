@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="DisabledForegroundColor" Color="LightGray"/>
+    
+    <!--BUTTON-->
+    <SolidColorBrush x:Key="ButtonPressedBackgroundColor" Color="LightGray"/>
+    <SolidColorBrush x:Key="ButtonUndeterminedBackgroundColor" Color="LightGray"/>
+    <SolidColorBrush x:Key="ButtonBackgroundColor" Color="Transparent"/>
+    <SolidColorBrush x:Key="ButtonBorderColor" Color="Gray"/>
+    <!--VOLUME-->
+    <SolidColorBrush x:Key="VolumeBackgroundColor" Color="White"/>
+    <Color x:Key="VolumeNormalLevelColor">LimeGreen</Color>
+    <Color x:Key="VolumeHigherLevelColor">Yellow</Color>
+    <Color x:Key="VolumeHighestLevelColor">Red</Color>
+    <Color x:Key="VolumeEmptyLevelColor">Transparent</Color>
+</ResourceDictionary>

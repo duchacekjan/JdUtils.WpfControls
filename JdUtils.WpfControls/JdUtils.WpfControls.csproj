@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <Version>1.0.0-alpha01</Version>
+    <Version>1.0.0-alpha02</Version>
     <Authors>Jan Duchacek</Authors>
     <Company>JGS</Company>
     <Description>Custom WPF controls</Description>
@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/duchacekjan/JdUtils.WpfControls</PackageProjectUrl>
     <RepositoryUrl>https://github.com/duchacekjan/JdUtils.WpfControls.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Custom WPF controls</PackageReleaseNotes>
+    <PackageReleaseNotes>Themes</PackageReleaseNotes>
     <PackageIcon>wpfControlIcon.png</PackageIcon>
   </PropertyGroup>
 
