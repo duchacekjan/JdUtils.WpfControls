@@ -14,5 +14,6 @@
             </c:PathButton.Path>
         </c:PathButton>
         <c:VolumeControl/>
+        <c:BrowseInput/>
     </StackPanel>
 </Window>
