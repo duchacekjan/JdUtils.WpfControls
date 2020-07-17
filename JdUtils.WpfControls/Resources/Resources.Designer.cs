@@ -79,7 +79,16 @@ namespace JdUtils.WpfControls.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Všechny soubory|(*.*).
+        ///   Looks up a localized string similar to Složka|\n.
+        /// </summary>
+        public static string FolderFilter {
+            get {
+                return ResourceManager.GetString("FolderFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Všechny soubory|*.*.
         /// </summary>
         public static string OpenDialogDefaultFilter {
             get {

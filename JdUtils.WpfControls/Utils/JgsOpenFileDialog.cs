@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using resx = JdUtils.WpfControls.Resources.Resources;
 
 namespace JdUtils.WpfControls.Utils
 {
@@ -21,6 +22,8 @@ namespace JdUtils.WpfControls.Utils
 
         public IList<string> FileNames { get; private set; }
 
+        private bool PickFolders => Options.HasFlag(JgsOpenDialogOptions.PickFolders);
+
         public bool ShowDialog()
         {
             return ShowDialog(IntPtr.Zero);
@@ -36,7 +39,7 @@ namespace JdUtils.WpfControls.Utils
 
             var dialog =  CreateDialog();
             var accessor = m_assemblyAccessor ?? (m_assemblyAccessor = new WindowsFormsAssemblyAccessor());
-            var result = accessor.ShowDialog(dialog, hWndOwner);
+            var result = accessor.ShowDialog(dialog, hWndOwner, PickFolders);
             if (result)
             {
                 FileName = dialog.FileName;
@@ -62,14 +65,6 @@ namespace JdUtils.WpfControls.Utils
         private string GetTitle()
         {
             return Title;
-            return string.IsNullOrEmpty(Title)
-                ? CreateDefaultTitle()
-                : Title;
-        }
-
-        private string CreateDefaultTitle()
-        {
-            return Options.HasFlag(JgsOpenDialogOptions.PickFolders) ? "Select a folder" : "Select a file";
         }
 
         private string GetInitialDirectory()
@@ -81,128 +76,17 @@ namespace JdUtils.WpfControls.Utils
 
         private string GetFilter()
         {
-            return Options.HasFlag(JgsOpenDialogOptions.PickFolders) ? "Folder|\n" : Filter;
+            return PickFolders ? resx.FolderFilter : Filter;
         }
 
         private bool GetAddExtensions()
         {
-            return Options.HasFlag(JgsOpenDialogOptions.PickFolders) ? false : Options.HasFlag(JgsOpenDialogOptions.AddExtension);
+            return PickFolders ? false : Options.HasFlag(JgsOpenDialogOptions.AddExtension);
         }
 
         private bool GetDeferenceLinks()
         {
-            return Options.HasFlag(JgsOpenDialogOptions.PickFolders) ? true : Options.HasFlag(JgsOpenDialogOptions.DereferenceLinks);
+            return PickFolders ? true : Options.HasFlag(JgsOpenDialogOptions.DereferenceLinks);
         }
-
-        //private bool ShowNewDialog(IntPtr hWndOwner)
-        //{
-        //    var flag = false;
-        //    var r = new Reflector("System.Windows.Forms");
-        //    uint num = 0;
-        //    Type typeIFileDialog = r.GetType("FileDialogNative+IFileDialog");
-        //    object dialog = r.Call(m_openFileDialog, "CreateVistaDialog");
-        //    uint options = (uint)r.CallAs(typeof(FileDialog), m_openFileDialog, "GetOptions");
-        //    options |= (uint)r.GetEnum("FileDialogNative+FOS", "FOS_PICKFOLDERS");
-        //    r.CallAs(typeIFileDialog, dialog, "SetOptions", options);
-        //    object pfde = r.New("FileDialog.VistaDialogEvents", m_openFileDialog);
-        //    object[] parameters = new object[] { pfde, num };
-        //    r.CallAs2(typeIFileDialog, dialog, "Advise", parameters);
-        //    num = (uint)parameters[1];
-        //    try
-        //    {
-        //        int num2 = (int)r.CallAs(typeIFileDialog, dialog, "Show", hWndOwner);
-        //        flag = 0 == num2;
-        //    }
-        //    finally
-        //    {
-        //        r.CallAs(typeIFileDialog, dialog, "Unadvise", num);
-        //        GC.KeepAlive(pfde);
-        //    }
-
-        //    return flag;
-        //}
-
-        //public class Reflector
-        //{
-        //    string m_ns;
-        //    Assembly m_asmb;
-        //    public Reflector(string ns)
-        //        : this(ns, ns)
-        //    { }
-        //    public Reflector(string an, string ns)
-        //    {
-        //        m_ns = ns;
-        //        m_asmb = null;
-        //        foreach (AssemblyName aN in Assembly.GetExecutingAssembly().GetReferencedAssemblies())
-        //        {
-        //            if (aN.FullName.StartsWith(an))
-        //            {
-        //                m_asmb = Assembly.Load(aN);
-        //                break;
-        //            }
-        //        }
-        //    }
-        //    public Type GetType(string typeName)
-        //    {
-        //        Type type = null;
-        //        string[] names = typeName.Split('.');
-
-        //        if (names.Length > 0)
-        //            type = m_asmb.GetType(m_ns + "." + names[0]);
-
-        //        for (int i = 1; i < names.Length; ++i)
-        //        {
-        //            type = type.GetNestedType(names[i], BindingFlags.NonPublic);
-        //        }
-        //        return type;
-        //    }
-        //    public object New(string name, params object[] parameters)
-        //    {
-        //        Type type = GetType(name);
-        //        ConstructorInfo[] ctorInfos = type.GetConstructors();
-        //        foreach (ConstructorInfo ci in ctorInfos)
-        //        {
-        //            try
-        //            {
-        //                return ci.Invoke(parameters);
-        //            }
-        //            catch { }
-        //        }
-
-        //        return null;
-        //    }
-        //    public object Call(object obj, string func, params object[] parameters)
-        //    {
-        //        return Call2(obj, func, parameters);
-        //    }
-        //    public object Call2(object obj, string func, object[] parameters)
-        //    {
-        //        return CallAs2(obj.GetType(), obj, func, parameters);
-        //    }
-        //    public object CallAs(Type type, object obj, string func, params object[] parameters)
-        //    {
-        //        return CallAs2(type, obj, func, parameters);
-        //    }
-        //    public object CallAs2(Type type, object obj, string func, object[] parameters)
-        //    {
-        //        MethodInfo methInfo = type.GetMethod(func, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-        //        return methInfo.Invoke(obj, parameters);
-        //    }
-        //    public object Get(object obj, string prop)
-        //    {
-        //        return GetAs(obj.GetType(), obj, prop);
-        //    }
-        //    public object GetAs(Type type, object obj, string prop)
-        //    {
-        //        PropertyInfo propInfo = type.GetProperty(prop, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-        //        return propInfo.GetValue(obj, null);
-        //    }
-        //    public object GetEnum(string typeName, string name)
-        //    {
-        //        Type type = GetType(typeName);
-        //        FieldInfo fieldInfo = type.GetField(name);
-        //        return fieldInfo.GetValue(null);
-        //    }
-        //}
     }
 }

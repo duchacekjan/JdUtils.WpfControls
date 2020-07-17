@@ -123,7 +123,10 @@
   <data name="BrowseButtonLabelTooltip" xml:space="preserve">
     <value>Procházet</value>
   </data>
+  <data name="FolderFilter" xml:space="preserve">
+    <value>Složka|\n</value>
+  </data>
   <data name="OpenDialogDefaultFilter" xml:space="preserve">
-    <value>Všechny soubory|(*.*)</value>
+    <value>Všechny soubory|*.*</value>
   </data>
 </root>

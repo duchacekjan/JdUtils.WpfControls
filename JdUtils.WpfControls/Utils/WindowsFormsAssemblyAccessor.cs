@@ -28,7 +28,7 @@ namespace JdUtils.WpfControls.Utils
             m_namespace = m_type.Namespace;
         }
 
-        public bool ShowDialog(System.Windows.Forms.OpenFileDialog openFileDialog, IntPtr hwndOwner)
+        public bool ShowDialog(System.Windows.Forms.OpenFileDialog openFileDialog, IntPtr hwndOwner, bool pickFolders)
         {
             if (openFileDialog == null)
             {
@@ -38,12 +38,15 @@ namespace JdUtils.WpfControls.Utils
             var flag = false;
             uint num = 0;
             var fileDialogType = typeof(System.Windows.Forms.FileDialog);
-            Type typeIFileDialog = GetType(IFileDialog);
+            var typeIFileDialog = GetType(IFileDialog);
             var dialog = Invoke<object>(openFileDialog, CreateVistaDialog);
             Invoke(fileDialogType, openFileDialog, OnBeforeVistaDialog, dialog);
-            var options = Invoke<uint>(fileDialogType, openFileDialog, GetOptions);
-            options |= GetEnumValue(FileDialogNativeFOS, PickFolders);
-            Invoke(typeIFileDialog, dialog, SetOptions, options);
+            if (pickFolders)
+            {
+                var options = Invoke<uint>(fileDialogType, openFileDialog, GetOptions);
+                options |= GetEnumValue(FileDialogNativeFOS, PickFolders);
+                Invoke(typeIFileDialog, dialog, SetOptions, options);
+            }
             var pfde = Create(FileDialogVistaDialogEvents, openFileDialog);
             var parameters = new object[] { pfde, num };
             Invoke(typeIFileDialog, dialog, Advise, parameters);
