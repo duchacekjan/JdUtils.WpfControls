@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using JdUtils.Extensions;
 using JdUtils.WpfControls.Utils;
+using resx = JdUtils.WpfControls.Resources.Resources;
 
 namespace JdUtils.WpfControls.Components
 {
@@ -17,6 +18,10 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty DereferenceLinksProperty;
         public static readonly DependencyProperty LabelProperty;
         public static readonly DependencyProperty FilterProperty;
+        public static readonly DependencyProperty DialogTitleProperty;
+        public static readonly DependencyProperty LabelPlacementProperty;
+        public static readonly DependencyProperty BrowseButtonLabelProperty;
+        public static readonly DependencyProperty BrowseButtonLabelTooltipProperty;
 
         private TextBox m_input;
         static BrowseInput()
@@ -27,9 +32,25 @@ namespace JdUtils.WpfControls.Components
             IsMultiselectProperty = DependencyProperty.Register(nameof(IsMultiselect), typeof(bool), owner, new FrameworkPropertyMetadata());
             DereferenceLinksProperty = DependencyProperty.Register(nameof(DereferenceLinks), typeof(bool), owner, new FrameworkPropertyMetadata());
             AddExtensionProperty = DependencyProperty.Register(nameof(AddExtension), typeof(bool), owner, new FrameworkPropertyMetadata());
-            LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), owner, new FrameworkPropertyMetadata());
-            FilterProperty = DependencyProperty.Register(nameof(Filter), typeof(string), owner, new FrameworkPropertyMetadata());
+            LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), owner, new FrameworkPropertyMetadata(string.Empty));
+            FilterProperty = DependencyProperty.Register(nameof(Filter), typeof(string), owner, new FrameworkPropertyMetadata(resx.OpenDialogDefaultFilter));
+            DialogTitleProperty = DependencyProperty.Register(nameof(DialogTitle), typeof(string), owner, new FrameworkPropertyMetadata(string.Empty));
+            BrowseButtonLabelProperty = DependencyProperty.Register(nameof(BrowseButtonLabel), typeof(string), owner, new FrameworkPropertyMetadata(resx.BrowseButtonLabel));
+            BrowseButtonLabelTooltipProperty = DependencyProperty.Register(nameof(BrowseButtonLabelTooltip), typeof(string), owner, new FrameworkPropertyMetadata(resx.BrowseButtonLabelTooltip));
+            LabelPlacementProperty = DependencyProperty.Register(nameof(LabelPlacement), typeof(BrowseInputLabelPlacement), owner, new FrameworkPropertyMetadata(BrowseInputLabelPlacement.Top));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
+        }
+
+        public string BrowseButtonLabel
+        {
+            get => (string)GetValue(BrowseButtonLabelProperty);
+            set => SetValue(BrowseButtonLabelProperty, value);
+        }
+
+        public string BrowseButtonLabelTooltip
+        {
+            get => (string)GetValue(BrowseButtonLabelTooltipProperty);
+            set => SetValue(BrowseButtonLabelTooltipProperty, value);
         }
 
         public bool IsMultiselect
@@ -74,6 +95,18 @@ namespace JdUtils.WpfControls.Components
             set => SetValue(AddExtensionProperty, value);
         }
 
+        public string DialogTitle
+        {
+            get => (string)GetValue(DialogTitleProperty);
+            set => SetValue(DialogTitleProperty, value);
+        }
+
+        public BrowseInputLabelPlacement LabelPlacement
+        {
+            get => (BrowseInputLabelPlacement)GetValue(LabelPlacementProperty);
+            set => SetValue(LabelPlacementProperty, value);
+        }
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -111,12 +144,15 @@ namespace JdUtils.WpfControls.Components
             var dlg = new JgsOpenFileDialog
             {
                 Options = options,
-                Title = Label,
+                Title = DialogTitle,
                 Filter = Filter
             };
 
             var hwnd = this.GetHWND();
-            dlg.ShowDialog(hwnd);
+            if (dlg.ShowDialog(hwnd))
+            {
+                m_input.SetValueSafe(s => s.Text, string.Join(", ", dlg.FileNames));
+            }
         }
     }
 }

@@ -16,20 +16,20 @@
                     <Setter Property="OverridesDefaultStyle" Value="True"/>
                     <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}"/>
                     <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}"/>
-                    <Setter Property="BorderThickness" Value="1,0,0,0"/>
                     <Setter Property="Margin" Value="0"/>
                     <Setter Property="ToolTipService.ShowOnDisabled" Value="True"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Border BorderBrush="Transparent"
-                                        BorderThickness="0"
+                                <Border BorderBrush="{StaticResource ButtonBorderBrush}"
+                                        BorderThickness="1,0,0,0"
                                         Background="Transparent"
-                                        Padding="2,0,0,0"
+                                        Padding="2"
                                         x:Name="MouseOverBorder">
                                     <Border BorderBrush="{TemplateBinding BorderBrush}"
                                             BorderThickness="{TemplateBinding BorderThickness}"
                                             Background="{TemplateBinding Background}"
+                                            CornerRadius="0,2,2,0"
                                             x:Name="border">
                                         <ContentPresenter TextElement.Foreground="{TemplateBinding Foreground}"
                                                           VerticalAlignment="Center"
@@ -39,13 +39,13 @@
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="BorderThickness" Value="2,0,0,0"/>
+                                        <Setter Property="BorderThickness" Value="2"/>
                                         <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
                                         <Setter Property="Background" Value="{StaticResource ButtonPressedBackgroundBrush}" TargetName="MouseOverBorder"/>
                                     </Trigger>
                                     <Trigger Property="IsPressed" Value="True">
                                         <Setter Property="Background" Value="{StaticResource ButtonPressedBackgroundBrush}" TargetName="MouseOverBorder"/>
-                                        <Setter Property="BorderThickness" Value="2,0,0,0"/>
+                                        <Setter Property="BorderThickness" Value="2"/>
                                         <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
                                     </Trigger>
                                     <Trigger Property="IsEnabled" Value="False">
@@ -65,32 +65,65 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:BrowseInput}">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderBrush="Transparent"
-                            BorderThickness="0"
-                            CornerRadius="2"
-                            Padding="1"
-                            x:Name="PART_MouseOver">
+                    <DockPanel>
+                        <Label Content="{TemplateBinding Label}"
+                               Padding="4,2"
+                               DockPanel.Dock="Top"
+                               Margin="0"
+                               x:Name="PART_Label"/>
                         <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
                                 CornerRadius="2"
-                                x:Name="PART_Border">
-                            <DockPanel>
-                                <Button DockPanel.Dock="Right"
-                                        x:Name="PART_Browse"
-                                        Content="Browse"/>
-                                <TextBox x:Name="PART_Input"
-                                         Style="{StaticResource BorderlessTextbox}"
-                                         IsReadOnly="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=UserCanWrite, Converter={cnv:NotConverter}}"/>
-                            </DockPanel>
+                                Padding="1"
+                                DockPanel.Dock="Bottom"
+                                x:Name="PART_MouseOver">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="2"
+                                    x:Name="PART_Border">
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right"
+                                            x:Name="PART_Browse"
+                                            Content="{TemplateBinding BrowseButtonLabel}"
+                                            ToolTip="{TemplateBinding BrowseButtonLabelTooltip}"/>
+                                    <TextBox x:Name="PART_Input"
+                                             Style="{StaticResource BorderlessTextbox}"
+                                             IsReadOnly="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=UserCanWrite, Converter={cnv:NotConverter}}"/>
+                                </DockPanel>
+                            </Border>
                         </Border>
-                    </Border>
+                    </DockPanel>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger Property="Label" Value="{x:Null}">
+                            <Setter TargetName="PART_Label" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="Label" Value="">
+                            <Setter TargetName="PART_Label" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="LabelPlacement" Value="Left">
+                            <Setter TargetName="PART_Label" Property="DockPanel.Dock" Value="Left"/>
+                            <Setter TargetName="PART_MouseOver" Property="DockPanel.Dock" Value="Right"/>
+                        </Trigger>
+                        <Trigger Property="LabelPlacement" Value="Top">
+                            <Setter TargetName="PART_Label" Property="DockPanel.Dock" Value="Top"/>
+                            <Setter TargetName="PART_MouseOver" Property="DockPanel.Dock" Value="Bottom"/>
+                        </Trigger>
+                        <!--<DataTrigger Binding="{Binding ElementName=PART_MouseOver, Path=IsMouseOver}" Value="True">
                             <Setter TargetName="PART_MouseOver" Property="Padding" Value="0"/>
                             <Setter TargetName="PART_Border" Property="BorderThickness" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={cnv:RatioConverter Ratio=2, MinValue=0}}"/>
-                        </Trigger>
+                        </DataTrigger>-->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=PART_MouseOver, Path=IsMouseOver}" Value="True"/>
+                                <Condition Binding="{Binding ElementName=PART_Browse, Path=IsMouseOver}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="PART_MouseOver" Property="Padding" Value="0"/>
+                                <Setter TargetName="PART_Border" Property="BorderThickness" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={cnv:RatioConverter Ratio=2, MinValue=0}}"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding ElementName=PART_Input, Path=IsReadOnly}" Value="False"/>

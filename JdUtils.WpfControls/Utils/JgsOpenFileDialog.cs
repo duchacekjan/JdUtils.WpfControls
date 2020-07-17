@@ -61,6 +61,7 @@ namespace JdUtils.WpfControls.Utils
 
         private string GetTitle()
         {
+            return Title;
             return string.IsNullOrEmpty(Title)
                 ? CreateDefaultTitle()
                 : Title;
