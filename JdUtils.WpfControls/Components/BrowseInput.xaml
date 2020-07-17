@@ -6,9 +6,56 @@
         <Style.Resources>
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Button.xaml"/>
                     <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Colors.xaml"/>
                     <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/TextBox.xaml"/>
                 </ResourceDictionary.MergedDictionaries>
+                <Style TargetType="{x:Type Button}"
+                       BasedOn="{StaticResource BaseButton}">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="OverridesDefaultStyle" Value="True"/>
+                    <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}"/>
+                    <Setter Property="BorderThickness" Value="1,0,0,0"/>
+                    <Setter Property="Margin" Value="0"/>
+                    <Setter Property="ToolTipService.ShowOnDisabled" Value="True"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        Padding="2,0,0,0"
+                                        x:Name="MouseOverBorder">
+                                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Background="{TemplateBinding Background}"
+                                            x:Name="border">
+                                        <ContentPresenter TextElement.Foreground="{TemplateBinding Foreground}"
+                                                          VerticalAlignment="Center"
+                                                          x:Name="PART_Content"
+                                                          Margin="4,0"/>
+                                    </Border>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="2,0,0,0"/>
+                                        <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
+                                        <Setter Property="Background" Value="{StaticResource ButtonPressedBackgroundBrush}" TargetName="MouseOverBorder"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Background" Value="{StaticResource ButtonPressedBackgroundBrush}" TargetName="MouseOverBorder"/>
+                                        <Setter Property="BorderThickness" Value="2,0,0,0"/>
+                                        <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter TargetName="PART_Content" Property="TextElement.Foreground" Value="{StaticResource DisabledForegroundColor}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
             </ResourceDictionary>
         </Style.Resources>
         <Setter Property="BorderThickness" Value="1"/>
@@ -31,6 +78,7 @@
                                 x:Name="PART_Border">
                             <DockPanel>
                                 <Button DockPanel.Dock="Right"
+                                        x:Name="PART_Browse"
                                         Content="Browse"/>
                                 <TextBox x:Name="PART_Input"
                                          Style="{StaticResource BorderlessTextbox}"

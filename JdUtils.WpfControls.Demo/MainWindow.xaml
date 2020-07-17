@@ -14,6 +14,6 @@
             </c:PathButton.Path>
         </c:PathButton>
         <c:VolumeControl/>
-        <c:BrowseInput/>
+        <c:BrowseInput IsSelectingFolders="True" IsMultiselect="True"/>
     </StackPanel>
 </Window>
