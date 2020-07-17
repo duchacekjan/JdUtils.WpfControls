@@ -13,15 +13,9 @@ namespace JdUtils.WpfControls.Utils
 
         public string Title { get; set; }
 
-        public bool Multiselect { get; set; }
-
-        public bool PickFolders { get; set; }
+        public JgsOpenDialogOptions Options { get; set; }
 
         public string Filter { get; set; }
-
-        public bool AddExtension { get; set; }
-
-        public bool DereferenceLinks { get; set; }
 
         public string FileName { get; private set; }
 
@@ -61,7 +55,7 @@ namespace JdUtils.WpfControls.Utils
                 Filter = GetFilter(),
                 AddExtension = GetAddExtensions(),
                 DereferenceLinks = GetDeferenceLinks(),
-                Multiselect = Multiselect
+                Multiselect = Options.HasFlag(JgsOpenDialogOptions.Multiselect)
             };
         }
 
@@ -74,7 +68,7 @@ namespace JdUtils.WpfControls.Utils
 
         private string CreateDefaultTitle()
         {
-            return PickFolders ? "Select a folder" : "Select a file";
+            return Options.HasFlag(JgsOpenDialogOptions.PickFolders) ? "Select a folder" : "Select a file";
         }
 
         private string GetInitialDirectory()
@@ -86,17 +80,17 @@ namespace JdUtils.WpfControls.Utils
 
         private string GetFilter()
         {
-            return PickFolders ? "Folder|\n" : Filter;
+            return Options.HasFlag(JgsOpenDialogOptions.PickFolders) ? "Folder|\n" : Filter;
         }
 
         private bool GetAddExtensions()
         {
-            return PickFolders ? false : AddExtension;
+            return Options.HasFlag(JgsOpenDialogOptions.PickFolders) ? false : Options.HasFlag(JgsOpenDialogOptions.AddExtension);
         }
 
         private bool GetDeferenceLinks()
         {
-            return PickFolders ? true : DereferenceLinks;
+            return Options.HasFlag(JgsOpenDialogOptions.PickFolders) ? true : Options.HasFlag(JgsOpenDialogOptions.DereferenceLinks);
         }
 
         //private bool ShowNewDialog(IntPtr hWndOwner)
