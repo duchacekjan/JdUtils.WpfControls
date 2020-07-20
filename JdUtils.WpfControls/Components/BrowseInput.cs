@@ -27,9 +27,7 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty BrowseButtonLabelTooltipProperty;
         public static readonly DependencyProperty SeparatorProperty;
 
-        public static readonly DependencyPropertyKey FileNamesPropertyKey;
         public static readonly DependencyProperty FileNamesProperty;
-        public static readonly DependencyPropertyKey FileNamePropertyKey;
         public static readonly DependencyProperty FileNameProperty;
 
         private TextBox m_input;
@@ -49,10 +47,8 @@ namespace JdUtils.WpfControls.Components
             LabelPlacementProperty = DependencyProperty.Register(nameof(LabelPlacement), typeof(BrowseInputLabelPlacement), owner, new FrameworkPropertyMetadata(BrowseInputLabelPlacement.Top));
             SeparatorProperty = DependencyProperty.Register(nameof(Separator), typeof(string), owner, new FrameworkPropertyMetadata(", ", OnSeparatorChangeCallback));
 
-            FileNamesPropertyKey = DependencyProperty.RegisterReadOnly(nameof(FileNames), typeof(IList<string>), owner, new FrameworkPropertyMetadata());
-            FileNamesProperty = FileNamesPropertyKey.DependencyProperty;
-            FileNamePropertyKey = DependencyProperty.RegisterReadOnly(nameof(FileName), typeof(string), owner, new FrameworkPropertyMetadata());
-            FileNameProperty = FileNamePropertyKey.DependencyProperty;
+            FileNamesProperty = DependencyProperty.Register(nameof(FileNames), typeof(IList<string>), owner, new FrameworkPropertyMetadata());
+            FileNameProperty = DependencyProperty.Register(nameof(FileName), typeof(string), owner, new FrameworkPropertyMetadata());
 
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }
@@ -60,13 +56,13 @@ namespace JdUtils.WpfControls.Components
         public string FileName
         {
             get => (string)GetValue(FileNameProperty);
-            private set => SetValue(FileNamePropertyKey, value);
+            set => throw new ArgumentException("Property is ReadOnly", nameof(FileNameProperty));
         }
 
         public IList<string> FileNames
         {
             get => (IList<string>)GetValue(FileNamesProperty);
-            private set => SetValue(FileNamesPropertyKey, value);
+            set => throw new ArgumentException("Property is ReadOnly", nameof(FileNamesProperty));
         }
 
         public string Separator
