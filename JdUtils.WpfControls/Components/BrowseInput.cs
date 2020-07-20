@@ -56,13 +56,13 @@ namespace JdUtils.WpfControls.Components
         public string FileName
         {
             get => (string)GetValue(FileNameProperty);
-            set => throw new ArgumentException("Property is ReadOnly", nameof(FileNameProperty));
+            set => SetReadOnlyValue(FileNameProperty, value);
         }
 
         public IList<string> FileNames
         {
             get => (IList<string>)GetValue(FileNamesProperty);
-            set => throw new ArgumentException("Property is ReadOnly", nameof(FileNamesProperty));
+            set => SetReadOnlyValue(FileNamesProperty, value);
         }
 
         public string Separator
@@ -159,6 +159,18 @@ namespace JdUtils.WpfControls.Components
             }
         }
 
+        private void SetReadOnlyValue<T>(DependencyProperty property, T value, bool isPrivate = false)
+        {
+            if (isPrivate)
+            {
+                SetValue(property, value);
+            }
+            else
+            {
+                throw new ArgumentException("Property is ReadOnly", property.Name);
+            }
+        }
+
         private void OnSeparatorChanged()
         {
             m_input.SetValueSafe(s => s.Text, string.Join(Separator, FileNames));
@@ -201,9 +213,9 @@ namespace JdUtils.WpfControls.Components
             var hwnd = this.GetHWND();
             m_input.SetValueSafe(s => s.ToolTip, null);
             if (dlg.ShowDialog(hwnd))
-            {               
-                FileNames = dlg.FileNames;
-                FileName = dlg.FileName;
+            {
+                SetReadOnlyValue(FileNamesProperty, dlg.FileNames, true);
+                SetReadOnlyValue(FileNameProperty, dlg.FileName, true);
                 OnSeparatorChanged();
             }
         }
