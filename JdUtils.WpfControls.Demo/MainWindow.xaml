@@ -15,6 +15,7 @@
         </c:PathButton>
         <c:VolumeControl/>
         <c:BrowseInput IsSelectingFolders="False"
-                       IsMultiselect="False"/>
+                       IsMultiselect="True"
+                       x:Name="BI"/>
     </StackPanel>
 </Window>

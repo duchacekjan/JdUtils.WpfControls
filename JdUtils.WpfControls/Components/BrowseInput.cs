@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using JdUtils.Extensions;
 using JdUtils.WpfControls.Utils;
 using resx = JdUtils.WpfControls.Resources.Resources;
@@ -22,6 +25,10 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty LabelPlacementProperty;
         public static readonly DependencyProperty BrowseButtonLabelProperty;
         public static readonly DependencyProperty BrowseButtonLabelTooltipProperty;
+        public static readonly DependencyProperty SeparatorProperty;
+
+        public static readonly DependencyPropertyKey FileNamesPropertyKey;
+        public static readonly DependencyProperty FileNamesProperty;
 
         private TextBox m_input;
         static BrowseInput()
@@ -38,7 +45,24 @@ namespace JdUtils.WpfControls.Components
             BrowseButtonLabelProperty = DependencyProperty.Register(nameof(BrowseButtonLabel), typeof(string), owner, new FrameworkPropertyMetadata(resx.BrowseButtonLabel));
             BrowseButtonLabelTooltipProperty = DependencyProperty.Register(nameof(BrowseButtonLabelTooltip), typeof(string), owner, new FrameworkPropertyMetadata(resx.BrowseButtonLabelTooltip));
             LabelPlacementProperty = DependencyProperty.Register(nameof(LabelPlacement), typeof(BrowseInputLabelPlacement), owner, new FrameworkPropertyMetadata(BrowseInputLabelPlacement.Top));
+            SeparatorProperty = DependencyProperty.Register(nameof(Separator), typeof(string), owner, new FrameworkPropertyMetadata(", ", OnSeparatorChangeCallback));
+
+            FileNamesPropertyKey = DependencyProperty.RegisterReadOnly(nameof(FileNames), typeof(IList<string>), owner, new FrameworkPropertyMetadata());
+            FileNamesProperty = FileNamesPropertyKey.DependencyProperty;
+
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
+        }
+
+        public string Separator
+        {
+            get => (string)GetValue(SeparatorProperty);
+            set => SetValue(SeparatorProperty, value);
+        }
+
+        public IList<string> FileNames
+        {
+            get => (IList<string>)GetValue(FileNamesProperty);
+            private set => SetValue(FileNamesPropertyKey, value);
         }
 
         public string BrowseButtonLabel
@@ -118,6 +142,26 @@ namespace JdUtils.WpfControls.Components
             m_input = this.FindTemplatePart<TextBox>(PartInput);
         }
 
+        private static void OnSeparatorChangeCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is BrowseInput control)
+            {
+                if (!Equals(e.OldValue, e.NewValue))
+                {
+                    control.OnSeparatorChanged();
+                }
+            }
+        }
+
+        private void OnSeparatorChanged()
+        {
+            m_input.SetValueSafe(s => s.Text, string.Join(Separator, FileNames));
+            if (FileNames.Count > 0)
+            {
+                m_input.SetValueSafe(s => s.ToolTip, CreateTextBoxTooltip());
+            }
+        }
+
         private void OnBrowseClick(object sender, RoutedEventArgs e)
         {
             var options = JgsOpenDialogOptions.None;
@@ -131,7 +175,7 @@ namespace JdUtils.WpfControls.Components
                 options |= JgsOpenDialogOptions.PickFolders;
             }
 
-            if (AddExtension) 
+            if (AddExtension)
             {
                 options |= JgsOpenDialogOptions.AddExtension;
             }
@@ -149,10 +193,36 @@ namespace JdUtils.WpfControls.Components
             };
 
             var hwnd = this.GetHWND();
+            m_input.SetValueSafe(s => s.ToolTip, null);
             if (dlg.ShowDialog(hwnd))
-            {
-                m_input.SetValueSafe(s => s.Text, string.Join(", ", dlg.FileNames));
+            {               
+                FileNames = dlg.FileNames;
+                OnSeparatorChanged();
             }
+        }
+
+        private ToolTip CreateTextBoxTooltip()
+        {
+            var tooltip =  new ToolTip()
+            {
+                Content = new ItemsControl
+                {
+                    ItemsSource = FileNames
+                },
+                PlacementTarget = m_input,
+                Placement = PlacementMode.Custom
+            };
+
+            tooltip.CustomPopupPlacementCallback = OnTooltipCustom;
+            return tooltip;
+        }
+
+        private CustomPopupPlacement[] OnTooltipCustom(Size popupSize, Size targetSize, Point offset)
+        {
+            return new CustomPopupPlacement[] 
+            {
+                new CustomPopupPlacement(new Point(-1, targetSize.Height), PopupPrimaryAxis.Vertical)
+            };
         }
     }
 }
