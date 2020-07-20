@@ -3,7 +3,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
-    <Version>1.0.3</Version>
+    <Version>1.0.3.1</Version>
     <Authors>Jan Duchacek</Authors>
     <Company>JGS</Company>
     <Description>Custom WPF controls</Description>
@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/duchacekjan/JdUtils.WpfControls</PackageProjectUrl>
     <RepositoryUrl>https://github.com/duchacekjan/JdUtils.WpfControls.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Fixed access to FileNames property on BrowseInput</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed disabled foreground color. Replaced with corresponing brush</PackageReleaseNotes>
     <PackageIcon>wpfControlIcon.png</PackageIcon>
   </PropertyGroup>
 
