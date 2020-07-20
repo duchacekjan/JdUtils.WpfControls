@@ -14,8 +14,12 @@
             </c:PathButton.Path>
         </c:PathButton>
         <c:VolumeControl/>
+        <CheckBox x:Name="Cb"
+                  Content="Enabled"
+                  IsChecked="True"/>
         <c:BrowseInput IsSelectingFolders="False"
                        IsMultiselect="True"
-                       x:Name="BI"/>
+                       x:Name="BI"
+                       IsEnabled="{Binding ElementName=Cb, Path=IsChecked}"/>
     </StackPanel>
 </Window>
