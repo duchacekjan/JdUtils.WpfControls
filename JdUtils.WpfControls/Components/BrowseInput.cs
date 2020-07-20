@@ -26,6 +26,7 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty BrowseButtonLabelProperty;
         public static readonly DependencyProperty BrowseButtonLabelTooltipProperty;
         public static readonly DependencyProperty SeparatorProperty;
+        public static readonly DependencyProperty InitialDirProperty;
 
         public static readonly DependencyProperty FileNamesProperty;
         public static readonly DependencyProperty FileNameProperty;
@@ -46,9 +47,10 @@ namespace JdUtils.WpfControls.Components
             BrowseButtonLabelTooltipProperty = DependencyProperty.Register(nameof(BrowseButtonLabelTooltip), typeof(string), owner, new FrameworkPropertyMetadata(resx.BrowseButtonLabelTooltip));
             LabelPlacementProperty = DependencyProperty.Register(nameof(LabelPlacement), typeof(BrowseInputLabelPlacement), owner, new FrameworkPropertyMetadata(BrowseInputLabelPlacement.Top));
             SeparatorProperty = DependencyProperty.Register(nameof(Separator), typeof(string), owner, new FrameworkPropertyMetadata(", ", OnSeparatorChangeCallback));
+            InitialDirProperty = DependencyProperty.Register(nameof(InitialDir), typeof(string), owner, new FrameworkPropertyMetadata(string.Empty));
 
-            FileNamesProperty = DependencyProperty.Register(nameof(FileNames), typeof(IList<string>), owner, new FrameworkPropertyMetadata());
-            FileNameProperty = DependencyProperty.Register(nameof(FileName), typeof(string), owner, new FrameworkPropertyMetadata());
+            FileNamesProperty = DependencyProperty.Register(nameof(FileNames), typeof(IList<string>), owner, new FrameworkPropertyMetadata(OnFileNamesChangedCallback));
+            FileNameProperty = DependencyProperty.Register(nameof(FileName), typeof(string), owner, new FrameworkPropertyMetadata(OnFileNameChangedCallback));
 
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }
@@ -56,13 +58,21 @@ namespace JdUtils.WpfControls.Components
         public string FileName
         {
             get => (string)GetValue(FileNameProperty);
-            set => SetReadOnlyValue(FileNameProperty, value);
+            set => SetValue(FileNameProperty, value);
+        }
+
+        private bool m_internalUpdate;
+
+        public string InitialDir
+        {
+            get => (string)GetValue(InitialDirProperty);
+            set => SetValue(InitialDirProperty, value);
         }
 
         public IList<string> FileNames
         {
             get => (IList<string>)GetValue(FileNamesProperty);
-            set => SetReadOnlyValue(FileNamesProperty, value);
+            set => SetValue(FileNamesProperty, value);
         }
 
         public string Separator
@@ -159,15 +169,49 @@ namespace JdUtils.WpfControls.Components
             }
         }
 
-        private void SetReadOnlyValue<T>(DependencyProperty property, T value, bool isPrivate = false)
+        private static void OnFileNameChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (isPrivate)
+
+            if (d is BrowseInput control)
             {
-                SetValue(property, value);
+                if (!Equals(e.OldValue, e.NewValue))
+                {
+                    control.OnFileNameChanged();
+                }
             }
-            else
+
+        }
+
+        private static void OnFileNamesChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+            if (d is BrowseInput control)
             {
-                throw new ArgumentException("Property is ReadOnly", property.Name);
+                if (!Equals(e.OldValue, e.NewValue))
+                {
+                    control.OnFileNamesChanged();
+                }
+            }
+
+        }
+
+        private void OnFileNamesChanged()
+        {
+            if (!m_internalUpdate)
+            {
+                OnSeparatorChanged();
+            }
+        }
+
+        private void OnFileNameChanged()
+        {
+            if (!m_internalUpdate)
+            {
+                FileNames = new List<string>
+                {
+                    FileName
+                };
+                OnSeparatorChanged();
             }
         }
 
@@ -207,16 +251,19 @@ namespace JdUtils.WpfControls.Components
             {
                 Options = options,
                 Title = DialogTitle,
-                Filter = Filter
+                Filter = Filter,
+                InitialDirectory = InitialDir
             };
 
             var hwnd = this.GetHWND();
             m_input.SetValueSafe(s => s.ToolTip, null);
             if (dlg.ShowDialog(hwnd))
             {
-                SetReadOnlyValue(FileNamesProperty, dlg.FileNames, true);
-                SetReadOnlyValue(FileNameProperty, dlg.FileName, true);
+                m_internalUpdate = true;
+                FileNames = dlg.FileNames;
+                FileName = dlg.FileName;
                 OnSeparatorChanged();
+                m_internalUpdate = false;
             }
         }
 
