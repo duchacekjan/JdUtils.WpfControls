@@ -29,6 +29,8 @@ namespace JdUtils.WpfControls.Components
 
         public static readonly DependencyPropertyKey FileNamesPropertyKey;
         public static readonly DependencyProperty FileNamesProperty;
+        public static readonly DependencyPropertyKey FileNamePropertyKey;
+        public static readonly DependencyProperty FileNameProperty;
 
         private TextBox m_input;
         static BrowseInput()
@@ -49,20 +51,28 @@ namespace JdUtils.WpfControls.Components
 
             FileNamesPropertyKey = DependencyProperty.RegisterReadOnly(nameof(FileNames), typeof(IList<string>), owner, new FrameworkPropertyMetadata());
             FileNamesProperty = FileNamesPropertyKey.DependencyProperty;
+            FileNamePropertyKey = DependencyProperty.RegisterReadOnly(nameof(FileName), typeof(string), owner, new FrameworkPropertyMetadata());
+            FileNameProperty = FileNamePropertyKey.DependencyProperty;
 
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }
 
-        public string Separator
+        public string FileName
         {
-            get => (string)GetValue(SeparatorProperty);
-            set => SetValue(SeparatorProperty, value);
+            get => (string)GetValue(FileNameProperty);
+            private set => SetValue(FileNamePropertyKey, value);
         }
 
         public IList<string> FileNames
         {
             get => (IList<string>)GetValue(FileNamesProperty);
             private set => SetValue(FileNamesPropertyKey, value);
+        }
+
+        public string Separator
+        {
+            get => (string)GetValue(SeparatorProperty);
+            set => SetValue(SeparatorProperty, value);
         }
 
         public string BrowseButtonLabel
@@ -197,6 +207,7 @@ namespace JdUtils.WpfControls.Components
             if (dlg.ShowDialog(hwnd))
             {               
                 FileNames = dlg.FileNames;
+                FileName = dlg.FileName;
                 OnSeparatorChanged();
             }
         }
