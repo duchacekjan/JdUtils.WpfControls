@@ -49,7 +49,7 @@
                             <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="PART_Path" Property="Fill" Value="{StaticResource DisabledForegroundColor}"/>
+                            <Setter TargetName="PART_Path" Property="Fill" Value="{StaticResource DisabledForegroundBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
