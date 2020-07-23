@@ -18,7 +18,7 @@
         <Setter Property="HigherLevelColor" Value="{StaticResource VolumeHigherLevelColor}"/>
         <Setter Property="HighestLevelColor" Value="{StaticResource VolumeHighestLevelColor}"/>
         <Setter Property="EmptyLevelColor" Value="{StaticResource VolumeEmptyLevelColor}"/>
-        <Setter Property="DisabledColor" Value="{StaticResource DisabledForegroudnColor}"/>
+        <Setter Property="DisabledColor" Value="{StaticResource DisabledForegroundColor}"/>
         <Setter Property="Height" Value="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, Converter={cnv:RatioConverter Ratio=0.25, MinValue=0}, Mode=OneWay}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Template">
@@ -54,8 +54,8 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="PART_DisplayValue" Property="Foreground" Value="{StaticResource DisabledForegroundColor}"/>
-                            <Setter TargetName="PART_Path" Property="Stroke" Value="{StaticResource DisabledForegroundColor}"/>
+                            <Setter TargetName="PART_DisplayValue" Property="Foreground" Value="{StaticResource VolumeDisabledBackgroundBrush}"/>
+                            <Setter TargetName="PART_Path" Property="Stroke" Value="{StaticResource VolumeDisabledBackgroundBrush}"/>
                         </Trigger>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Value, Converter={cnvl:VolumeLevelConverter}}" Value="-1">
                             <Setter TargetName="PART_IconButton" Property="Path" Value="{StaticResource Mute}"/>

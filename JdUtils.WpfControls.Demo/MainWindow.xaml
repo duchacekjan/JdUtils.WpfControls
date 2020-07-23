@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:c="jgs:wpfcontrols"
         mc:Ignorable="d"
+        IsEnabled="True"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
         <c:PathButton>
@@ -21,5 +22,6 @@
                        IsMultiselect="True"
                        x:Name="BI"
                        IsEnabled="{Binding ElementName=Cb, Path=IsChecked}"/>
+        <c:SpinEdit Height="20"/>
     </StackPanel>
 </Window>
