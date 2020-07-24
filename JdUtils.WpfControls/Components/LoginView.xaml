@@ -56,52 +56,54 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <ContentPresenter Grid.Row="0"
-                                              Content="{TemplateBinding Logo}"/>
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  Content="{TemplateBinding Logo}"/>
                                 <Label Grid.Row="1"
-                                   Content="{TemplateBinding LoginLabel}"
-                                   FontWeight="Bold"/>
+                                       Content="{TemplateBinding LoginLabel}"
+                                       FontWeight="Bold"/>
                                 <TextBox Grid.Row="2"
-                                     x:Name="PART_LoginInput"
-                                     Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{StaticResource BaseTextBox}"
-                                     ToolTip="{TemplateBinding LoginTooltip}"/>
+                                         x:Name="PART_LoginInput"
+                                         Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource BaseTextBox}"
+                                         ToolTip="{TemplateBinding LoginTooltip}"/>
                                 <Label Grid.Row="3"
-                                   Content="{TemplateBinding PasswordLabel}"
-                                   FontWeight="Bold"/>
+                                       Content="{TemplateBinding PasswordLabel}"
+                                       FontWeight="Bold"/>
                                 <Border Grid.Row="4"
-                                    x:Name="PART_BorderPasswordMouseOver"
-                                    MinHeight="24"
-                                    Padding="1"
-                                    Background="Transparent"
-                                    BorderBrush="Transparent"
-                                    BorderThickness="0">
+                                        x:Name="PART_BorderPasswordMouseOver"
+                                        MinHeight="24"
+                                        Padding="1"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0">
                                     <Border Background="{Binding ElementName=PART_PasswordInput, Path=Background}"
-                                        BorderBrush="{Binding ElementName=PART_PasswordInput, Path=BorderBrush}"
-                                        BorderThickness="1"
-                                        x:Name="PART_BorderPassword"
-                                        CornerRadius="4"
-                                        ToolTip="{TemplateBinding PasswordTooltip}"
-                                        Padding="1">
+                                            BorderBrush="{Binding ElementName=PART_PasswordInput, Path=BorderBrush}"
+                                            BorderThickness="1"
+                                            x:Name="PART_BorderPassword"
+                                            CornerRadius="4"
+                                            ToolTip="{TemplateBinding PasswordTooltip}"
+                                            Padding="1">
                                         <PasswordBox x:Name="PART_PasswordInput"
-                                                 BorderThickness="0"/>
+                                                     BorderThickness="0"/>
                                     </Border>
                                 </Border>
                                 <TextBox Grid.Row="5"
-                                     Foreground="Red"
-                                     Background="#0fff0000"
-                                     x:Name="PART_ErrorMessage"
-                                     Text="{TemplateBinding ErrorMessage}"
-                                     ToolTip="{TemplateBinding ErrorMessage}"
-                                     Margin="0,2"
-                                     Style="{StaticResource BorderlessTextbox}"
-                                     IsReadOnly="True"/>
+                                         Foreground="Red"
+                                         Background="#0fff0000"
+                                         x:Name="PART_ErrorMessage"
+                                         Text="{TemplateBinding ErrorMessage}"
+                                         ToolTip="{TemplateBinding ErrorMessage}"
+                                         Margin="0,2"
+                                         Style="{StaticResource BorderlessTextbox}"
+                                         IsReadOnly="True"/>
                                 <CheckBox Grid.Row="6"
-                                      x:Name="PART_Remember"
-                                      Margin="4,2"
-                                      HorizontalAlignment="Left"
-                                      IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Remember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Content="{TemplateBinding RememberLabel}"
-                                      ToolTip="{TemplateBinding RememberTooltip}"/>
+                                          x:Name="PART_Remember"
+                                          Margin="4,2"
+                                          HorizontalAlignment="Left"
+                                          IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Remember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          Content="{TemplateBinding RememberLabel}"
+                                          ToolTip="{TemplateBinding RememberTooltip}"/>
                             </Grid>
                         </DockPanel>
                     </Border>

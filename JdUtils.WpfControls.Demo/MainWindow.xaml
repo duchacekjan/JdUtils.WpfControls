@@ -38,6 +38,11 @@
                      Margin="4"
                      EmptyErrorMessageVisibility="Hidden"
                      ErrorMessage="adwad"
-                     Remember="True"/>
+                     Remember="True">
+            <Border>
+                <Path Fill="Red"
+                      Data="M0,0H10V10H-10z"/>
+            </Border>
+        </c:LoginView>
     </Grid>
 </Window>
