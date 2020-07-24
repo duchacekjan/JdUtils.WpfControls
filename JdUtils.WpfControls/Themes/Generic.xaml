@@ -9,6 +9,7 @@
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/PathButton.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/PathToggleButton.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/SpinEdit.xaml"/>
+        <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/SuggestionEdit.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/VolumeControl.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

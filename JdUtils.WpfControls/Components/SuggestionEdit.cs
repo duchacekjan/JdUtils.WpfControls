@@ -424,7 +424,12 @@ namespace JdUtils.WpfControls.Components
                 IsLoading = false;
             }
 
-            var tProvider = new Func<string, IEnumerable>(Provider);
+            Func<string, IEnumerable> tProvider = null;
+            if (Provider != null)
+            {
+                tProvider = new Func<string, IEnumerable>(Provider);
+            }
+
             var tFulltext = m_editor?.Text;
             var tTake = MaxSuggestions;
             ExecuteSafe(() => DoWork(tProvider, tFulltext, tTake), OnSuccess, OnError);
