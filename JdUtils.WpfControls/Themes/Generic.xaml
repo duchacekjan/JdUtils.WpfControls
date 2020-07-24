@@ -5,6 +5,7 @@
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Vectors.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/TextBox.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/BrowseInput.xaml"/>
+        <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/LoginView.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/PathButton.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/PathToggleButton.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/SpinEdit.xaml"/>

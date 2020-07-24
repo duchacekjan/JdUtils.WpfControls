@@ -123,10 +123,31 @@
   <data name="BrowseButtonLabelTooltip" xml:space="preserve">
     <value>Procházet</value>
   </data>
+  <data name="FieldCannotBeEmpty" xml:space="preserve">
+    <value>Pole nesmí být prázdné</value>
+  </data>
   <data name="FolderFilter" xml:space="preserve">
     <value>Složka|\n</value>
   </data>
+  <data name="LoginButtonLabel" xml:space="preserve">
+    <value>Přihlásit</value>
+  </data>
+  <data name="LoginLabel" xml:space="preserve">
+    <value>Jméno</value>
+  </data>
+  <data name="LoginTooltip" xml:space="preserve">
+    <value>Zadejte jméno nebo e-mail</value>
+  </data>
   <data name="OpenDialogDefaultFilter" xml:space="preserve">
     <value>Všechny soubory|*.*</value>
+  </data>
+  <data name="PasswordLabel" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="RemeberLabel" xml:space="preserve">
+    <value>Zapamatovat</value>
+  </data>
+  <data name="RememberTooltip" xml:space="preserve">
+    <value>Zapamatovat si přihlášení</value>
   </data>
 </root>

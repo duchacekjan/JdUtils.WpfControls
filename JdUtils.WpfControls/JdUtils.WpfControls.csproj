@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JdUtils" Version="1.0.4.4" />
+    <PackageReference Include="JdUtils" Version="1.0.4.5" />
   </ItemGroup>
 
   <ItemGroup>
