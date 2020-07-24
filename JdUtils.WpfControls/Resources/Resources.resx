@@ -123,6 +123,9 @@
   <data name="BrowseButtonLabelTooltip" xml:space="preserve">
     <value>Procházet</value>
   </data>
+  <data name="FieldCannotBeEmpty" xml:space="preserve">
+    <value>Pole nesmí být prázdné</value>
+  </data>
   <data name="FolderFilter" xml:space="preserve">
     <value>Složka|\n</value>
   </data>

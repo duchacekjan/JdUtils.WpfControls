@@ -20,6 +20,7 @@ namespace JdUtils.WpfControls.Components
 
         public const string PartPassword = "PART_PasswordInput";
         public const string PartLogin = "PART_Login";
+        public const string PartLoginInput = "PART_LoginInput";
 
         public static readonly DependencyProperty LogoProperty;
         public static readonly DependencyProperty LoginLabelProperty;
@@ -38,6 +39,9 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty RememberProperty;
         public static readonly DependencyProperty ErrorMessageProperty;
         public static readonly DependencyProperty EmptyErrorMessageVisibilityProperty;
+        public static readonly DependencyProperty IsSubmittedProperty;
+
+        public static readonly DependencyProperty AllowedEmptyProperty;
 
         private PasswordBox m_password;
         private bool m_passwordUpdating;
@@ -63,9 +67,23 @@ namespace JdUtils.WpfControls.Components
 
             ErrorMessageProperty = DependencyProperty.Register(nameof(ErrorMessage), typeof(string), owner, new FrameworkPropertyMetadata());
             EmptyErrorMessageVisibilityProperty = DependencyProperty.Register(nameof(EmptyErrorMessageVisibility), typeof(ErrorMessageVisibility), owner, new FrameworkPropertyMetadata(ErrorMessageVisibility.Collapsed));
+
+            IsSubmittedProperty = DependencyProperty.Register(nameof(IsSubmitted), typeof(bool), owner, new FrameworkPropertyMetadata());
+            AllowedEmptyProperty = DependencyProperty.Register(nameof(AllowedEmpty), typeof(AllowedEmpty), owner, new FrameworkPropertyMetadata(AllowedEmpty.None));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }
 
+        public AllowedEmpty AllowedEmpty
+        {
+            get => (AllowedEmpty)GetValue(AllowedEmptyProperty);
+            set => SetValue(AllowedEmptyProperty, value);
+        }
+
+        public bool IsSubmitted
+        {
+            get => (bool)GetValue(IsSubmittedProperty);
+            set => SetValue(IsSubmittedProperty, value);
+        }
 
         public ErrorMessageVisibility EmptyErrorMessageVisibility
         {
@@ -170,6 +188,11 @@ namespace JdUtils.WpfControls.Components
                 {
                     b.Click += OnLoginButtonClick;
                 });
+            this.FindTemplatePart<TextBox>(PartLoginInput)
+                .IfNotNull(t => 
+                {
+                    t.TextChanged += (s, e) => IsSubmitted = false;
+                });
             OnPasswordChanged();
         }
 
@@ -202,6 +225,7 @@ namespace JdUtils.WpfControls.Components
                 m_passwordUpdating = true;
                 Password = password.Password;
                 m_passwordUpdating = false;
+                IsSubmitted = false;
             }
         }
 
@@ -211,6 +235,7 @@ namespace JdUtils.WpfControls.Components
             {
                 LoginCmd.Execute(null);
             }
+            IsSubmitted = true;
         }
     }
 }

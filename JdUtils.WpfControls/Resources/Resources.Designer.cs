@@ -79,6 +79,15 @@ namespace JdUtils.WpfControls.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pole nesmí být prázdné.
+        /// </summary>
+        public static string FieldCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("FieldCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Složka|\n.
         /// </summary>
         public static string FolderFilter {

@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:JdUtils.WpfControls.Components"
-                    xmlns:cnv="jgs:converters">
+                    xmlns:cnv="jgs:converters"
+                    xmlns:cnvl="clr-namespace:JdUtils.WpfControls.Utils"
+                    xmlns:resx="clr-namespace:JdUtils.WpfControls.Resources">
     <Style TargetType="{x:Type local:LoginView}">
         <Style.Resources>
             <ResourceDictionary>
@@ -94,7 +96,7 @@
                                          x:Name="PART_ErrorMessage"
                                          Text="{TemplateBinding ErrorMessage}"
                                          ToolTip="{TemplateBinding ErrorMessage}"
-                                         Margin="0,2"
+                                         Margin="0,0,0,2"
                                          Style="{StaticResource BorderlessTextbox}"
                                          IsReadOnly="True"/>
                                 <CheckBox Grid.Row="6"
@@ -109,7 +111,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding ElementName=PART_ErrorMessage, Path=Text, Converter={cnv:StringNullOrEmptyConverter}}" Value="True">
-                            <Setter TargetName="PART_ErrorMessage" Property="Visibility" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=EmptyErrorMessageVisibility, Converter={cnv:EnumConverter}}"/>
+                            <Setter TargetName="PART_ErrorMessage" Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=PART_BorderPasswordMouseOver, Path=IsMouseOver}" Value="True">
                             <Setter TargetName="PART_BorderPasswordMouseOver" Property="Padding" Value="0"/>
@@ -119,6 +121,48 @@
                             <Setter TargetName="PART_BorderPasswordMouseOver" Property="Padding" Value="0"/>
                             <Setter TargetName="PART_BorderPassword" Property="BorderThickness" Value="2"/>
                         </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=PART_ErrorMessage, Path=Text, Converter={cnv:StringNullOrEmptyConverter}}" Value="True"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=EmptyErrorMessageVisibility}" Value="Collapsed"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="PART_ErrorMessage" Property="Visibility" Value="Collapsed"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=PART_ErrorMessage, Path=Text, Converter={cnv:StringNullOrEmptyConverter}}" Value="True"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=EmptyErrorMessageVisibility}" Value="Hidden"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="PART_ErrorMessage" Property="Visibility" Value="Hidden"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSubmitted}" Value="True"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=AllowedEmpty, Converter={cnvl:HasFlagConverter Flag=UserName}}" Value="False"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=UserName, Converter={cnv:StringNullOrEmptyConverter}}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="PART_LoginInput" Property="BorderBrush" Value="{StaticResource ErrorMessageForeground}"/>
+                                <Setter TargetName="PART_LoginInput" Property="Background" Value="{StaticResource ErrorMessageBackground}"/>
+                                <Setter TargetName="PART_LoginInput" Property="ToolTip" Value="{x:Static resx:Resources.FieldCannotBeEmpty}"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSubmitted}" Value="True"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=AllowedEmpty, Converter={cnvl:HasFlagConverter Flag=Password}}" Value="False"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Password, Converter={cnv:StringNullOrEmptyConverter}}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="PART_PasswordInput" Property="BorderBrush" Value="{StaticResource ErrorMessageForeground}"/>
+                                <Setter TargetName="PART_PasswordInput" Property="Background" Value="{StaticResource ErrorMessageBackground}"/>
+                                <Setter TargetName="PART_BorderPassword" Property="ToolTip" Value="{x:Static resx:Resources.FieldCannotBeEmpty}"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

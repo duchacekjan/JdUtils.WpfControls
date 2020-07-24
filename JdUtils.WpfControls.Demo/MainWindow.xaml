@@ -36,8 +36,9 @@
         <c:LoginView Password="Test"
                      UserName="Test"
                      Margin="4"
-                     EmptyErrorMessageVisibility="Hidden"
-                     ErrorMessage="adwad"
+                     AllowedEmpty="None"
+                     EmptyErrorMessageVisibility="Collapsed"
+                     ErrorMessage=""
                      Remember="True">
             <Border Margin="5">
                 <Path Fill="Red"
