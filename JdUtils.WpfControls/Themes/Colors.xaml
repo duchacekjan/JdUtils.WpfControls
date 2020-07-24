@@ -26,4 +26,11 @@
     <SolidColorBrush x:Key="SpinEditMouseOverBackgroundBrush" Color="#e5e5e5"/>
     <SolidColorBrush x:Key="SpinEditPressedBackgroundBrush" Color="#cccccc"/>
     <SolidColorBrush x:Key="SpinEditBackgroundBrush" Color="#ededef"/>
+    <!--LOGIN VIEW-->
+    <SolidColorBrush x:Key="LoginButonForegroundBrush" Color="#ffffff"/>
+    <SolidColorBrush x:Key="LoginButonBackgroundBrush" Color="#2ea44f"/>
+    <SolidColorBrush x:Key="LoginButonBorderBrush" Color="#299347"/>
+    <SolidColorBrush x:Key="LoginButonPressedBrush" Color="#299347"/>
+    <SolidColorBrush x:Key="ErrorMessageForeground" Color="#ff0000"/>
+    <SolidColorBrush x:Key="ErrorMessageBackground" Color="#0fff0000"/>
 </ResourceDictionary>

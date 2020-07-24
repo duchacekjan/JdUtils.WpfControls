@@ -16,10 +16,10 @@
                 <Style TargetType="{x:Type Button}"
                        BasedOn="{StaticResource BaseButton}"
                        x:Key="LoginButton">
-                    <Setter Property="Background" Value="#2ea44f"/>
+                    <Setter Property="Background" Value="{StaticResource LoginButonBackgroundBrush}"/>
                     <Style.Triggers>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="#299347"/>
+                            <Setter Property="Background" Value="{StaticResource LoginButonPressedBrush}"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -38,9 +38,9 @@
                                     BorderThickness="1" 
                                     Style="{StaticResource LoginButton}"
                                     MinHeight="24"
-                                    Foreground="White"
+                                    Foreground="{StaticResource LoginButonForegroundBrush}"
                                     FontWeight="Bold"
-                                    BorderBrush="#299347"
+                                    BorderBrush="{StaticResource LoginButonBorderBrush}"
                                     x:Name="PART_Login"
                                     VerticalContentAlignment="Center"
                                     Content="{TemplateBinding LoginButtonLabel}"
@@ -89,8 +89,8 @@
                                     </Border>
                                 </Border>
                                 <TextBox Grid.Row="5"
-                                         Foreground="Red"
-                                         Background="#0fff0000"
+                                         Foreground="{StaticResource ErrorMessageForeground}"
+                                         Background="{StaticResource ErrorMessageBackground}"
                                          x:Name="PART_ErrorMessage"
                                          Text="{TemplateBinding ErrorMessage}"
                                          ToolTip="{TemplateBinding ErrorMessage}"
