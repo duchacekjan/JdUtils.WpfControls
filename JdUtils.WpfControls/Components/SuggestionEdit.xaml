@@ -339,6 +339,16 @@
                             <Setter Property="BorderThickness" Value="2"/>
                             <Setter Property="Margin" Value="0" TargetName="PART_Dock"/>
                         </Trigger>
+                        <DataTrigger Binding="{Binding ElementName=PART_Selector, Path=(local:SuggestionEdit.NotFound)}" Value="True">
+                            <Setter TargetName="PART_Selector" Property="ItemTemplate" Value="{x:Null}"/>
+                            <Setter TargetName="PART_Selector" Property="ItemContainerStyle">
+                                <Setter.Value>
+                                    <Style TargetType="{x:Type ListBoxItem}">
+                                        <Setter Property="Focusable" Value="False"/>
+                                    </Style>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

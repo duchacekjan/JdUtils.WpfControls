@@ -11,6 +11,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using t = System.Windows.Threading;
+using resx = JdUtils.WpfControls.Resources.Resources;
 
 namespace JdUtils.WpfControls.Components
 {
@@ -27,6 +28,7 @@ namespace JdUtils.WpfControls.Components
         public const string PartDisplay = "PART_Display";
         public const string PartSelector = "PART_Selector";
         public const string PartPopup = "PART_Popup";
+        public const string NotFoundPropertyKey = "NotFound";
 
         public static readonly DependencyProperty ProviderProperty;
         public static readonly DependencyProperty SelectedItemProperty;
@@ -41,6 +43,9 @@ namespace JdUtils.WpfControls.Components
 
         public static readonly DependencyProperty IsLoadingProperty;
         private static readonly DependencyPropertyKey IsLoadingPropertyKey;
+
+        public static readonly DependencyProperty NotFoundProperty;
+        public static readonly DependencyProperty NotFoundTextProperty;
 
         private readonly t.Dispatcher m_uiDispatcher;
         private readonly t.DispatcherTimer m_timer;
@@ -62,14 +67,16 @@ namespace JdUtils.WpfControls.Components
             IconProperty = DependencyProperty.Register(nameof(Icon), typeof(ImageSource), owner, new FrameworkPropertyMetadata());
             ItemHighlightBrushProperty = DependencyProperty.Register(nameof(ItemHighlightBrush), typeof(Brush), owner, new FrameworkPropertyMetadata());
             IconVisibilityProperty = DependencyProperty.Register(nameof(IconVisibility), typeof(Visibility), owner, new FrameworkPropertyMetadata(Visibility.Visible));
-            WatermarkProperty = DependencyProperty.Register(nameof(Watermark), typeof(string), owner, new FrameworkPropertyMetadata("resx.Watermark"));
+            WatermarkProperty = DependencyProperty.Register(nameof(Watermark), typeof(string), owner, new FrameworkPropertyMetadata(resx.SuggestionEditWatermark));
             MaxSuggestionsProperty = DependencyProperty.Register(nameof(MaxSuggestions), typeof(int), owner, new FrameworkPropertyMetadata(50));
-            LoadingContentProperty = DependencyProperty.Register(nameof(LoadingContent), typeof(object), owner, new FrameworkPropertyMetadata("resx.LoadingContent"));
+            LoadingContentProperty = DependencyProperty.Register(nameof(LoadingContent), typeof(object), owner, new FrameworkPropertyMetadata(resx.SuggestionEditLoadingContent));
             SelectedItemProperty = DependencyProperty.Register(nameof(SelectedItem), typeof(object), owner, new TwoWayPropertyMetadata(null, OnSelectedItemChangedCallback));
             FetchDelayProperty = DependencyProperty.Register(nameof(FetchDelay), typeof(int), owner, new FrameworkPropertyMetadata(300, OnFetchDelayChangedCallback));
 
             IsLoadingPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsLoading), typeof(bool), owner, new FrameworkPropertyMetadata(false));
             IsLoadingProperty = IsLoadingPropertyKey.DependencyProperty;
+            NotFoundProperty = DependencyProperty.RegisterAttached(NotFoundPropertyKey, typeof(bool), owner, new UIPropertyMetadata(false));
+            NotFoundTextProperty = DependencyProperty.Register(nameof(NotFoundText), typeof(string), owner, new FrameworkPropertyMetadata(resx.SuggestionEditNotFoundText));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }
 
@@ -82,6 +89,12 @@ namespace JdUtils.WpfControls.Components
                 IsEnabled = false
             };
             m_timer.Tick += OnFetch;
+        }
+
+        public string NotFoundText
+        {
+            get => (string)GetValue(NotFoundTextProperty);
+            set => SetValue(NotFoundTextProperty, value);
         }
 
         public Brush ItemHighlightBrush
@@ -148,6 +161,16 @@ namespace JdUtils.WpfControls.Components
         {
             get => (Func<string, IEnumerable>)GetValue(ProviderProperty);
             set => SetValue(ProviderProperty, value);
+        }
+
+        public static bool GetNotFound(ListBox listBox)
+        {
+            return (bool)listBox.GetValue(NotFoundProperty);
+        }
+
+        public static void SetNotFound(ListBox listBox, bool value)
+        {
+            listBox.SetValue(NotFoundProperty, value);
         }
 
         public override void OnApplyTemplate()
@@ -414,8 +437,18 @@ namespace JdUtils.WpfControls.Components
             void OnSuccess(IList<object> data)
             {
                 m_items = data;
-                m_displayItems.ItemsSource = m_items;
-                m_displayItems.SelectedItem = m_items?.FirstOrDefault();
+                if (m_items == null || m_items.Count == 0)
+                {
+                    SetNotFound(m_displayItems, true);
+                    m_displayItems.ItemsSource = new[] { NotFoundText };
+                    m_displayItems.SelectedItem = null;
+                }
+                else
+                {
+                    SetNotFound(m_displayItems, false);
+                    m_displayItems.ItemsSource = m_items;
+                    m_displayItems.SelectedItem = m_items?.FirstOrDefault();
+                }
                 IsLoading = false;
             }
 
