@@ -40,7 +40,6 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty EmptyErrorMessageVisibilityProperty;
 
         private PasswordBox m_password;
-        private Button m_loginButton;
         private bool m_passwordUpdating;
 
         static LoginView()
@@ -166,8 +165,8 @@ namespace JdUtils.WpfControls.Components
                 {
                     p.PasswordChanged += OnPasswordChanged;
                 });
-            m_loginButton = this.FindTemplatePart<Button>(PartLogin)
-                .AndIfNotNull(b =>
+            this.FindTemplatePart<Button>(PartLogin)
+                .IfNotNull(b =>
                 {
                     b.Click += OnLoginButtonClick;
                 });
