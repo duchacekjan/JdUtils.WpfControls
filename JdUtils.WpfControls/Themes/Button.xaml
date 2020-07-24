@@ -44,7 +44,7 @@
                             <Setter TargetName="MouseOverBorder" Property="Padding" Value="0"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="{StaticResource ButtonPressedBackgroundBrush}" TargetName="MouseOverBorder"/>
+                            <Setter Property="Background" Value="{StaticResource ButtonPressedBackgroundBrush}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="PART_Content" Property="TextElement.Foreground" Value="{StaticResource DisabledForegroundColor}"/>

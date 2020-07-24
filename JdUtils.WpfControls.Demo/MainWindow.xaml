@@ -35,6 +35,7 @@
         </Grid.RowDefinitions>
         <c:LoginView Password="Test"
                      UserName="Test"
+                     Margin="4"
                      EmptyErrorMessageVisibility="Hidden"
                      ErrorMessage="adwad"
                      Remember="True"/>

@@ -13,6 +13,16 @@
                 <Style TargetType="{x:Type Label}">
                     <Setter Property="Padding" Value="4,2,0,2"/>
                 </Style>
+                <Style TargetType="{x:Type Button}"
+                       BasedOn="{StaticResource BaseButton}"
+                       x:Key="LoginButton">
+                    <Setter Property="Background" Value="#2ea44f"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#299347"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
             </ResourceDictionary>
         </Style.Resources>
         <Setter Property="Background" Value="{StaticResource ControlBackground}"/>
@@ -25,13 +35,12 @@
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <DockPanel>
                             <Button DockPanel.Dock="Bottom"
-                                    Style="{StaticResource BaseButton}"
                                     BorderThickness="1" 
+                                    Style="{StaticResource LoginButton}"
                                     MinHeight="24"
                                     Foreground="White"
                                     FontWeight="Bold"
-                                    Background="#2ea44f"
-                                    BorderBrush="#2ea44f"
+                                    BorderBrush="#299347"
                                     x:Name="PART_Login"
                                     VerticalContentAlignment="Center"
                                     Content="{TemplateBinding LoginButtonLabel}"
