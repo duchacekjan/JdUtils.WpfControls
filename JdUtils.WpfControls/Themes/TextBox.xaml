@@ -23,24 +23,24 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border Background="Transparent"
-                                                BorderBrush="Transparent"
-                                                BorderThickness="0"
-                                                Padding="1"
-                                                Margin="0,-1,0,0"
-                                                x:Name="BaseBorder">
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Padding="1"
+                            Margin="0,-1,0,0"
+                            x:Name="BaseBorder">
                         <Border x:Name="border" 
-                                                    BorderBrush="{TemplateBinding BorderBrush}" 
-                                                    BorderThickness="{TemplateBinding BorderThickness}" 
-                                                    Background="{TemplateBinding Background}" 
-                                                    SnapsToDevicePixels="True"
-                                                    CornerRadius="4">
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                SnapsToDevicePixels="True"
+                                CornerRadius="4">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal" />
                                     <VisualState x:Name="Disabled">
                                         <Storyboard>
                                             <ColorAnimationUsingKeyFrames Storyboard.TargetName="border"
-                                                                                              Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                                          Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
                                                 <EasingColorKeyFrame KeyTime="0" Value="{StaticResource DisabledBackgroundColor}" />
                                             </ColorAnimationUsingKeyFrames>
                                         </Storyboard>
@@ -48,7 +48,7 @@
                                     <VisualState x:Name="ReadOnly">
                                         <Storyboard>
                                             <ColorAnimationUsingKeyFrames Storyboard.TargetName="border"
-                                                                                              Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                                          Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
                                                 <EasingColorKeyFrame KeyTime="0" Value="{StaticResource DisabledBackgroundColor}" />
                                             </ColorAnimationUsingKeyFrames>
                                         </Storyboard>
@@ -57,9 +57,9 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <ScrollViewer x:Name="PART_ContentHost"
-                                                              Focusable="false"
-                                                              HorizontalScrollBarVisibility="Hidden"
-                                                              VerticalScrollBarVisibility="Hidden"/>
+                                          Focusable="false"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden"/>
                         </Border>
                     </Border>
 
