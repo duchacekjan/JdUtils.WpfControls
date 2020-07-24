@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:JdUtils.WpfControls.Components">
+                    xmlns:local="clr-namespace:JdUtils.WpfControls.Components"
+                    xmlns:cnv="jgs:converters">
     <Style TargetType="{x:Type local:LoginView}">
         <Style.Resources>
             <ResourceDictionary>
@@ -9,66 +10,96 @@
                     <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Colors.xaml"/>
                     <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/TextBox.xaml"/>
                 </ResourceDictionary.MergedDictionaries>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="Padding" Value="4,2,0,2"/>
+                </Style>
             </ResourceDictionary>
         </Style.Resources>
-        <Setter Property="Background" Value="White"/>
+        <Setter Property="Background" Value="{StaticResource ControlBackground}"/>
+        <Setter Property="Width" Value="200"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:LoginView}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <ContentPresenter Grid.Row="0"
+                        <DockPanel>
+                            <Button DockPanel.Dock="Bottom"
+                                    Style="{StaticResource BaseButton}"
+                                    BorderThickness="1" 
+                                    MinHeight="24"
+                                    Foreground="White"
+                                    FontWeight="Bold"
+                                    Background="#2ea44f"
+                                    BorderBrush="#2ea44f"
+                                    x:Name="PART_Login"
+                                    VerticalContentAlignment="Center"
+                                    Content="{TemplateBinding LoginButtonLabel}"
+                                    ToolTip="{TemplateBinding LoginButtonTooltip}"/>
+                            <Grid DockPanel.Dock="Top">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <ContentPresenter Grid.Row="0"
                                               Content="{TemplateBinding Logo}"/>
-                            <Label Grid.Row="1"
-                                   Content="{TemplateBinding LoginLabel}"/>
-                            <TextBox Grid.Row="2"
+                                <Label Grid.Row="1"
+                                   Content="{TemplateBinding LoginLabel}"
+                                   FontWeight="Bold"/>
+                                <TextBox Grid.Row="2"
                                      x:Name="PART_LoginInput"
+                                     Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{StaticResource BaseTextBox}"
                                      ToolTip="{TemplateBinding LoginTooltip}"/>
-                            <Label Grid.Row="3"
-                                   Content="{TemplateBinding PasswordLabel}"/>
-                            <Border Grid.Row="4"
+                                <Label Grid.Row="3"
+                                   Content="{TemplateBinding PasswordLabel}"
+                                   FontWeight="Bold"/>
+                                <Border Grid.Row="4"
                                     x:Name="PART_BorderPasswordMouseOver"
                                     MinHeight="24"
                                     Padding="1"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
                                     BorderThickness="0">
-                                <Border Background="{Binding ElementName=PART_PasswordInput, Path=Background}"
+                                    <Border Background="{Binding ElementName=PART_PasswordInput, Path=Background}"
                                         BorderBrush="{Binding ElementName=PART_PasswordInput, Path=BorderBrush}"
                                         BorderThickness="1"
                                         x:Name="PART_BorderPassword"
                                         CornerRadius="4"
+                                        ToolTip="{TemplateBinding PasswordTooltip}"
                                         Padding="1">
-                                    <PasswordBox x:Name="PART_PasswordInput"
-                                                 BorderThickness="0"
-                                                 ToolTip="{TemplateBinding PasswordTooltip}"/>
+                                        <PasswordBox x:Name="PART_PasswordInput"
+                                                 BorderThickness="0"/>
+                                    </Border>
                                 </Border>
-                            </Border>
-                            <CheckBox Grid.Row="6"
+                                <TextBox Grid.Row="5"
+                                     Foreground="Red"
+                                     Background="#0fff0000"
+                                     x:Name="PART_ErrorMessage"
+                                     Text="{TemplateBinding ErrorMessage}"
+                                     ToolTip="{TemplateBinding ErrorMessage}"
+                                     Margin="0,2"
+                                     Style="{StaticResource BorderlessTextbox}"
+                                     IsReadOnly="True"/>
+                                <CheckBox Grid.Row="6"
                                       x:Name="PART_Remember"
+                                      Margin="4,2"
+                                      HorizontalAlignment="Left"
+                                      IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Remember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Content="{TemplateBinding RememberLabel}"
                                       ToolTip="{TemplateBinding RememberTooltip}"/>
-                            <Button Grid.Row="7"
-                                    Style="{StaticResource BaseButton}"
-                                    BorderThickness="1"
-                                    Content="{TemplateBinding LoginButtonLabel}"
-                                    ToolTip="{TemplateBinding LoginButtonTooltip}"/>
-                        </Grid>
+                            </Grid>
+                        </DockPanel>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=PART_ErrorMessage, Path=Text, Converter={cnv:StringNullOrEmptyConverter}}" Value="True">
+                            <Setter TargetName="PART_ErrorMessage" Property="Visibility" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=EmptyErrorMessageVisibility, Converter={cnv:EnumConverter}}"/>
+                        </DataTrigger>
                         <DataTrigger Binding="{Binding ElementName=PART_BorderPasswordMouseOver, Path=IsMouseOver}" Value="True">
                             <Setter TargetName="PART_BorderPasswordMouseOver" Property="Padding" Value="0"/>
                             <Setter TargetName="PART_BorderPassword" Property="BorderThickness" Value="2"/>

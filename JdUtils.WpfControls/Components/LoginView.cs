@@ -1,5 +1,9 @@
-﻿using System.Windows;
+﻿using JdUtils.Extensions;
+using JdUtils.WpfControls.Utils;
+using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Markup;
 using resx = JdUtils.WpfControls.Resources.Resources;
 
@@ -8,6 +12,15 @@ namespace JdUtils.WpfControls.Components
     [ContentProperty(nameof(Logo))]
     public class LoginView : Control
     {
+        public enum ErrorMessageVisibility
+        {
+            Collapsed = 2,
+            Hidden = 1
+        }
+
+        public const string PartPassword = "PART_PasswordInput";
+        public const string PartLogin = "PART_Login";
+
         public static readonly DependencyProperty LogoProperty;
         public static readonly DependencyProperty LoginLabelProperty;
         public static readonly DependencyProperty PasswordLabelProperty;
@@ -18,6 +31,17 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty PasswordTooltipProperty;
         public static readonly DependencyProperty RememberTooltipProperty;
         public static readonly DependencyProperty LoginButtonTooltipProperty;
+
+        public static readonly DependencyProperty LoginCmdProperty;
+        public static readonly DependencyProperty UserNameProperty;
+        public static readonly DependencyProperty PasswordProperty;
+        public static readonly DependencyProperty RememberProperty;
+        public static readonly DependencyProperty ErrorMessageProperty;
+        public static readonly DependencyProperty EmptyErrorMessageVisibilityProperty;
+
+        private PasswordBox m_password;
+        private Button m_loginButton;
+        private bool m_passwordUpdating;
 
         static LoginView()
         {
@@ -33,7 +57,51 @@ namespace JdUtils.WpfControls.Components
             RememberTooltipProperty = DependencyProperty.Register(nameof(RememberTooltip), typeof(string), owner, new FrameworkPropertyMetadata(resx.RememberTooltip));
             LoginButtonTooltipProperty = DependencyProperty.Register(nameof(LoginButtonTooltip), typeof(string), owner, new FrameworkPropertyMetadata(null));
 
+            LoginCmdProperty = DependencyProperty.Register(nameof(LoginCmd), typeof(ICommand), owner, new FrameworkPropertyMetadata());
+            UserNameProperty = DependencyProperty.Register(nameof(UserName), typeof(string), owner, new TwoWayPropertyMetadata());
+            PasswordProperty = DependencyProperty.Register(nameof(Password), typeof(string), owner, new TwoWayPropertyMetadata(OnPasswordChangedCallback));
+            RememberProperty = DependencyProperty.Register(nameof(Remember), typeof(bool), owner, new TwoWayPropertyMetadata());
+
+            ErrorMessageProperty = DependencyProperty.Register(nameof(ErrorMessage), typeof(string), owner, new FrameworkPropertyMetadata());
+            EmptyErrorMessageVisibilityProperty = DependencyProperty.Register(nameof(EmptyErrorMessageVisibility), typeof(ErrorMessageVisibility), owner, new FrameworkPropertyMetadata(ErrorMessageVisibility.Collapsed));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
+        }
+
+
+        public ErrorMessageVisibility EmptyErrorMessageVisibility
+        {
+            get => (ErrorMessageVisibility)GetValue(EmptyErrorMessageVisibilityProperty);
+            set => SetValue(EmptyErrorMessageVisibilityProperty, value);
+        }
+
+        public string ErrorMessage
+        {
+            get => (string)GetValue(ErrorMessageProperty);
+            set => SetValue(ErrorMessageProperty, value);
+        }
+
+        public bool Remember
+        {
+            get => (bool)GetValue(RememberProperty);
+            set => SetValue(RememberProperty, value);
+        }
+
+        public string Password
+        {
+            get => (string)GetValue(PasswordProperty);
+            set => SetValue(PasswordProperty, value);
+        }
+
+        public string UserName
+        {
+            get => (string)GetValue(UserNameProperty);
+            set => SetValue(UserNameProperty, value);
+        }
+
+        public ICommand LoginCmd
+        {
+            get => (ICommand)GetValue(LoginCmdProperty);
+            set => SetValue(LoginCmdProperty, value);
         }
 
         public object Logo
@@ -88,6 +156,62 @@ namespace JdUtils.WpfControls.Components
         {
             get => (string)GetValue(LoginButtonTooltipProperty);
             set => SetValue(LoginButtonTooltipProperty, value);
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            m_password = this.FindTemplatePart<PasswordBox>(PartPassword)
+                .AndIfNotNull(p =>
+                {
+                    p.PasswordChanged += OnPasswordChanged;
+                });
+            m_loginButton = this.FindTemplatePart<Button>(PartLogin)
+                .AndIfNotNull(b =>
+                {
+                    b.Click += OnLoginButtonClick;
+                });
+            OnPasswordChanged();
+        }
+
+        private static void OnPasswordChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+            if (d is LoginView control)
+            {
+                if (!Equals(e.OldValue, e.NewValue))
+                {
+                    control.OnPasswordChanged();
+                }
+            }
+        }
+
+        private void OnPasswordChanged()
+        {
+            if (!m_passwordUpdating)
+            {
+                m_passwordUpdating = true;
+                m_password.SetValueSafe(s => s.Password, Password);
+                m_passwordUpdating = false;
+            }
+        }
+
+        private void OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (sender is PasswordBox password && !m_passwordUpdating)
+            {
+                m_passwordUpdating = true;
+                Password = password.Password;
+                m_passwordUpdating = false;
+            }
+        }
+
+        private void OnLoginButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (LoginCmd?.CanExecute(null) == true)
+            {
+                LoginCmd.Execute(null);
+            }
         }
     }
 }

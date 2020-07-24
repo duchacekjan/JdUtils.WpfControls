@@ -7,15 +7,15 @@
         mc:Ignorable="d"
         IsEnabled="True"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel>
-        <!--<c:PathButton>
+    <!--<StackPanel>
+        --><!--<c:PathButton>
             <c:PathButton.Path>
                 <Path Fill="Black"
                       Data="m0,0h1v1z"/>
             </c:PathButton.Path>
         </c:PathButton>
         <c:VolumeControl/>
-        <c:SpinEdit Height="20"/>-->
+        <c:SpinEdit Height="20"/>--><!--
         <CheckBox x:Name="Cb"
                   Content="Enabled"
                   IsChecked="True"/>
@@ -23,6 +23,20 @@
                        IsMultiselect="True"
                        x:Name="BI"
                        IsEnabled="{Binding ElementName=Cb, Path=IsChecked}"/>
-        <c:LoginView/>
-    </StackPanel>
+        <c:LoginView Password="Test"
+                     UserName="Test"
+                     EmptyErrorMessageVisibility="Hidden"
+                     ErrorMessage="adwad"
+                     Remember="True"/>
+    </StackPanel>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <c:LoginView Password="Test"
+                     UserName="Test"
+                     EmptyErrorMessageVisibility="Hidden"
+                     ErrorMessage="adwad"
+                     Remember="True"/>
+    </Grid>
 </Window>
