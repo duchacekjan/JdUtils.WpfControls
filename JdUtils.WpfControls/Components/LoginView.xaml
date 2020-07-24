@@ -5,18 +5,79 @@
         <Style.Resources>
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Button.xaml"/>
                     <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Colors.xaml"/>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/TextBox.xaml"/>
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </Style.Resources>
-        <Setter Property="Background" Value="Wheat"/>
+        <Setter Property="Background" Value="White"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:LoginView}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ContentPresenter Grid.Row="0"
+                                              Content="{TemplateBinding Logo}"/>
+                            <Label Grid.Row="1"
+                                   Content="{TemplateBinding LoginLabel}"/>
+                            <TextBox Grid.Row="2"
+                                     x:Name="PART_LoginInput"
+                                     Style="{StaticResource BaseTextBox}"
+                                     ToolTip="{TemplateBinding LoginTooltip}"/>
+                            <Label Grid.Row="3"
+                                   Content="{TemplateBinding PasswordLabel}"/>
+                            <Border Grid.Row="4"
+                                    x:Name="PART_BorderPasswordMouseOver"
+                                    MinHeight="24"
+                                    Padding="1"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0">
+                                <Border Background="{Binding ElementName=PART_PasswordInput, Path=Background}"
+                                        BorderBrush="{Binding ElementName=PART_PasswordInput, Path=BorderBrush}"
+                                        BorderThickness="1"
+                                        x:Name="PART_BorderPassword"
+                                        CornerRadius="4"
+                                        Padding="1">
+                                    <PasswordBox x:Name="PART_PasswordInput"
+                                                 BorderThickness="0"
+                                                 ToolTip="{TemplateBinding PasswordTooltip}"/>
+                                </Border>
+                            </Border>
+                            <CheckBox Grid.Row="6"
+                                      x:Name="PART_Remember"
+                                      Content="{TemplateBinding RememberLabel}"
+                                      ToolTip="{TemplateBinding RememberTooltip}"/>
+                            <Button Grid.Row="7"
+                                    Style="{StaticResource BaseButton}"
+                                    BorderThickness="1"
+                                    Content="{TemplateBinding LoginButtonLabel}"
+                                    ToolTip="{TemplateBinding LoginButtonTooltip}"/>
+                        </Grid>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=PART_BorderPasswordMouseOver, Path=IsMouseOver}" Value="True">
+                            <Setter TargetName="PART_BorderPasswordMouseOver" Property="Padding" Value="0"/>
+                            <Setter TargetName="PART_BorderPassword" Property="BorderThickness" Value="2"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=PART_PasswordInput, Path=IsKeyboardFocused}" Value="True">
+                            <Setter TargetName="PART_BorderPasswordMouseOver" Property="Padding" Value="0"/>
+                            <Setter TargetName="PART_BorderPassword" Property="BorderThickness" Value="2"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

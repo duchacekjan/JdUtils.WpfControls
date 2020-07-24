@@ -8,13 +8,14 @@
         IsEnabled="True"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
-        <c:PathButton>
+        <!--<c:PathButton>
             <c:PathButton.Path>
                 <Path Fill="Black"
                       Data="m0,0h1v1z"/>
             </c:PathButton.Path>
         </c:PathButton>
         <c:VolumeControl/>
+        <c:SpinEdit Height="20"/>-->
         <CheckBox x:Name="Cb"
                   Content="Enabled"
                   IsChecked="True"/>
@@ -22,6 +23,6 @@
                        IsMultiselect="True"
                        x:Name="BI"
                        IsEnabled="{Binding ElementName=Cb, Path=IsChecked}"/>
-        <c:SpinEdit Height="20"/>
+        <c:LoginView/>
     </StackPanel>
 </Window>

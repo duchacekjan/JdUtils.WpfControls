@@ -88,11 +88,65 @@ namespace JdUtils.WpfControls.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Přihlásit.
+        /// </summary>
+        public static string LoginButtonLabel {
+            get {
+                return ResourceManager.GetString("LoginButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jméno.
+        /// </summary>
+        public static string LoginLabel {
+            get {
+                return ResourceManager.GetString("LoginLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zadejte jméno nebo e-mail.
+        /// </summary>
+        public static string LoginTooltip {
+            get {
+                return ResourceManager.GetString("LoginTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Všechny soubory|*.*.
         /// </summary>
         public static string OpenDialogDefaultFilter {
             get {
                 return ResourceManager.GetString("OpenDialogDefaultFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heslo.
+        /// </summary>
+        public static string PasswordLabel {
+            get {
+                return ResourceManager.GetString("PasswordLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zapamatovat.
+        /// </summary>
+        public static string RemeberLabel {
+            get {
+                return ResourceManager.GetString("RemeberLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zapamatovat si přihlášení.
+        /// </summary>
+        public static string RememberTooltip {
+            get {
+                return ResourceManager.GetString("RememberTooltip", resourceCulture);
             }
         }
     }
