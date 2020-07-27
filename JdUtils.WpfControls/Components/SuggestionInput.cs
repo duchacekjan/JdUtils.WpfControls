@@ -15,7 +15,7 @@ using resx = JdUtils.WpfControls.Resources.Resources;
 
 namespace JdUtils.WpfControls.Components
 {
-    public class SuggestionEdit : Control
+    public class SuggestionInput : Control
     {
         private enum MoveSelection
         {
@@ -58,29 +58,29 @@ namespace JdUtils.WpfControls.Components
         private bool m_selectingValue;
         private bool m_mouseSelectedItem;
 
-        static SuggestionEdit()
+        static SuggestionInput()
         {
 
-            var owner = typeof(SuggestionEdit);
+            var owner = typeof(SuggestionInput);
             ProviderProperty = DependencyProperty.Register(nameof(Provider), typeof(Func<string, IEnumerable>), owner, new FrameworkPropertyMetadata());
             ItemTemplateProperty = DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), owner, new FrameworkPropertyMetadata());
             IconProperty = DependencyProperty.Register(nameof(Icon), typeof(ImageSource), owner, new FrameworkPropertyMetadata());
             ItemHighlightBrushProperty = DependencyProperty.Register(nameof(ItemHighlightBrush), typeof(Brush), owner, new FrameworkPropertyMetadata());
             IconVisibilityProperty = DependencyProperty.Register(nameof(IconVisibility), typeof(Visibility), owner, new FrameworkPropertyMetadata(Visibility.Visible));
-            WatermarkProperty = DependencyProperty.Register(nameof(Watermark), typeof(string), owner, new FrameworkPropertyMetadata(resx.SuggestionEditWatermark));
+            WatermarkProperty = DependencyProperty.Register(nameof(Watermark), typeof(string), owner, new FrameworkPropertyMetadata(resx.SuggestionInputWatermark));
             MaxSuggestionsProperty = DependencyProperty.Register(nameof(MaxSuggestions), typeof(int), owner, new FrameworkPropertyMetadata(50));
-            LoadingContentProperty = DependencyProperty.Register(nameof(LoadingContent), typeof(object), owner, new FrameworkPropertyMetadata(resx.SuggestionEditLoadingContent));
+            LoadingContentProperty = DependencyProperty.Register(nameof(LoadingContent), typeof(object), owner, new FrameworkPropertyMetadata(resx.SuggestionInputLoadingContent));
             SelectedItemProperty = DependencyProperty.Register(nameof(SelectedItem), typeof(object), owner, new TwoWayPropertyMetadata(null, OnSelectedItemChangedCallback));
             FetchDelayProperty = DependencyProperty.Register(nameof(FetchDelay), typeof(int), owner, new FrameworkPropertyMetadata(300, OnFetchDelayChangedCallback));
 
             IsLoadingPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsLoading), typeof(bool), owner, new FrameworkPropertyMetadata(false));
             IsLoadingProperty = IsLoadingPropertyKey.DependencyProperty;
             NotFoundProperty = DependencyProperty.RegisterAttached(NotFoundPropertyKey, typeof(bool), owner, new UIPropertyMetadata(false));
-            NotFoundTextProperty = DependencyProperty.Register(nameof(NotFoundText), typeof(string), owner, new FrameworkPropertyMetadata(resx.SuggestionEditNotFoundText));
+            NotFoundTextProperty = DependencyProperty.Register(nameof(NotFoundText), typeof(string), owner, new FrameworkPropertyMetadata(resx.SuggestionInputNotFoundText));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }
 
-        public SuggestionEdit()
+        public SuggestionInput()
         {
             m_uiDispatcher = t.Dispatcher.CurrentDispatcher;
             m_timer = new t.DispatcherTimer
@@ -203,7 +203,7 @@ namespace JdUtils.WpfControls.Components
         private static void OnFetchDelayChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
 
-            if (d is SuggestionEdit control)
+            if (d is SuggestionInput control)
             {
                 if (!Equals(e.OldValue, e.NewValue))
                 {
@@ -215,7 +215,7 @@ namespace JdUtils.WpfControls.Components
 
         private static void OnSelectedItemChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is SuggestionEdit control)
+            if (d is SuggestionInput control)
             {
                 if (!Equals(e.OldValue, e.NewValue))
                 {

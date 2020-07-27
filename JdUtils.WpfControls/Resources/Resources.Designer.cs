@@ -162,27 +162,27 @@ namespace JdUtils.WpfControls.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Načítám....
         /// </summary>
-        public static string SuggestionEditLoadingContent {
+        public static string SuggestionInputLoadingContent {
             get {
-                return ResourceManager.GetString("SuggestionEditLoadingContent", resourceCulture);
+                return ResourceManager.GetString("SuggestionInputLoadingContent", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Nic nenalezeno.
         /// </summary>
-        public static string SuggestionEditNotFoundText {
+        public static string SuggestionInputNotFoundText {
             get {
-                return ResourceManager.GetString("SuggestionEditNotFoundText", resourceCulture);
+                return ResourceManager.GetString("SuggestionInputNotFoundText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Zadejte text.
         /// </summary>
-        public static string SuggestionEditWatermark {
+        public static string SuggestionInputWatermark {
             get {
-                return ResourceManager.GetString("SuggestionEditWatermark", resourceCulture);
+                return ResourceManager.GetString("SuggestionInputWatermark", resourceCulture);
             }
         }
     }

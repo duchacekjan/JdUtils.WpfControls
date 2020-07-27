@@ -47,6 +47,6 @@
         </c:LoginView>
     </Grid>-->
     <StackPanel>
-        <c:SuggestionEdit/>
+        <c:SuggestionInput/>
     </StackPanel>
 </Window>
