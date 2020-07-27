@@ -30,7 +30,7 @@
                             BorderBrush="Transparent"
                             BorderThickness="0"
                             Padding="1"
-                            Margin="0,-1,0,0"
+                            Margin="0"
                             x:Name="BaseBorder">
                         <Border x:Name="border" 
                                 BorderBrush="{TemplateBinding BorderBrush}" 

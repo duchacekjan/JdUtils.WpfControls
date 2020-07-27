@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         IsEnabled="True"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/TextBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <!--<StackPanel>
         --><!--<c:PathButton>
             <c:PathButton.Path>
@@ -47,6 +54,12 @@
         </c:LoginView>
     </Grid>-->
     <StackPanel>
-        <c:SuggestionInput/>
+        <TextBox Style="{StaticResource BaseTextBox}"
+                 Margin="0"/>
+        <!--<c:SuggestionInput/>-->
+        <c:BrowseInput IsSelectingFolders="False"
+                       IsMultiselect="True"
+                       x:Name="BI"/>
+        <c:SpinEdit/>
     </StackPanel>
 </Window>
