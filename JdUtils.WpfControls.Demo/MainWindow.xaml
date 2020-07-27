@@ -29,7 +29,7 @@
                      ErrorMessage="adwad"
                      Remember="True"/>
     </StackPanel>-->
-    <Grid>
+    <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -45,5 +45,8 @@
                       Data="M0,0 L0,50 50,50 50,0 Z"/>
             </Border>
         </c:LoginView>
-    </Grid>
+    </Grid>-->
+    <StackPanel>
+        <c:SuggestionInput/>
+    </StackPanel>
 </Window>

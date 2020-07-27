@@ -150,4 +150,13 @@
   <data name="RememberTooltip" xml:space="preserve">
     <value>Zapamatovat si přihlášení</value>
   </data>
+  <data name="SuggestionInputLoadingContent" xml:space="preserve">
+    <value>Načítám...</value>
+  </data>
+  <data name="SuggestionInputNotFoundText" xml:space="preserve">
+    <value>Nic nenalezeno</value>
+  </data>
+  <data name="SuggestionInputWatermark" xml:space="preserve">
+    <value>Zadejte text</value>
+  </data>
 </root>
