@@ -1,19 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:ice="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
                     xmlns:local="clr-namespace:JdUtils.WpfControls.Components"
                     xmlns:cnv="jgs:converters">
-    
-    <SolidColorBrush x:Key="CrossColor" ice:Freeze="True">#FB4A46</SolidColorBrush>
-    <SolidColorBrush x:Key="CrossFocusColor" ice:Freeze="True">#ED1D25</SolidColorBrush>
-    <SolidColorBrush x:Key="BorderBrush" ice:Freeze="True">#CCCCCC</SolidColorBrush>
-    <SolidColorBrush x:Key="Background" ice:Freeze="True">#FFFFFF</SolidColorBrush>
-    <SolidColorBrush x:Key="FocusedBorderBrush" ice:Freeze="True">#29A6FA</SolidColorBrush>
-    <SolidColorBrush x:Key="DisabledBorderBrush" ice:Freeze="True">#E5E5E5</SolidColorBrush>
-    <SolidColorBrush x:Key="DisabledBackground" ice:Freeze="True">#F5F6F7</SolidColorBrush>
-    <SolidColorBrush x:Key="DisabledForeground" ice:Freeze="True">#BFBFBF</SolidColorBrush>
-    <SolidColorBrush x:Key="ItemHighlightBrush" ice:Freeze="True">#29A6FA</SolidColorBrush>
-
     <Style TargetType="{x:Type local:SuggestionEdit}">
         <Style.Resources>
             <ResourceDictionary>
@@ -324,9 +312,9 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{StaticResource DisabledForeground}"/>
+                            <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
                             <Setter Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}"/>
-                            <Setter Property="Background" Value="{StaticResource DisabledBackground}"/>
+                            <Setter Property="Background" Value="{StaticResource DisabledBackgroundBrush}"/>
                         </Trigger>
                         <DataTrigger Binding="{Binding ElementName=PART_Dock, Path=IsMouseOver}" Value="True">
                             <Setter Property="Cursor" Value="IBeam"/>

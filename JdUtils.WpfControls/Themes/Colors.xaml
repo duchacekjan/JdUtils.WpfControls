@@ -33,4 +33,12 @@
     <SolidColorBrush x:Key="LoginButonPressedBrush" Color="#299347"/>
     <SolidColorBrush x:Key="ErrorMessageForeground" Color="#ff0000"/>
     <SolidColorBrush x:Key="ErrorMessageBackground" Color="#0fff0000"/>
+    
+    <SolidColorBrush x:Key="CrossColor">#FB4A46</SolidColorBrush>
+    <SolidColorBrush x:Key="CrossFocusColor">#ED1D25</SolidColorBrush>
+    <SolidColorBrush x:Key="BorderBrush">#ababab</SolidColorBrush>
+    <SolidColorBrush x:Key="Background">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="FocusedBorderBrush">#ababab</SolidColorBrush>
+    <SolidColorBrush x:Key="DisabledBorderBrush">#ababab</SolidColorBrush>
+    <SolidColorBrush x:Key="ItemHighlightBrush">#29A6FA</SolidColorBrush>
 </ResourceDictionary>
