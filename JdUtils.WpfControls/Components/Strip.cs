@@ -1,4 +1,5 @@
 ﻿using JdUtils.Extensions;
+using JdUtils.WpfControls.Utils;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +22,7 @@ namespace JdUtils.WpfControls.Components
         private ImageBrush m_image;
         private BitmapImage m_bitmap;
         private int m_current;
+        private readonly StripSlider m_slider;
 
         static Strip()
         {
@@ -40,6 +42,13 @@ namespace JdUtils.WpfControls.Components
                 IsEnabled = false
             };
             m_timer.Tick += OnTimer;
+
+            m_slider = new StripSlider
+            {
+                Direction = SlideDirection.Left,
+                Steps = 15,
+                Interval = 50
+            };
         }
 
         public bool Cycle
@@ -150,8 +159,8 @@ namespace JdUtils.WpfControls.Components
             m_image.SetValueSafe(s => s.ImageSource, m_bitmap);
             if (m_bitmap != null && Count > 0)
             {
-                var relativeWidth = 1.0 / Count;
-                m_image.SetValueSafe(s => s.Viewbox, new Rect(m_current * relativeWidth, 0, relativeWidth, 1));
+                m_slider.Slide(m_image, m_current, Count);
+                m_current = 1;
                 Visibility = Visibility.Visible;
             }
             else
@@ -164,17 +173,7 @@ namespace JdUtils.WpfControls.Components
         {
             if (CanMove(ref m_current))
             {
-                var relativeWidth = 1.0 / Count;
-                //TODO Cast inspirace pro SlideShow
-                //if (m_current > 0)
-                //{
-                //    Slide(m_current - 1, m_current, relativeWidth);
-                //}
-                //else
-                //{
-                //    m_image.Viewbox = new Rect(m_current * relativeWidth, 0, relativeWidth, 1);
-                //}
-                m_image.Viewbox = new Rect(m_current * relativeWidth, 0, relativeWidth, 1);
+                m_slider.Slide(m_image, m_current, Count);
                 m_current++;
             }
         }
@@ -196,33 +195,5 @@ namespace JdUtils.WpfControls.Components
 
             return result;
         }
-
-        //TODO Inspirace pro SlideShow
-        //private DispatcherTimer m_slider = new DispatcherTimer(DispatcherPriority.Render);
-        //private double m_step;
-        //private double m_end;
-        //private double m_w;
-
-        //private void Slide(double start, double end, double relativeWidth)
-        //{
-        //    m_slider.Stop();
-        //    m_slider.Interval = TimeSpan.FromMilliseconds(100);
-        //    m_slider.Tick -= OnSlide;
-        //    m_slider.Tick += OnSlide;
-        //    m_step = start;
-        //    m_w = relativeWidth;
-        //    m_end = end;
-        //    m_slider.Start();
-        //}
-
-        //private void OnSlide(object sender, EventArgs e)
-        //{
-        //    m_step+=m_w/10;
-        //    m_image.Viewbox = new Rect(m_step * m_w, 0, m_w, 1);
-        //    if (m_step >= m_end)
-        //    {
-        //        m_timer.Stop();
-        //    }
-        //}
     }
 }
