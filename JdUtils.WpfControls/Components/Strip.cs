@@ -14,6 +14,7 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty LinkProperty;
         public static readonly DependencyProperty CountProperty;
         public static readonly DependencyProperty IntervalProperty;
+        public static readonly DependencyProperty CycleProperty;
 
         private readonly DispatcherTimer m_timer;
 
@@ -27,6 +28,7 @@ namespace JdUtils.WpfControls.Components
             LinkProperty = DependencyProperty.Register(nameof(Link), typeof(string), owner, new FrameworkPropertyMetadata(string.Empty, OnLinkChangedCallback));
             CountProperty = DependencyProperty.Register(nameof(Count), typeof(int), owner, new FrameworkPropertyMetadata(0, OnCountChangedCallback));
             IntervalProperty = DependencyProperty.Register(nameof(Interval), typeof(int), owner, new FrameworkPropertyMetadata(1500, OnIntervalChangedCallback));
+            CycleProperty = DependencyProperty.Register(nameof(Cycle), typeof(bool), owner, new FrameworkPropertyMetadata(true));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }
 
@@ -38,6 +40,12 @@ namespace JdUtils.WpfControls.Components
                 IsEnabled = false
             };
             m_timer.Tick += OnTimer;
+        }
+
+        public bool Cycle
+        {
+            get => (bool)GetValue(CycleProperty);
+            set => SetValue(CycleProperty, value);
         }
 
         public int Count
@@ -149,13 +157,8 @@ namespace JdUtils.WpfControls.Components
 
         private void OnTimer(object sender, EventArgs e)
         {
-            if (m_bitmap != null && m_image != null && Count > 0)
+            if (CanMove(ref m_current))
             {
-                if (m_current >= Count)
-                {
-                    m_current = 0;
-                }
-
                 var relativeWidth = 1.0 / Count;
                 //TODO Cast inspirace pro SlideShow
                 //if (m_current > 0)
@@ -169,6 +172,24 @@ namespace JdUtils.WpfControls.Components
                 m_image.Viewbox = new Rect(m_current * relativeWidth, 0, relativeWidth, 1);
                 m_current++;
             }
+        }
+
+        private bool CanMove(ref int current)
+        {
+            var result = m_bitmap != null && m_image != null && Count > 0;
+            if (current >= Count)
+            {
+                if (Cycle)
+                {
+                    current = 0;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+            return result;
         }
 
         //TODO Inspirace pro SlideShow
