@@ -79,6 +79,11 @@ namespace JdUtils.WpfControls.Components
             OnIntervalChanged();
         }
 
+        public void ResetCurrentIndex()
+        {
+            m_current = 0;
+        }
+
         private static void OnLinkChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is Strip control)
