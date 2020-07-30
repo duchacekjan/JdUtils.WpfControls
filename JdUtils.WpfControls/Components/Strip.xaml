@@ -12,9 +12,21 @@
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </Style.Resources>
+        <Setter Property="Width" Value="320"/>
+        <Setter Property="Height" Value="180"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:Strip}">
+                    <Border BorderBrush="Green"
+                            BorderThickness="1">
+                        <Rectangle Stretch="Fill"
+                                   StrokeThickness="1"
+                                   Stroke="Black">
+                            <Rectangle.Fill>
+                                <ImageBrush x:Name="PART_Image"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

@@ -61,5 +61,7 @@
                        IsMultiselect="True"
                        x:Name="BI"/>
         <c:SpinEdit/>
+        <c:Strip Link="https://img.webshare.cz/static/p/000017/guYZptYQb6-M.jpg"
+                 Count="10"/>
     </StackPanel>
 </Window>
