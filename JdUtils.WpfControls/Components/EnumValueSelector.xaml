@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:JdUtils.WpfControls.Components"
+                    xmlns:cnv="jgs:converters">
+    <Style TargetType="{x:Type local:EnumValueSelector}">
+        <Style.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Button.xaml"/>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Colors.xaml"/>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/TextBox.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Style.Resources>
+        <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource Self}, Path=EnumType, Converter={cnv:EnumValuesConverter}}"/>
+        <Setter Property="DisplayMemberPath" Value="Value"/>
+        <Setter Property="SelectedValuePath" Value="Key"/>
+    </Style>
+</ResourceDictionary>
