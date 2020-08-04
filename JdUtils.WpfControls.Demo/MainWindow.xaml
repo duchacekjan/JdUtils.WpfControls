@@ -12,6 +12,13 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/TextBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type ComboBox}">
+                <Setter Property="Width" Value="150"/>
+                <Setter Property="Foreground" Value="Red"/>
+            </Style>
+            <Style TargetType="{x:Type c:EnumValueSelector}"
+                   BasedOn="{StaticResource {x:Type ComboBox}}"/>
+
         </ResourceDictionary>
     </Window.Resources>
     <!--<StackPanel>
@@ -63,5 +70,7 @@
         <c:SpinEdit/>
         <c:Strip Link="https://img.webshare.cz/static/p/000017/guYZptYQb6-M.jpg"
                  Count="10"/>
+        <c:EnumValueSelector EnumType="{Binding Type}"
+                             SelectedValue="{Binding Enum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </StackPanel>
 </Window>
