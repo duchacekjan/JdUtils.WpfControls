@@ -22,14 +22,16 @@
         </ResourceDictionary>
     </Window.Resources>
     <!--<StackPanel>
-        --><!--<c:PathButton>
+        -->
+    <!--<c:PathButton>
             <c:PathButton.Path>
                 <Path Fill="Black"
                       Data="m0,0h1v1z"/>
             </c:PathButton.Path>
         </c:PathButton>
         <c:VolumeControl/>
-        <c:SpinEdit Height="20"/>--><!--
+        <c:SpinEdit Height="20"/>-->
+    <!--
         <CheckBox x:Name="Cb"
                   Content="Enabled"
                   IsChecked="True"/>
@@ -43,7 +45,7 @@
                      ErrorMessage="adwad"
                      Remember="True"/>
     </StackPanel>-->
-    <!--<Grid>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -52,18 +54,20 @@
                      Margin="4"
                      AllowedEmpty="None"
                      EmptyErrorMessageVisibility="Collapsed"
-                     ErrorMessage=""
+                     ErrorMessage="acaca dacaca bacaca adadad dadada dadad adaddad dada"
                      Remember="True">
             <Border Margin="5">
                 <Path Fill="Red"
                       Data="M0,0 L0,50 50,50 50,0 Z"/>
             </Border>
         </c:LoginView>
-    </Grid>-->
-    <StackPanel>
+    </Grid>
+    <!--<StackPanel>
         <TextBox Style="{StaticResource BaseTextBox}"
                  Margin="0"/>
-        <!--<c:SuggestionInput/>-->
+        -->
+    <!--<c:SuggestionInput/>-->
+    <!--
         <c:BrowseInput IsSelectingFolders="False"
                        IsMultiselect="True"
                        x:Name="BI"/>
@@ -72,5 +76,5 @@
                  Count="10"/>
         <c:EnumValueSelector EnumType="{Binding Type}"
                              SelectedValue="{Binding Enum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-    </StackPanel>
+    </StackPanel>-->
 </Window>
