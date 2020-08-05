@@ -11,6 +11,7 @@
                     <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Button.xaml"/>
                     <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Colors.xaml"/>
                     <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/TextBox.xaml"/>
+                    <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Vectors.xaml"/>
                 </ResourceDictionary.MergedDictionaries>
                 <Style TargetType="{x:Type Label}">
                     <Setter Property="Padding" Value="4,2,0,2"/>
@@ -66,6 +67,7 @@
                                        FontWeight="Bold"/>
                                 <TextBox Grid.Row="2"
                                          x:Name="PART_LoginInput"
+                                         MinHeight="27"
                                          Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource BaseTextBox}"
                                          ToolTip="{TemplateBinding LoginTooltip}"/>
@@ -86,8 +88,24 @@
                                             CornerRadius="4"
                                             ToolTip="{TemplateBinding PasswordTooltip}"
                                             Padding="1">
-                                        <PasswordBox x:Name="PART_PasswordInput"
-                                                     BorderThickness="0"/>
+                                        <Grid>
+                                            <PasswordBox x:Name="PART_PasswordInput"
+                                                         BorderThickness="0"
+                                                         MinHeight="22"
+                                                         VerticalContentAlignment="Center"
+                                                         Visibility="{Binding ElementName=PART_PasswordInputSwitch, Path=IsChecked, Converter={cnv:BoolToVisibilityConverter Negate=True}, Mode=OneWay}"/>
+                                            <TextBox x:Name="PART_PasswordInputPlain"
+                                                     Panel.ZIndex="100"
+                                                     Style="{StaticResource BorderlessTextbox}"
+                                                     Visibility="{Binding ElementName=PART_PasswordInputSwitch, Path=IsChecked, Converter={cnv:BoolToVisibilityConverter}, Mode=OneWay}"/>
+                                            <local:PathToggleButton Panel.ZIndex="1000"
+                                                                    x:Name="PART_PasswordInputSwitch"
+                                                                    IsChecked="False"
+                                                                    HorizontalAlignment="Right"
+                                                                    VerticalAlignment="Center"
+                                                                    Path="{StaticResource Eye}"
+                                                                    Height="16"/>
+                                        </Grid>
                                     </Border>
                                 </Border>
                                 <TextBox Grid.Row="5"
