@@ -21,6 +21,8 @@ namespace JdUtils.WpfControls.Components
         public const string PartPassword = "PART_PasswordInput";
         public const string PartLogin = "PART_Login";
         public const string PartLoginInput = "PART_LoginInput";
+        public const string PartPasswordInputSwitch = "PART_PasswordInputSwitch";
+        public const string PartPasswordInputPlain = "PART_PasswordInputPlain";
 
         public static readonly DependencyProperty LogoProperty;
         public static readonly DependencyProperty LoginLabelProperty;
@@ -45,6 +47,8 @@ namespace JdUtils.WpfControls.Components
 
         private PasswordBox m_password;
         private bool m_passwordUpdating;
+        private PathToggleButton m_passwordInputSwitch;
+        private TextBox m_passwordPlain;
 
         static LoginView()
         {
@@ -183,15 +187,26 @@ namespace JdUtils.WpfControls.Components
                 {
                     p.PasswordChanged += OnPasswordChanged;
                 });
+            m_passwordPlain = this.FindTemplatePart<TextBox>(PartPasswordInputPlain)
+                .AndIfNotNull(p =>
+                {
+                    p.TextChanged += OnTextChanged;
+                });
             this.FindTemplatePart<Button>(PartLogin)
                 .IfNotNull(b =>
                 {
                     b.Click += OnLoginButtonClick;
                 });
             this.FindTemplatePart<TextBox>(PartLoginInput)
-                .IfNotNull(t => 
+                .IfNotNull(t =>
                 {
                     t.TextChanged += (s, e) => IsSubmitted = false;
+                });
+            m_passwordInputSwitch = this.FindTemplatePart<PathToggleButton>(PartPasswordInputSwitch)
+                .AndIfNotNull(p =>
+                {
+                    p.Checked += (s, e) => { m_passwordPlain.SetValueSafe(s => s.Text, m_password?.Password); };
+                    p.Unchecked += (s, e) => { m_password.SetValueSafe(s => s.Password, m_passwordPlain?.Text); };
                 });
             OnPasswordChanged();
         }
@@ -208,12 +223,30 @@ namespace JdUtils.WpfControls.Components
             }
         }
 
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is TextBox password && !m_passwordUpdating)
+            {
+                m_passwordUpdating = true;
+                Password = password.Text;
+                m_passwordUpdating = false;
+                IsSubmitted = false;
+            }
+        }
+
         private void OnPasswordChanged()
         {
             if (!m_passwordUpdating)
             {
                 m_passwordUpdating = true;
-                m_password.SetValueSafe(s => s.Password, Password);
+                if (m_passwordInputSwitch?.IsChecked == true)
+                {
+                    m_passwordPlain.SetValueSafe(s => s.Text, Password);
+                }
+                else
+                {
+                    m_password.SetValueSafe(s => s.Password, Password);
+                }
                 m_passwordUpdating = false;
             }
         }
