@@ -52,6 +52,7 @@
         <c:LoginView Password="Test"
                      UserName="Test"
                      Margin="4"
+                     IsAnonymousAllowed="True"
                      AllowedEmpty="None"
                      EmptyErrorMessageVisibility="Collapsed"
                      ErrorMessage="acaca dacaca bacaca adadad dadada dadad adaddad dada"

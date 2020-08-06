@@ -66,7 +66,6 @@
                                 </Grid.ColumnDefinitions>
                                 <Button Grid.Column="1"
                                         Style="{StaticResource AnonymousButton}"
-                                        Background="Blue"
                                         Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsAnonymousAllowed, Converter={cnv:BoolToVisibilityConverter}}"
                                         x:Name="PART_Anonymous"
                                         Content="{TemplateBinding AnonymousButtonLabel}"
