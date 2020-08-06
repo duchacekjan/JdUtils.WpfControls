@@ -53,7 +53,7 @@
                      UserName="Test"
                      Margin="4"
                      IsAnonymousAllowed="True"
-                     AllowedEmpty="None"
+                     IsEmptyAllowed="None"
                      EmptyErrorMessageVisibility="Collapsed"
                      ErrorMessage="acaca dacaca bacaca adadad dadada dadad adaddad dada"
                      Remember="True">

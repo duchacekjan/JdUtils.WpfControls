@@ -46,7 +46,7 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty ErrorMessageProperty;
         public static readonly DependencyProperty EmptyErrorMessageVisibilityProperty;
         public static readonly DependencyProperty IsSubmittedProperty;
-        public static readonly DependencyProperty AllowedEmptyProperty;
+        public static readonly DependencyProperty IsEmptyAllowedProperty;
         public static readonly DependencyProperty IsAnonymousAllowedProperty;
 
         private PasswordBox m_password;
@@ -81,14 +81,14 @@ namespace JdUtils.WpfControls.Components
             IsAnonymousAllowedProperty = DependencyProperty.Register(nameof(IsAnonymousAllowed), typeof(bool), owner, new FrameworkPropertyMetadata());
 
             IsSubmittedProperty = DependencyProperty.Register(nameof(IsSubmitted), typeof(bool), owner, new FrameworkPropertyMetadata());
-            AllowedEmptyProperty = DependencyProperty.Register(nameof(AllowedEmpty), typeof(AllowedEmpty), owner, new FrameworkPropertyMetadata(AllowedEmpty.None));
+            IsEmptyAllowedProperty = DependencyProperty.Register(nameof(IsEmptyAllowed), typeof(AllowedEmpty), owner, new FrameworkPropertyMetadata(AllowedEmpty.None));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }
 
-        public AllowedEmpty AllowedEmpty
+        public AllowedEmpty IsEmptyAllowed
         {
-            get => (AllowedEmpty)GetValue(AllowedEmptyProperty);
-            set => SetValue(AllowedEmptyProperty, value);
+            get => (AllowedEmpty)GetValue(IsEmptyAllowedProperty);
+            set => SetValue(IsEmptyAllowedProperty, value);
         }
 
         public bool IsSubmitted

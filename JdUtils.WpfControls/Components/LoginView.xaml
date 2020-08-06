@@ -86,18 +86,6 @@
                                     </Button.Style>
                                 </Button>
                             </Grid>
-
-                            <!--<Button DockPanel.Dock="Bottom"
-                                    BorderThickness="1" 
-                                    Style="{StaticResource LoginButton}"
-                                    MinHeight="24"
-                                    Foreground="{StaticResource LoginButonForegroundBrush}"
-                                    FontWeight="Bold"
-                                    BorderBrush="{StaticResource LoginButonBorderBrush}"
-                                    x:Name="PART_Login"
-                                    VerticalContentAlignment="Center"
-                                    Content="{TemplateBinding LoginButtonLabel}"
-                                    ToolTip="{TemplateBinding LoginButtonTooltip}"/>-->
                             <Grid DockPanel.Dock="Top">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -211,7 +199,7 @@
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSubmitted}" Value="True"/>
-                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=AllowedEmpty, Converter={cnvl:HasFlagConverter Flag=UserName}}" Value="False"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEmptyAllowed, Converter={cnvl:HasFlagConverter Flag=UserName}}" Value="False"/>
                                 <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=UserName, Converter={cnv:StringNullOrEmptyConverter}}" Value="True"/>
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.Setters>
@@ -223,7 +211,7 @@
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSubmitted}" Value="True"/>
-                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=AllowedEmpty, Converter={cnvl:HasFlagConverter Flag=Password}}" Value="False"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEmptyAllowed, Converter={cnvl:HasFlagConverter Flag=Password}}" Value="False"/>
                                 <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Password, Converter={cnv:StringNullOrEmptyConverter}}" Value="True"/>
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.Setters>
