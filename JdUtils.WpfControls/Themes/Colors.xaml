@@ -31,6 +31,10 @@
     <SolidColorBrush x:Key="LoginButonBackgroundBrush" Color="#2ea44f"/>
     <SolidColorBrush x:Key="LoginButonBorderBrush" Color="#299347"/>
     <SolidColorBrush x:Key="LoginButonPressedBrush" Color="#299347"/>
+    <SolidColorBrush x:Key="AnonymousButonForegroundBrush" Color="#ffffff"/>
+    <SolidColorBrush x:Key="AnonymousButonBackgroundBrush" Color="#2b4387"/>
+    <SolidColorBrush x:Key="AnonymousButonBorderBrush" Color="#222f3e"/>
+    <SolidColorBrush x:Key="AnonymousButonPressedBrush" Color="#222f3e"/>
     <SolidColorBrush x:Key="ErrorMessageForeground" Color="#ff0000"/>
     <SolidColorBrush x:Key="ErrorMessageBackground" Color="#0fff0000"/>
     

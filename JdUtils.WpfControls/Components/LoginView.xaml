@@ -18,11 +18,33 @@
                 </Style>
                 <Style TargetType="{x:Type Button}"
                        BasedOn="{StaticResource BaseButton}"
+                       x:Key="BaseLoginViewButton">
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="MinHeight" Value="24"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+                <Style TargetType="{x:Type Button}"
+                       BasedOn="{StaticResource BaseLoginViewButton}"
                        x:Key="LoginButton">
                     <Setter Property="Background" Value="{StaticResource LoginButonBackgroundBrush}"/>
+                    <Setter Property="Foreground" Value="{StaticResource LoginButonForegroundBrush}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource LoginButonBorderBrush}"/>
                     <Style.Triggers>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" Value="{StaticResource LoginButonPressedBrush}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+                <Style TargetType="{x:Type Button}"
+                       BasedOn="{StaticResource BaseLoginViewButton}"
+                       x:Key="AnonymousButton">
+                    <Setter Property="Background" Value="{StaticResource AnonymousButonBackgroundBrush}"/>
+                    <Setter Property="Foreground" Value="{StaticResource AnonymousButonForegroundBrush}"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource AnonymousButonBorderBrush}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{StaticResource AnonymousButonPressedBrush}"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -37,7 +59,36 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <DockPanel>
-                            <Button DockPanel.Dock="Bottom"
+                            <Grid DockPanel.Dock="Bottom">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource AnonymousButton}"
+                                        Background="Blue"
+                                        Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsAnonymousAllowed, Converter={cnv:BoolToVisibilityConverter}}"
+                                        x:Name="PART_Anonymous"
+                                        Content="{TemplateBinding AnonymousButtonLabel}"
+                                        ToolTip="{TemplateBinding AnonymousButtonTooltip}"/>
+                                <Button Grid.Column="0"
+                                        x:Name="PART_Login"
+                                        Content="{TemplateBinding LoginButtonLabel}"
+                                        ToolTip="{TemplateBinding LoginButtonTooltip}">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}"
+                                               BasedOn="{StaticResource LoginButton}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=PART_Anonymous, Path=Visibility}" Value="Collapsed">
+                                                    <Setter Property="Grid.ColumnSpan" Value="2"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </Grid>
+
+                            <!--<Button DockPanel.Dock="Bottom"
                                     BorderThickness="1" 
                                     Style="{StaticResource LoginButton}"
                                     MinHeight="24"
@@ -47,7 +98,7 @@
                                     x:Name="PART_Login"
                                     VerticalContentAlignment="Center"
                                     Content="{TemplateBinding LoginButtonLabel}"
-                                    ToolTip="{TemplateBinding LoginButtonTooltip}"/>
+                                    ToolTip="{TemplateBinding LoginButtonTooltip}"/>-->
                             <Grid DockPanel.Dock="Top">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
