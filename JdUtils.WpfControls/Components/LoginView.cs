@@ -20,6 +20,7 @@ namespace JdUtils.WpfControls.Components
 
         public const string PartPassword = "PART_PasswordInput";
         public const string PartLogin = "PART_Login";
+        public const string PartAnonymous = "PART_Anonymous";
         public const string PartLoginInput = "PART_LoginInput";
         public const string PartPasswordInputSwitch = "PART_PasswordInputSwitch";
         public const string PartPasswordInputPlain = "PART_PasswordInputPlain";
@@ -29,21 +30,24 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty PasswordLabelProperty;
         public static readonly DependencyProperty LoginButtonLabelProperty;
         public static readonly DependencyProperty RememberLabelProperty;
+        public static readonly DependencyProperty AnonymousButtonLabelProperty;
 
         public static readonly DependencyProperty LoginTooltipProperty;
         public static readonly DependencyProperty PasswordTooltipProperty;
         public static readonly DependencyProperty RememberTooltipProperty;
         public static readonly DependencyProperty LoginButtonTooltipProperty;
+        public static readonly DependencyProperty AnonymousButtonTooltipProperty;
 
         public static readonly DependencyProperty LoginCmdProperty;
+        public static readonly DependencyProperty AnonymousCmdProperty;
         public static readonly DependencyProperty UserNameProperty;
         public static readonly DependencyProperty PasswordProperty;
         public static readonly DependencyProperty RememberProperty;
         public static readonly DependencyProperty ErrorMessageProperty;
         public static readonly DependencyProperty EmptyErrorMessageVisibilityProperty;
         public static readonly DependencyProperty IsSubmittedProperty;
-
-        public static readonly DependencyProperty AllowedEmptyProperty;
+        public static readonly DependencyProperty IsEmptyAllowedProperty;
+        public static readonly DependencyProperty IsAnonymousAllowedProperty;
 
         private PasswordBox m_password;
         private bool m_passwordUpdating;
@@ -58,29 +62,33 @@ namespace JdUtils.WpfControls.Components
             PasswordLabelProperty = DependencyProperty.Register(nameof(PasswordLabel), typeof(string), owner, new FrameworkPropertyMetadata(resx.PasswordLabel));
             LoginButtonLabelProperty = DependencyProperty.Register(nameof(LoginButtonLabel), typeof(string), owner, new FrameworkPropertyMetadata(resx.LoginButtonLabel));
             RememberLabelProperty = DependencyProperty.Register(nameof(RememberLabel), typeof(string), owner, new FrameworkPropertyMetadata(resx.RemeberLabel));
+            AnonymousButtonLabelProperty = DependencyProperty.Register(nameof(AnonymousButtonLabel), typeof(string), owner, new FrameworkPropertyMetadata(resx.AnonymousButtonLabel));
 
             LoginTooltipProperty = DependencyProperty.Register(nameof(LoginTooltip), typeof(string), owner, new FrameworkPropertyMetadata(resx.LoginTooltip));
             PasswordTooltipProperty = DependencyProperty.Register(nameof(PasswordTooltip), typeof(string), owner, new FrameworkPropertyMetadata(null));
             RememberTooltipProperty = DependencyProperty.Register(nameof(RememberTooltip), typeof(string), owner, new FrameworkPropertyMetadata(resx.RememberTooltip));
             LoginButtonTooltipProperty = DependencyProperty.Register(nameof(LoginButtonTooltip), typeof(string), owner, new FrameworkPropertyMetadata(null));
+            AnonymousButtonTooltipProperty = DependencyProperty.Register(nameof(AnonymousButtonTooltip), typeof(string), owner, new FrameworkPropertyMetadata(resx.AnonymousButtonTooltip));
 
             LoginCmdProperty = DependencyProperty.Register(nameof(LoginCmd), typeof(ICommand), owner, new FrameworkPropertyMetadata());
+            AnonymousCmdProperty = DependencyProperty.Register(nameof(AnonymousCmd), typeof(ICommand), owner, new FrameworkPropertyMetadata());
             UserNameProperty = DependencyProperty.Register(nameof(UserName), typeof(string), owner, new TwoWayPropertyMetadata());
             PasswordProperty = DependencyProperty.Register(nameof(Password), typeof(string), owner, new TwoWayPropertyMetadata(OnPasswordChangedCallback));
             RememberProperty = DependencyProperty.Register(nameof(Remember), typeof(bool), owner, new TwoWayPropertyMetadata());
 
             ErrorMessageProperty = DependencyProperty.Register(nameof(ErrorMessage), typeof(string), owner, new FrameworkPropertyMetadata());
             EmptyErrorMessageVisibilityProperty = DependencyProperty.Register(nameof(EmptyErrorMessageVisibility), typeof(ErrorMessageVisibility), owner, new FrameworkPropertyMetadata(ErrorMessageVisibility.Collapsed));
+            IsAnonymousAllowedProperty = DependencyProperty.Register(nameof(IsAnonymousAllowed), typeof(bool), owner, new FrameworkPropertyMetadata());
 
             IsSubmittedProperty = DependencyProperty.Register(nameof(IsSubmitted), typeof(bool), owner, new FrameworkPropertyMetadata());
-            AllowedEmptyProperty = DependencyProperty.Register(nameof(AllowedEmpty), typeof(AllowedEmpty), owner, new FrameworkPropertyMetadata(AllowedEmpty.None));
+            IsEmptyAllowedProperty = DependencyProperty.Register(nameof(IsEmptyAllowed), typeof(AllowedEmpty), owner, new FrameworkPropertyMetadata(AllowedEmpty.None));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }
 
-        public AllowedEmpty AllowedEmpty
+        public AllowedEmpty IsEmptyAllowed
         {
-            get => (AllowedEmpty)GetValue(AllowedEmptyProperty);
-            set => SetValue(AllowedEmptyProperty, value);
+            get => (AllowedEmpty)GetValue(IsEmptyAllowedProperty);
+            set => SetValue(IsEmptyAllowedProperty, value);
         }
 
         public bool IsSubmitted
@@ -93,6 +101,12 @@ namespace JdUtils.WpfControls.Components
         {
             get => (ErrorMessageVisibility)GetValue(EmptyErrorMessageVisibilityProperty);
             set => SetValue(EmptyErrorMessageVisibilityProperty, value);
+        }
+
+        public bool IsAnonymousAllowed
+        {
+            get => (bool)GetValue(IsAnonymousAllowedProperty);
+            set => SetValue(IsAnonymousAllowedProperty, value);
         }
 
         public string ErrorMessage
@@ -125,6 +139,12 @@ namespace JdUtils.WpfControls.Components
             set => SetValue(LoginCmdProperty, value);
         }
 
+        public ICommand AnonymousCmd
+        {
+            get => (ICommand)GetValue(AnonymousCmdProperty);
+            set => SetValue(AnonymousCmdProperty, value);
+        }
+
         public object Logo
         {
             get => GetValue(LogoProperty);
@@ -155,6 +175,12 @@ namespace JdUtils.WpfControls.Components
             set => SetValue(RememberLabelProperty, value);
         }
 
+        public string AnonymousButtonLabel
+        {
+            get => (string)GetValue(AnonymousButtonLabelProperty);
+            set => SetValue(AnonymousButtonLabelProperty, value);
+        }
+
         public string LoginTooltip
         {
             get => (string)GetValue(LoginTooltipProperty);
@@ -179,6 +205,12 @@ namespace JdUtils.WpfControls.Components
             set => SetValue(LoginButtonTooltipProperty, value);
         }
 
+        public string AnonymousButtonTooltip
+        {
+            get => (string)GetValue(AnonymousButtonTooltipProperty);
+            set => SetValue(AnonymousButtonTooltipProperty, value);
+        }
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -196,6 +228,11 @@ namespace JdUtils.WpfControls.Components
                 .IfNotNull(b =>
                 {
                     b.Click += OnLoginButtonClick;
+                });
+            this.FindTemplatePart<Button>(PartAnonymous)
+                .IfNotNull(b =>
+                {
+                    b.Click += OnAnonymousButtonClick;
                 });
             this.FindTemplatePart<TextBox>(PartLoginInput)
                 .IfNotNull(t =>
@@ -267,6 +304,15 @@ namespace JdUtils.WpfControls.Components
             if (LoginCmd?.CanExecute(null) == true)
             {
                 LoginCmd.Execute(null);
+            }
+            IsSubmitted = true;
+        }
+
+        private void OnAnonymousButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (AnonymousCmd?.CanExecute(null) == true)
+            {
+                AnonymousCmd.Execute(null);
             }
             IsSubmitted = true;
         }

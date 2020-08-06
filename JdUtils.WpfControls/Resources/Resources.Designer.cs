@@ -61,6 +61,24 @@ namespace JdUtils.WpfControls.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bez přihlášení.
+        /// </summary>
+        public static string AnonymousButtonLabel {
+            get {
+                return ResourceManager.GetString("AnonymousButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anonymní přístup. Bez přihlášení.
+        /// </summary>
+        public static string AnonymousButtonTooltip {
+            get {
+                return ResourceManager.GetString("AnonymousButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ....
         /// </summary>
         public static string BrowseButtonLabel {
