@@ -55,6 +55,8 @@
                      IsAnonymousAllowed="True"
                      IsEmptyAllowed="None"
                      EmptyErrorMessageVisibility="Collapsed"
+                     LoginCmd="{Binding LoginCmd}"
+                     AnonymousCmd="{Binding AnonCmd}"
                      ErrorMessage="acaca dacaca bacaca adadad dadada dadad adaddad dada"
                      Remember="True">
             <Border Margin="5">

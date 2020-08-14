@@ -247,6 +247,22 @@ namespace JdUtils.WpfControls.Components
                 });
             OnPasswordChanged();
         }
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
+        {
+            base.OnPreviewKeyDown(e);
+            if (e.Key == Key.Enter)
+            {
+                if (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Password))
+                {
+                    InvokeCmd(LoginCmd);
+                }
+                else
+                {
+                    InvokeCmd(AnonymousCmd);
+                }
+                e.Handled = true;
+            }
+        }
 
         private static void OnPasswordChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -301,19 +317,17 @@ namespace JdUtils.WpfControls.Components
 
         private void OnLoginButtonClick(object sender, RoutedEventArgs e)
         {
-            if (LoginCmd?.CanExecute(null) == true)
-            {
-                LoginCmd.Execute(null);
-            }
-            IsSubmitted = true;
+            InvokeCmd(LoginCmd);
         }
 
         private void OnAnonymousButtonClick(object sender, RoutedEventArgs e)
         {
-            if (AnonymousCmd?.CanExecute(null) == true)
-            {
-                AnonymousCmd.Execute(null);
-            }
+            InvokeCmd(AnonymousCmd);
+        }
+
+        private void InvokeCmd(ICommand command)
+        {
+            command.ExecuteCmd();
             IsSubmitted = true;
         }
     }
