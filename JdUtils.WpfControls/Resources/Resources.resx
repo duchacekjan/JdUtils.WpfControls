@@ -150,6 +150,18 @@
   <data name="PasswordLabel" xml:space="preserve">
     <value>Heslo</value>
   </data>
+  <data name="PN_First" xml:space="preserve">
+    <value>První stránka</value>
+  </data>
+  <data name="PN_Last" xml:space="preserve">
+    <value>Poslední stránka</value>
+  </data>
+  <data name="PN_Next" xml:space="preserve">
+    <value>Další stránka</value>
+  </data>
+  <data name="PN_Previous" xml:space="preserve">
+    <value>Předchozí stránka</value>
+  </data>
   <data name="RemeberLabel" xml:space="preserve">
     <value>Zapamatovat</value>
   </data>
