@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using JdUtils.MarkupExtensions;
@@ -42,13 +43,13 @@ namespace JdUtils.WpfControls.Components
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            OnEnumTypeChanged();
+            OnEnumTypeChanged(true);
         }
 
-        private void OnEnumTypeChanged()
+        private void OnEnumTypeChanged(bool fromApplyTemplate = false)
         {
-            ItemsSource = null;
-            if(EnumType!=null)
+            System.Diagnostics.Debug.WriteLine($"{GetType().Name}: OnEnumTypeChanged ({fromApplyTemplate})");
+            if (EnumType != null)
             {
                 var markup = new EnumValues
                 {
@@ -57,6 +58,12 @@ namespace JdUtils.WpfControls.Components
 
                 ItemsSource = (IEnumerable)markup.ProvideValue(null);
             }
+            else
+            {
+                ItemsSource = null;
+            }
+
+            System.Diagnostics.Debug.WriteLine($"{GetType().Name}: OnEnumTypeChanged.ItemsSourceGenerated ({fromApplyTemplate}) Count:{ItemsSource.Cast<object>().Count()}");
         }
     }
 }
