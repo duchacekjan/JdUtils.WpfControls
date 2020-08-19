@@ -45,7 +45,7 @@
                      ErrorMessage="adwad"
                      Remember="True"/>
     </StackPanel>-->
-    <Grid>
+    <Grid Background="Wheat">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>

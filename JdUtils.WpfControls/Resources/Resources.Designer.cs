@@ -160,6 +160,42 @@ namespace JdUtils.WpfControls.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to První stránka.
+        /// </summary>
+        public static string PN_First {
+            get {
+                return ResourceManager.GetString("PN_First", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Poslední stránka.
+        /// </summary>
+        public static string PN_Last {
+            get {
+                return ResourceManager.GetString("PN_Last", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Další stránka.
+        /// </summary>
+        public static string PN_Next {
+            get {
+                return ResourceManager.GetString("PN_Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Předchozí stránka.
+        /// </summary>
+        public static string PN_Previous {
+            get {
+                return ResourceManager.GetString("PN_Previous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zapamatovat.
         /// </summary>
         public static string RemeberLabel {
