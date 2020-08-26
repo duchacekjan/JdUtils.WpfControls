@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using System.Resources;
 using System.Windows;
 using System.Windows.Controls;
 using JdUtils.MarkupExtensions;
@@ -10,10 +11,12 @@ namespace JdUtils.WpfControls.Components
     public class EnumValueSelector : ComboBox
     {
         public static readonly DependencyProperty EnumTypeProperty;
+        public static readonly DependencyProperty TranslationManagerProperty;
 
         static EnumValueSelector()
         {
             var owner = typeof(EnumValueSelector);
+            TranslationManagerProperty = DependencyProperty.Register(nameof(TranslationManager), typeof(ResourceManager), owner, new FrameworkPropertyMetadata(OnEnumTypeChangedCallback));
             EnumTypeProperty = DependencyProperty.Register(nameof(EnumType), typeof(Type), owner, new FrameworkPropertyMetadata(OnEnumTypeChangedCallback));
         }
 
@@ -21,6 +24,12 @@ namespace JdUtils.WpfControls.Components
         {
             DisplayMemberPath = "Value";
             SelectedValuePath = "Key";
+        }
+
+        public ResourceManager TranslationManager
+        {
+            get => (ResourceManager)GetValue(TranslationManagerProperty);
+            set => SetValue(TranslationManagerProperty, value);
         }
 
         public Type EnumType
@@ -43,17 +52,17 @@ namespace JdUtils.WpfControls.Components
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            OnEnumTypeChanged(true);
+            OnEnumTypeChanged();
         }
 
-        private void OnEnumTypeChanged(bool fromApplyTemplate = false)
+        private void OnEnumTypeChanged()
         {
-            System.Diagnostics.Debug.WriteLine($"{GetType().Name}: OnEnumTypeChanged ({fromApplyTemplate})");
             if (EnumType != null)
             {
                 var markup = new EnumValues
                 {
-                    EnumType = EnumType
+                    EnumType = EnumType,
+                    Resources = TranslationManager
                 };
 
                 ItemsSource = (IEnumerable)markup.ProvideValue(null);
@@ -62,8 +71,6 @@ namespace JdUtils.WpfControls.Components
             {
                 ItemsSource = null;
             }
-
-            System.Diagnostics.Debug.WriteLine($"{GetType().Name}: OnEnumTypeChanged.ItemsSourceGenerated ({fromApplyTemplate}) Count:{ItemsSource.Cast<object>().Count()}");
         }
     }
 }
