@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:resx="clr-namespace:JdUtils.WpfControls.Demo"
         xmlns:c="jgs:wpfcontrols"
         mc:Ignorable="d"
         IsEnabled="True"
@@ -45,7 +46,7 @@
                      ErrorMessage="adwad"
                      Remember="True"/>
     </StackPanel>-->
-    <Grid Background="Wheat">
+    <!--<Grid Background="Wheat">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -67,20 +68,21 @@
                          CurrentPage="{Binding CurrentPage}"
                          Command="{Binding Cmd}"
                          TotalPages="10"/>
-    </Grid>
-    <!--<StackPanel>
+    </Grid>-->
+    <StackPanel>
         <TextBox Style="{StaticResource BaseTextBox}"
                  Margin="0"/>
-        -->
-    <!--<c:SuggestionInput/>-->
-    <!--
+        
+    <!--<c:SuggestionInput/>
+    
         <c:BrowseInput IsSelectingFolders="False"
                        IsMultiselect="True"
                        x:Name="BI"/>
         <c:SpinEdit/>
         <c:Strip Link="https://img.webshare.cz/static/p/000017/guYZptYQb6-M.jpg"
-                 Count="10"/>
+                 Count="10"/>-->
         <c:EnumValueSelector EnumType="{Binding Type}"
+                             TranslationManager="{x:Static resx:Resources.ResourceManager}"
                              SelectedValue="{Binding Enum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-    </StackPanel>-->
+    </StackPanel>
 </Window>
