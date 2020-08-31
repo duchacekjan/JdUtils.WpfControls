@@ -242,8 +242,8 @@ namespace JdUtils.WpfControls.Components
             m_passwordInputSwitch = this.FindTemplatePart<PathToggleButton>(PartPasswordInputSwitch)
                 .AndIfNotNull(p =>
                 {
-                    p.Checked += (s, e) => { m_passwordPlain.SetValueSafe(s => s.Text, m_password?.Password); };
-                    p.Unchecked += (s, e) => { m_password.SetValueSafe(s => s.Password, m_passwordPlain?.Text); };
+                    p.Checked += (s, e) => { m_passwordPlain.SetValueSafe(x => x.Text, m_password?.Password); };
+                    p.Unchecked += (s, e) => { m_password.SetValueSafe(x => x.Password, m_passwordPlain?.Text); };
                 });
             OnPasswordChanged();
         }

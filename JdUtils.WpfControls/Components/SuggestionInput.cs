@@ -273,11 +273,11 @@ namespace JdUtils.WpfControls.Components
         private void InitializeEditor()
         {
             m_editor = this.FindTemplatePart<TextBox>(PartEditor)
-                .AndIfNotNull(e =>
+                .AndIfNotNull(t =>
                 {
-                    e.TextChanged += OnEditorTextChanged;
-                    e.PreviewKeyDown += OnEditorPreviewKeyDown;
-                    e.PreviewLostKeyboardFocus += (s, e) =>
+                    t.TextChanged += OnEditorTextChanged;
+                    t.PreviewKeyDown += OnEditorPreviewKeyDown;
+                    t.PreviewLostKeyboardFocus += (s, e) =>
                     {
                         if (m_popup.IsOpen)
                         {
