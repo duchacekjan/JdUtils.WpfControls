@@ -11,12 +11,12 @@
     <PackageProjectUrl>https://github.com/duchacekjan/JdUtils.WpfControls</PackageProjectUrl>
     <RepositoryUrl>https://github.com/duchacekjan/JdUtils.WpfControls.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Support for multiple TargertFrameworks</PackageReleaseNotes>
+    <PackageReleaseNotes>Update JdUtils nuget</PackageReleaseNotes>
     <PackageIcon>wpfControlIcon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JdUtils" Version="1.0.10" />
+    <PackageReference Include="JdUtils" Version="1.0.10.1" />
   </ItemGroup>
 
   <ItemGroup>
