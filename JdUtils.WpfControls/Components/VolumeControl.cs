@@ -25,11 +25,11 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty HighestLevelColorProperty;
         public static readonly DependencyProperty EmptyLevelColorProperty;
         public static readonly DependencyProperty DisabledColorProperty;
+        public static readonly DependencyProperty MaxProperty;
 
-        private const double Max = 1.25d;
         private const double Min = 0d;
-        private const double GreenLimit = 0.8d;
-        private const double YellowLimit = 0.85d;
+        private const double BaseGreenLimit = 1d;
+        private const double BaseYellowLimit = 1.0625d;
         private const int Precision = 2;
 
         private Path m_path;
@@ -48,6 +48,7 @@ namespace JdUtils.WpfControls.Components
             HighestLevelColorProperty = DependencyProperty.Register(nameof(HighestLevelColor), typeof(Color), owner, new UIPropertyMetadata(Colors.Red));
             EmptyLevelColorProperty = DependencyProperty.Register(nameof(EmptyLevelColor), typeof(Color), owner, new UIPropertyMetadata(Colors.Transparent));
             DisabledColorProperty = DependencyProperty.Register(nameof(DisabledColor), typeof(Color), owner, new UIPropertyMetadata(Colors.LightGray));
+            MaxProperty = DependencyProperty.Register(nameof(Max), typeof(double), owner, new UIPropertyMetadata(1.25d, OnMacPropertyChangedCallback));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }
 
@@ -58,6 +59,12 @@ namespace JdUtils.WpfControls.Components
         }
 
         public event ValueChangedEventHandler ValueChanged;
+
+        public double Max
+        {
+            get => (double)GetValue(MaxProperty);
+            set => SetValue(MaxProperty, value);
+        }
 
         public double Value
         {
@@ -98,6 +105,9 @@ namespace JdUtils.WpfControls.Components
         private Color Green => IsEnabled ? NormalLevelColor : DisabledColor;
         private Color Yellow => IsEnabled ? HigherLevelColor : DisabledColor;
         private Color Red => IsEnabled ? HighestLevelColor : DisabledColor;
+
+        private double GreenLimit => BaseGreenLimit * 1 / Max;
+        private double YellowLimit => BaseYellowLimit * 1 / Max;
 
         public override void OnApplyTemplate()
         {
@@ -155,6 +165,23 @@ namespace JdUtils.WpfControls.Components
 
             Value = Math.Round(newValue, Precision);
             ValueChanged?.Invoke(this, Value);
+        }
+
+        private static void OnMacPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is VolumeControl control)
+            {
+                if (!Equals(e.OldValue, e.NewValue))
+                {
+                    control.OnMaxChanged(); ;
+                }
+            }
+
+        }
+
+        private void OnMaxChanged()
+        {
+            OnValueChanged();
         }
 
         private static void OnValueChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
