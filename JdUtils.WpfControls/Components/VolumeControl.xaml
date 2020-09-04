@@ -21,6 +21,7 @@
         <Setter Property="DisabledColor" Value="{StaticResource VolumeDisabledColor}"/>
         <Setter Property="Height" Value="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth, Converter={cnv:RatioConverter Ratio=0.25, MinValue=0}, Mode=OneWay}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Foreground" Value="Gray"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:VolumeControl}">
@@ -40,10 +41,10 @@
                                 x:Name="PART_Slider">
                             <Grid>
                                 <TextBlock x:Name="PART_DisplayValue"
-                                           Foreground="Gray"
+                                           Foreground="{TemplateBinding Foreground}"
                                            FontSize="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualHeight, Converter={cnv:RatioConverter Ratio=0.5, MinValue=8}, Mode=OneWay}"/>
                                 <Path Data="M1,0 L1,0.25 L0,0.25 z"
-                                      Stroke="Gray"
+                                      Stroke="{TemplateBinding Foreground}"
                                       Stretch="Fill"
                                       StrokeThickness="1"
                                       x:Name="PART_Path"

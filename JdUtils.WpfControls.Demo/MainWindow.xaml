@@ -69,9 +69,9 @@
                          Command="{Binding Cmd}"
                          TotalPages="10"/>
     </Grid>-->
-    <StackPanel>
-        <TextBox Style="{StaticResource BaseTextBox}"
-                 Margin="0"/>
+    <StackPanel Background="Black">
+        <!--<TextBox Style="{StaticResource BaseTextBox}"
+                 Margin="0"/>-->
         
     <!--<c:SuggestionInput/>
     
@@ -81,8 +81,10 @@
         <c:SpinEdit/>
         <c:Strip Link="https://img.webshare.cz/static/p/000017/guYZptYQb6-M.jpg"
                  Count="10"/>-->
-        <c:EnumValueSelector EnumType="{Binding Type}"
+        <!--<c:EnumValueSelector EnumType="{Binding Type}"
                              TranslationManager="{x:Static resx:Resources.ResourceManager}"
-                             SelectedValue="{Binding Enum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             SelectedValue="{Binding Enum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+        <c:VolumeControl Foreground="White"
+                         Max="2"/>
     </StackPanel>
 </Window>
