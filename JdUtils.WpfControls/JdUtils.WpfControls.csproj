@@ -3,7 +3,7 @@
     <TargetFrameworks>netcoreapp31;net48;net462</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
-    <Version>1.0.13.2</Version>
+    <Version>1.0.13.3</Version>
     <Authors>Jan Duchacek</Authors>
     <Company>JGS</Company>
     <Description>Custom WPF controls</Description>
@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/duchacekjan/JdUtils.WpfControls</PackageProjectUrl>
     <RepositoryUrl>https://github.com/duchacekjan/JdUtils.WpfControls.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Volume max limit made accessible</PackageReleaseNotes>
+    <PackageReleaseNotes>FIX: NullReferenceException in SuggestionInput.ActivateDisplay()</PackageReleaseNotes>
     <PackageIcon>wpfControlIcon.png</PackageIcon>
   </PropertyGroup>
 
