@@ -294,13 +294,13 @@ namespace JdUtils.WpfControls.Components
 
         private void ActivateDisplay()
         {
-            if (m_editor.Visibility == Visibility.Visible)
+            if (m_editor?.Visibility == Visibility.Visible)
             {
-                m_editor.Visibility = Visibility.Collapsed;
-                m_clearButton.Visibility = Visibility.Visible;
-                m_display.Visibility = Visibility.Visible;
+                m_editor.SetValueSafe(s => s.Visibility, Visibility.Collapsed);
+                m_clearButton.SetValueSafe(s => s.Visibility,Visibility.Visible);
+                m_display.SetValueSafe(s => s.Visibility, Visibility.Visible);
                 m_selectingValue = true;
-                m_display.Focus();
+                m_display?.Focus();
                 m_selectingValue = false;
             }
         }
