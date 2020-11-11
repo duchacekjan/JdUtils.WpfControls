@@ -69,11 +69,11 @@
                          Command="{Binding Cmd}"
                          TotalPages="10"/>
     </Grid>-->
-    <StackPanel Background="Black">
+    <StackPanel>
         <!--<TextBox Style="{StaticResource BaseTextBox}"
                  Margin="0"/>-->
-        
-    <!--<c:SuggestionInput/>
+
+        <!--<c:SuggestionInput/>
     
         <c:BrowseInput IsSelectingFolders="False"
                        IsMultiselect="True"
@@ -103,5 +103,8 @@
                 <Path Data="M0,0 L0,50 50,50 50,0 Z"/>
             </c:PathButton.Path>
         </c:PathButton>
+        <c:PathText Content="Test">
+            <Path Data="M0,0 L0,50 50,50 50,0 Z"/>
+        </c:PathText>
     </StackPanel>
 </Window>

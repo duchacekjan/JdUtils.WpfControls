@@ -8,6 +8,7 @@
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/LoginView.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/PageNavigator.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/PathButton.xaml"/>
+        <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/PathText.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/PathToggleButton.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/SpinEdit.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/SuggestionInput.xaml"/>

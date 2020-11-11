@@ -10,7 +10,7 @@
     <!--BUTTON-->
     <SolidColorBrush x:Key="ButtonPressedBackgroundBrush" Color="#e5e5e5"/>
     <SolidColorBrush x:Key="ButtonUndeterminedBackgroundBrush" Color="#e5e5e5"/>
-    <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="#ffffff"/>
     <SolidColorBrush x:Key="ButtonBorderBrush" Color="#ababab"/>
     <!--VOLUME-->
     <SolidColorBrush x:Key="VolumeBackgroundBrush" Color="White"/>
