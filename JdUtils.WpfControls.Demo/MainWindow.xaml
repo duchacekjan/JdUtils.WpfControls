@@ -90,14 +90,8 @@
                 Content="TEst"
                 VerticalAlignment="Center"/>
         <c:PathButton Content="Test"
-                      Background="White"
                       Foreground="Red"
-                      IconSize="16"
                       Height="40"
-                      Padding="4,2"
-                      HorizontalContentAlignment="Center"
-                      VerticalContentAlignment="Center"
-                      IconPosition="Right"
                       Width="100">
             <c:PathButton.Path>
                 <Path Data="M0,0 L0,50 50,50 50,0 Z"/>

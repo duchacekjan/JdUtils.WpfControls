@@ -1,9 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
 using System.Windows.Shapes;
 
 namespace JdUtils.WpfControls.Components
 {
+    [ContentProperty(nameof(Path))]
     public class PathButton : Button
     {
         public static readonly DependencyProperty PathProperty;
@@ -14,7 +16,7 @@ namespace JdUtils.WpfControls.Components
         {
             var owner = typeof(PathButton);
             PathProperty = DependencyProperty.Register(nameof(Path), typeof(Path), owner, new FrameworkPropertyMetadata());
-            IconPositionProperty = DependencyProperty.Register(nameof(IconPosition), typeof(Dock), owner, new FrameworkPropertyMetadata(Dock.Bottom));
+            IconPositionProperty = DependencyProperty.Register(nameof(IconPosition), typeof(Dock), owner, new FrameworkPropertyMetadata(Dock.Left));
             IconSizeProperty = DependencyProperty.Register(nameof(IconSize), typeof(int), owner, new FrameworkPropertyMetadata(16));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }

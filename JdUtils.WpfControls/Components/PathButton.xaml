@@ -9,7 +9,7 @@
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </Style.Resources>
-        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -32,21 +32,15 @@
                                 Background="{TemplateBinding Background}"
                                 CornerRadius="2"
                                 x:Name="border">
-                            <DockPanel>
-                                <Border DockPanel.Dock="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconPosition}"
-                                        Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconSize}"
-                                        Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconSize}"
-                                        Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Padding}"
-                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
-                                    <Path x:Name="PART_Path"
-                                          Data="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Path.Data}"
-                                          Fill="{TemplateBinding Foreground}"
-                                          Stretch="Uniform"/>
-                                </Border>
-                                <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
-                            </DockPanel>
+                            <local:PathText x:Name="PART_Path"
+                                            Content="{TemplateBinding Content}"
+                                            IconSize="{TemplateBinding IconSize}"
+                                            IconPosition="{TemplateBinding IconPosition}"
+                                            Padding="{TemplateBinding Padding}"
+                                            Path="{TemplateBinding Path}"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -60,7 +54,7 @@
                             <Setter Property="Padding" Value="0" TargetName="MouseOverBorder"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="PART_Path" Property="Fill" Value="{StaticResource DisabledForegroundBrush}"/>
+                            <Setter TargetName="PART_Path" Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
