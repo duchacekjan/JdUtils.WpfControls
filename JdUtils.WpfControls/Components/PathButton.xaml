@@ -31,11 +31,14 @@
                                 Background="{TemplateBinding Background}"
                                 CornerRadius="2"
                                 x:Name="border">
-                            <Path x:Name="PART_Path"
-                                  Margin="{TemplateBinding Padding}"
-                                  Data="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Path.Data}"
-                                  Fill="{TemplateBinding Foreground}"
-                                  Stretch="Uniform"/>
+                            <DockPanel>
+                                <ContentPresenter DockPanel.Dock="{TemplateBinding TextPosition}"/>
+                                <Path x:Name="PART_Path"
+                                      Margin="{TemplateBinding Padding}"
+                                      Data="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Path.Data}"
+                                      Fill="{TemplateBinding Foreground}"
+                                      Stretch="Uniform"/>
+                            </DockPanel>
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>
