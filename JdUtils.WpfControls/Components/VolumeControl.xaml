@@ -33,7 +33,8 @@
                         <local:PathButton Grid.Column="0"
                                           x:Name="PART_IconButton"
                                           VerticalAlignment="Bottom"
-                                          Padding="0"
+                                          Margin="0"
+                                          Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}"
                                           Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualHeight, Converter={cnv:RatioConverter Ratio=0.7, MinValue=0}, Mode=OneWay}"
                                           Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualHeight, Converter={cnv:RatioConverter Ratio=0.7, MinValue=0}, Mode=OneWay}"/>
                         <Border Grid.Column="1"

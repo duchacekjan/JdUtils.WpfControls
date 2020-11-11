@@ -18,7 +18,6 @@
                     <Setter Property="Background" Value="White"/>
                     <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
                     <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="Padding" Value="2"/>
                     <Setter Property="VerticalAlignment" Value="Bottom"/>
                 </Style>
                 <Style TargetType="{x:Type TextBlock}">
