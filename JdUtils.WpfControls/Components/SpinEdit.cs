@@ -611,6 +611,11 @@ namespace JdUtils.WpfControls.Components
         {
             if (!m_isDisplayValueMouseDown)
             {
+                if (!IsKeyboardFocused && IsKeyboardFocusWithin && !m_valueUpdating)
+                {
+                    m_displayValue?.SelectAll();
+                }
+
                 StartEditing();
             }
             else
