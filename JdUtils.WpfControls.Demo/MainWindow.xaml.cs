@@ -1,6 +1,8 @@
 ﻿using JdUtils.Infrastructure;
 using JdUtils.WpfControls.Utils;
 using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace JdUtils.WpfControls.Demo
@@ -8,10 +10,11 @@ namespace JdUtils.WpfControls.Demo
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class MainWindow : INotifyPropertyChanged
     {
         public static readonly DependencyProperty CurrentPageProperty;
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
         static MainWindow()
         {
@@ -31,6 +34,7 @@ namespace JdUtils.WpfControls.Demo
             get => (int)GetValue(CurrentPageProperty);
             set => SetValue(CurrentPageProperty, value);
         }
+
         private void DoCmd(PageNavigatorCommand? obj)
         {
             if (obj.HasValue)
@@ -55,7 +59,28 @@ namespace JdUtils.WpfControls.Demo
             }
         }
 
-        public DelegateCommand<PageNavigatorCommand?>  Cmd { get; set; }
+        private double m_value;
+        public double Value
+        {
+            get => m_value;
+            set => SetProperty(ref m_value, value);
+        }
+
+        protected void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(field, value))
+            {
+                field = value;
+                OnPropertyChanged(propertyName);
+            }
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public DelegateCommand<PageNavigatorCommand?> Cmd { get; set; }
         public Test Enum { get; set; }
         public Type Type { get; set; }
     }

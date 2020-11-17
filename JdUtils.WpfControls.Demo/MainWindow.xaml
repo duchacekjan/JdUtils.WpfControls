@@ -89,5 +89,8 @@
         <Button IsEnabled="False"
                 Content="TEst"
                 VerticalAlignment="Center"/>
+
+        <TextBox/>
+        <c:SpinEdit Value="{Binding Value}"/>
     </StackPanel>
 </Window>
