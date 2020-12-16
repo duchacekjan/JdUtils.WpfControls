@@ -46,7 +46,9 @@ namespace JdUtils.WpfControls.Utils
             {
                 if (!RestoreCurrentDirectory)
                 {
-                    Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(dialog.FileName);
+                    Environment.CurrentDirectory = PickFolders
+                        ? dialog.FileName
+                        : System.IO.Path.GetDirectoryName(dialog.FileName);
                 }
 
                 FileName = dialog.FileName;
