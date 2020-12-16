@@ -316,12 +316,12 @@
                             <Setter Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}"/>
                             <Setter Property="Background" Value="{StaticResource DisabledBackgroundBrush}"/>
                         </Trigger>
-                        <DataTrigger Binding="{Binding ElementName=PART_Border, Path=IsMouseOver}" Value="True">
+                        <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" Value="IBeam"/>
                             <Setter Property="BorderBrush" Value="{StaticResource FocusedBorderBrush}"/>
                             <Setter Property="BorderThickness" Value="2"/>
                             <Setter Property="Margin" Value="0" TargetName="PART_Dock"/>
-                        </DataTrigger>
+                        </Trigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
                             <Setter Property="BorderBrush" Value="{StaticResource FocusedBorderBrush}"/>
                             <Setter Property="BorderThickness" Value="2"/>
