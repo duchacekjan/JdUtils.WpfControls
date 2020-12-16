@@ -92,5 +92,6 @@
 
         <TextBox/>
         <c:SpinEdit Value="{Binding Value}"/>
+        <c:SuggestionInput/>
     </StackPanel>
 </Window>
