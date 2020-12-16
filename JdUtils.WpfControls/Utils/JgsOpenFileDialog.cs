@@ -22,6 +22,8 @@ namespace JdUtils.WpfControls.Utils
 
         public IList<string> FileNames { get; private set; }
 
+        public bool RestoreCurrentDirectory { get; set; }
+
         private bool PickFolders => Options.HasFlag(JgsOpenDialogOptions.PickFolders);
 
         public bool ShowDialog()
@@ -37,11 +39,16 @@ namespace JdUtils.WpfControls.Utils
                 throw new NotSupportedException("Not supported on this OS Version");
             }
 
-            var dialog =  CreateDialog();
+            var dialog = CreateDialog();
             var accessor = m_assemblyAccessor ?? (m_assemblyAccessor = new WindowsFormsAssemblyAccessor());
             var result = accessor.ShowDialog(dialog, hWndOwner, PickFolders);
             if (result)
             {
+                if (!RestoreCurrentDirectory)
+                {
+                    Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(dialog.FileName);
+                }
+
                 FileName = dialog.FileName;
                 FileNames = dialog.FileNames?.ToList();
             }
