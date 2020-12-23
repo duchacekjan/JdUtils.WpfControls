@@ -3,14 +3,18 @@ using System.Reflection;
 
 namespace JdUtils.WpfControls.Utils
 {
-    internal class WindowsFormsAssemblyAccessor 
+    internal class WindowsFormsAssemblyAccessor
     {
+#if NET5_0
+        private const string PickFolders = "PICKFOLDERS";
+#else
+        private const string PickFolders = "FOS_PICKFOLDERS";
         private const string IFileDialog = "FileDialogNative+IFileDialog";
         private const string FileDialogNativeFOS = "FileDialogNative+FOS";
+#endif
         private const string CreateVistaDialog = "CreateVistaDialog";
         private const string GetOptions = "GetOptions";
         private const string SetOptions = "SetOptions";
-        private const string PickFolders = "FOS_PICKFOLDERS";
         private const string FileDialogVistaDialogEvents = "FileDialog+VistaDialogEvents";
         private const string OnBeforeVistaDialog = "OnBeforeVistaDialog";
         private const string Advise = "Advise";
@@ -38,13 +42,17 @@ namespace JdUtils.WpfControls.Utils
             var flag = false;
             uint num = 0;
             var fileDialogType = typeof(System.Windows.Forms.FileDialog);
+#if NET5_0
+            var typeIFileDialog = GetIFileDialogType(fileDialogType);
+#else
             var typeIFileDialog = GetType(IFileDialog);
+#endif
             var dialog = Invoke<object>(openFileDialog, CreateVistaDialog);
             Invoke(fileDialogType, openFileDialog, OnBeforeVistaDialog, dialog);
             if (pickFolders)
             {
                 var options = Invoke<uint>(fileDialogType, openFileDialog, GetOptions);
-                options |= GetEnumValue(FileDialogNativeFOS, PickFolders);
+                options |= GetFOSValue(fileDialogType, PickFolders);
                 Invoke(typeIFileDialog, dialog, SetOptions, options);
             }
             var pfde = Create(FileDialogVistaDialogEvents, openFileDialog);
@@ -65,36 +73,41 @@ namespace JdUtils.WpfControls.Utils
             return flag;
         }
 
-        public Type GetType(string typeName)
+        private Type GetType(string typeName)
         {
             return m_winFormsAssembly.GetType($"{m_namespace}.{typeName}");
         }
 
-        public T Invoke<T>(object obj, string func, params object[] parameters)
+        private T Invoke<T>(object obj, string func, params object[] parameters)
         {
             return Invoke<T>(m_type, obj, func, parameters);
         }
 
-        public T Invoke<T>(Type type, object obj, string func, params object[] parameters)
+        private T Invoke<T>(Type type, object obj, string func, params object[] parameters)
         {
             var methInfo = type.GetMethod(func, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             return (T)methInfo.Invoke(obj, parameters);
         }
 
-        public void Invoke(Type type, object obj, string func, params object[] parameters)
+        private void Invoke(Type type, object obj, string func, params object[] parameters)
         {
             var methInfo = type.GetMethod(func, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             methInfo.Invoke(obj, parameters);
         }
 
-        public uint GetEnumValue(string typeName, string name)
+        private uint GetFOSValue(Type fileDialogType, string name)
         {
-            var type = GetType(typeName);
+#if NET5_0
+            var type = fileDialogType.GetMethod(GetOptions, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                .ReturnType;
+#else
+            var type = GetType(FileDialogNativeFOS);
+#endif
             var fieldInfo = type.GetField(name);
             return (uint)fieldInfo.GetValue(null);
         }
 
-        public object Create(string name, params object[] parameters)
+        private object Create(string name, params object[] parameters)
         {
             var type = GetType(name);
             var ctorInfos = type.GetConstructors();
@@ -108,6 +121,12 @@ namespace JdUtils.WpfControls.Utils
             }
 
             return null;
+        }
+
+        private static Type GetIFileDialogType(Type fileDialogType)
+        {
+            return fileDialogType.GetMethod(CreateVistaDialog, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                .ReturnType;
         }
     }
 }
