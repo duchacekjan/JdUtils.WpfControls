@@ -100,5 +100,10 @@
                        IsMultiselect="True"
                        x:Name="BI"
                        IsEnabled="{Binding ElementName=Cb, Path=IsChecked}"/>
+        <c:Tag Background="Red"
+               Height="20"
+               Width="60"
+               HorizontalAlignment="Left"
+               Margin="10"/>
     </StackPanel>
 </Window>
