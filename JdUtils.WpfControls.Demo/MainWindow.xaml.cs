@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Media;
 
 namespace JdUtils.WpfControls.Demo
 {
@@ -83,6 +84,20 @@ namespace JdUtils.WpfControls.Demo
         public DelegateCommand<PageNavigatorCommand?> Cmd { get; set; }
         public Test Enum { get; set; }
         public Type Type { get; set; }
+
+        private void SwitchColor(object sender, RoutedEventArgs e)
+        {
+            if (TagTest.Tag is string tag && tag == "1")
+            {
+                TagTest.Background = Brushes.Red;
+                TagTest.Tag = "0";
+            }
+            else
+            {
+                TagTest.Background = Brushes.White;
+                TagTest.Tag = "1";
+            }
+        }
     }
 
     public enum Test

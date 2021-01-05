@@ -100,10 +100,18 @@
                        IsMultiselect="True"
                        x:Name="BI"
                        IsEnabled="{Binding ElementName=Cb, Path=IsChecked}"/>
-        <c:Tag Background="Red"
-               Height="20"
-               Width="60"
-               HorizontalAlignment="Left"
-               Margin="10"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Content="ColorSwitch"
+                    HorizontalAlignment="Center"
+                    Click="SwitchColor"/>
+            <c:Tag Background="Red"
+                   x:Name="TagTest"
+                   Grid.Row="1"
+               Margin="100,10"/>
+        </Grid>
     </StackPanel>
 </Window>

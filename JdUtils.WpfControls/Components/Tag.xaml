@@ -4,8 +4,8 @@
                     xmlns:lCnv="clr-namespace:JdUtils.WpfControls.Utils"
                     xmlns:cnv="jgs:converters">
     <Style TargetType="{x:Type c:Tag}">
-        <Setter Property="MinHeight" Value="2"/>
-        <Setter Property="MaxHeight" Value="18"/>
+        <Setter Property="MinHeight" Value="16"/>
+        <Setter Property="Height" Value="16"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type  c:Tag}">
@@ -21,7 +21,7 @@
                                 <Setter Property="BorderThickness" Value="0"/>
                                 <Setter Property="MaxHeight" Value="16"/>
                                 <Setter Property="MaxWidth" Value="16"/>
-                                <Setter Property="Margin" Value="3"/>
+                                <Setter Property="Margin" Value="2"/>
                                 <Setter Property="OverridesDefaultStyle" Value="True"/>
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                                 <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -35,7 +35,7 @@
                                                 <Border Background="Transparent"
                                                         BorderBrush="{TemplateBinding BorderBrush}"
                                                         BorderThickness="{TemplateBinding BorderThickness}"
-                                                        CornerRadius="8">
+                                                        CornerRadius="8">                                                    
                                                     <Path Data="m 88.365237,111.32189 c -2.249639,-0.60586 -4.048764,-1.66981 -5.82182,-3.44287 -4.988924,-4.98892 -4.963529,-12.695785 0.05838,-17.717696 5.021911,-5.021912 12.728773,-5.047307 17.717703,-0.05838 5.03659,5.03659 5.13751,12.541706 0.23772,17.678626 -3.123118,3.27426 -7.962222,4.67944 -12.191986,3.54032 z m 5.425269,-8.25179 2.320265,2.30952 0.854662,-0.85466 0.854662,-0.85466 -2.309515,-2.32027 -2.309514,-2.320265 2.309514,-2.320265 2.309515,-2.320265 -0.854662,-0.854662 -0.854662,-0.854662 -2.320265,2.309515 -2.320265,2.309514 -2.320265,-2.309514 -2.320265,-2.309515 -0.854662,0.854662 -0.854662,0.854662 2.309515,2.320265 2.309514,2.320265 -2.309514,2.320265 -2.309515,2.32027 0.854662,0.85466 0.854662,0.85466 2.320265,-2.30952 2.320265,-2.30951 z"
                                                           Stretch="Uniform"
                                                           Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Background}"/>
@@ -53,16 +53,15 @@
                             CornerRadius="{Binding RelativeSource={RelativeSource AncestorType={x:Type c:Tag}, Mode=FindAncestor}, Path=ActualHeight, Converter={cnv:RatioConverter Ratio=0.5}}">
                         <DockPanel>
                             <Button x:Name="PART_Clear"
-                                    DockPanel.Dock="Right"
-                                    Margin="2,2,2,2">
+                                    DockPanel.Dock="Right">
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}"
                                            BasedOn="{StaticResource CancelButton}">
-                                        <Setter Property="Background" Value="Yellow"/>
-                                        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Background, Converter={lCnv:ContrastColorConverter Dark={StaticResource CrossColorColor}}}"/>
+                                        <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:Tag}}, Path=Background, Converter={lCnv:ContrastColorConverter Dark={StaticResource CrossColorColor}}}"/>
+                                        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Background, Converter={lCnv:ContrastColorConverter}}"/>
                                         <Style.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="{StaticResource CrossFocusColor}"/>
+                                                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:Tag}}, Path=Background, Converter={lCnv:ContrastColorConverter Dark={StaticResource CrossFocusColorColor},Light=LightGray}}"/>
                                                 <Setter Property="Cursor" Value="Hand"/>
                                             </Trigger>
                                         </Style.Triggers>
@@ -71,11 +70,12 @@
                             </Button>
                             <Viewbox MinHeight="4"
                                      MinWidth="8"
-                                     Stretch="UniformToFill"
+                                     Stretch="Uniform"
                                      StretchDirection="Both"
                                      VerticalAlignment="Center"
                                      Margin="8,2,4,2">
                                 <TextBlock Text="Test"
+                                           FontWeight="Bold"
                                            Foreground="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Background, Converter={lCnv:ContrastColorConverter}}"/>
                             </Viewbox>
                         </DockPanel>
