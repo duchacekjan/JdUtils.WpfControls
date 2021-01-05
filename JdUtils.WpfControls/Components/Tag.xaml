@@ -50,9 +50,10 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
+                            x:Name="PART_Border"
                             CornerRadius="{Binding RelativeSource={RelativeSource AncestorType={x:Type c:Tag}, Mode=FindAncestor}, Path=ActualHeight, Converter={cnv:RatioConverter Ratio=0.5}}">
                         <DockPanel>
-                            <Button x:Name="PART_Clear"
+                            <Button x:Name="PART_CloseButton"
                                     DockPanel.Dock="Right">
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}"
