@@ -31,15 +31,17 @@ namespace JdUtils.WpfControls.Demo
             InitializeComponent();
             Type = typeof(Test);
             Cmd = new DelegateCommand<PageNavigatorCommand?>(DoCmd);
-            m_tagCmd = new DelegateCommand<TagCommand>(DoTagCommand);
+            TagCmd = new DelegateCommand<TagCommand>(DoTagCommand);
             TestItems = new ObservableCollection<ITag>
             {
-                new TagTest{ Id = 1, Text="A", Background = Brushes.Red, Command = m_tagCmd},
-                new TagTest{ Id = 2, Text="B", Command = m_tagCmd}
+                new TagTest{ Id = 1, Text="A"},
+                new TagTest{ Id = 2, Text="B"}
             };
 
             DataContext = this;
         }
+
+        public DelegateCommand<TagCommand> TagCmd { get; set; }
 
         private void DoTagCommand(TagCommand tag)
         {
@@ -133,8 +135,6 @@ namespace JdUtils.WpfControls.Demo
         public object Id { get; set; }
 
         public string Text { get; set; }
-
-        public ICommand Command { get; set; }
 
         public Brush Background { get; set; }
     }

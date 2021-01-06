@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Markup;
 
 namespace JdUtils.WpfControls.Components
@@ -17,6 +18,8 @@ namespace JdUtils.WpfControls.Components
 
         public static readonly DependencyProperty ItemsSourceProperty;
         public static readonly DependencyProperty ItemsProperty;
+        public static readonly DependencyProperty TagCommandProperty;
+
         private ItemsControl m_itemsSourceControl;
         private ItemsControl m_itemsControl;
 
@@ -25,12 +28,19 @@ namespace JdUtils.WpfControls.Components
             var owner = typeof(TagControl);
             ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable<ITag>), owner, new FrameworkPropertyMetadata(OnItemsSourcePropertyChangedCallback));
             ItemsProperty = DependencyProperty.Register(nameof(Items), typeof(ObservableCollection<Tag>), owner, new UIPropertyMetadata(OnItemsSourcePropertyChangedCallback));
+            TagCommandProperty = DependencyProperty.Register(nameof(TagCommand), typeof(ICommand), owner, new FrameworkPropertyMetadata());
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }
 
         public TagControl()
         {
             Items = new ObservableCollection<Tag>();
+        }
+
+        public ICommand TagCommand
+        {
+            get => (ICommand)GetValue(TagCommandProperty);
+            set => SetValue(TagCommandProperty, value);
         }
 
         public ObservableCollection<Tag> Items
@@ -61,7 +71,6 @@ namespace JdUtils.WpfControls.Components
                     control.OnItemsSourceChanged(e.Property.Name);
                 }
             }
-
         }
 
         private void OnItemsSourceChanged(string name)

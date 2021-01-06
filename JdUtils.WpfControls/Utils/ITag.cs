@@ -9,8 +9,6 @@ namespace JdUtils.WpfControls.Utils
 
         string Text { get; set; }
 
-        ICommand Command { get; set; }
-
         Brush Background { get; set; }
     }
 }
