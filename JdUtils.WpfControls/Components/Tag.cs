@@ -13,6 +13,7 @@ namespace JdUtils.WpfControls.Components
         public const string PartViewBox = "PART_ViewBox";
         public static readonly DependencyProperty CommandProperty;
         public static readonly DependencyProperty CloseButtonVisibleProperty;
+        public static readonly DependencyProperty IdProperty;
 
         private bool m_buttonDown;
         private Button m_closeButton;
@@ -23,7 +24,14 @@ namespace JdUtils.WpfControls.Components
             var owner = typeof(Tag);
             CommandProperty = DependencyProperty.Register(nameof(Command), typeof(ICommand), owner, new FrameworkPropertyMetadata());
             CloseButtonVisibleProperty = DependencyProperty.Register(nameof(CloseButtonVisible), typeof(bool), owner, new FrameworkPropertyMetadata(true, OnCloseButtonVisiblePropertyChangedCallback));
+            IdProperty = DependencyProperty.Register(nameof(Id), typeof(object), owner, new FrameworkPropertyMetadata());
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
+        }
+
+        public object Id
+        {
+            get => GetValue(IdProperty);
+            set => SetValue(IdProperty, value);
         }
 
         public bool CloseButtonVisible
