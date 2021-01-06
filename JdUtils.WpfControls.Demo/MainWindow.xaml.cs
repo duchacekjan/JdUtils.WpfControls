@@ -1,9 +1,11 @@
 ﻿using JdUtils.Infrastructure;
 using JdUtils.WpfControls.Utils;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace JdUtils.WpfControls.Demo
@@ -28,8 +30,17 @@ namespace JdUtils.WpfControls.Demo
             InitializeComponent();
             Type = typeof(Test);
             Cmd = new DelegateCommand<PageNavigatorCommand?>(DoCmd);
+            TestItems = new ObservableCollection<ITag>
+            {
+                new TagTest{ Id = 1, Text="A", Background = Brushes.Red},
+                new TagTest{ Id = 2, Text="B"}
+            };
+
             DataContext = this;
         }
+
+        public ObservableCollection<ITag> TestItems { get; set; }
+
         public int CurrentPage
         {
             get => (int)GetValue(CurrentPageProperty);
@@ -98,6 +109,17 @@ namespace JdUtils.WpfControls.Demo
                 TagTest.Tag = "1";
             }
         }
+    }
+
+    public class TagTest : ITag
+    {
+        public object Id { get; set; }
+
+        public string Text { get; set; }
+
+        public ICommand Command { get; set; }
+
+        public Brush Background { get; set; }
     }
 
     public enum Test

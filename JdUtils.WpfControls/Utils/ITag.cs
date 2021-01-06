@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using System.Windows.Media;
 
 namespace JdUtils.WpfControls.Utils
 {
@@ -9,5 +10,7 @@ namespace JdUtils.WpfControls.Utils
         string Text { get; set; }
 
         ICommand Command { get; set; }
+
+        Brush Background { get; set; }
     }
 }

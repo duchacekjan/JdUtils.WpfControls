@@ -7,7 +7,8 @@
         xmlns:c="jgs:wpfcontrols"
         mc:Ignorable="d"
         IsEnabled="True"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance resx:MainWindow}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -119,9 +120,12 @@
                    Grid.Row="1"
                Margin="100,10"/>
         </Grid>
-        <c:TagControl>
-            <c:Tag Text="A" Background="Wheat"/>
-            <c:Tag Text="B" Background="White"/>
+        <c:TagControl ItemsSource="{Binding TestItems}">
+            <!--<c:Tag Text="A" Background="Wheat"/>
+            <c:Tag Text="B" Background="White"/>-->
         </c:TagControl>
+        <!--<ListBox ItemsSource="{Binding TestItems}">
+            <ListBoxItem/>
+        </ListBox>-->
     </StackPanel>
 </Window>

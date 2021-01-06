@@ -1,6 +1,17 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:c="clr-namespace:JdUtils.WpfControls.Components">
+                    xmlns:c="clr-namespace:JdUtils.WpfControls.Components"
+                    xmlns:u="clr-namespace:JdUtils.WpfControls.Utils">
+    <Style TargetType="{x:Type ItemsControl}"
+           x:Key="TagControlItemsControl">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <Style TargetType="{x:Type c:TagControl}">
         <Setter Property="Template">
             <Setter.Value>
@@ -11,21 +22,22 @@
                         <Grid>
                             <ItemsControl ItemsSource="{TemplateBinding ItemsSource}"
                                           x:Name="PART_ItemsSource"
-                                          Visibility="Collapsed">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel IsItemsHost="True"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
+                                          Visibility="Collapsed"
+                                          Style="{StaticResource TagControlItemsControl}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type u:ITag}">
+                                        <c:Tag Id="{Binding Id}"
+                                               Text="{Binding Text}"
+                                               Command="{Binding Command}"
+                                               Background="{Binding Background, TargetNullValue=White}"
+                                               Margin="2,0"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
                             </ItemsControl>
                             <ItemsControl ItemsSource="{TemplateBinding Items}"
-                                          x:Name="PART_Items">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel IsItemsHost="True"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
+                                          x:Name="PART_Items"
+                                          Style="{StaticResource TagControlItemsControl}"/>
+
                         </Grid>
                     </Border>
                 </ControlTemplate>
