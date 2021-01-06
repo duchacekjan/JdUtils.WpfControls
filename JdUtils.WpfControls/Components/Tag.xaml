@@ -73,7 +73,7 @@
                                      StretchDirection="Both"
                                      VerticalAlignment="Center"
                                      Margin="8,2,4,2">
-                                <TextBlock Text="Test"
+                                <TextBlock Text="{TemplateBinding Text}"
                                            FontWeight="Bold"
                                            Foreground="{TemplateBinding Foreground}"/>
                             </Viewbox>

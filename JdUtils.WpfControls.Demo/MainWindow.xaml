@@ -115,6 +115,7 @@
             <c:Tag Background="Red"
                    x:Name="TagTest"
                    CloseButtonVisible="{Binding ElementName=CB, Path=IsChecked}"
+                   Text="Cosi"
                    Grid.Row="1"
                Margin="100,10"/>
         </Grid>

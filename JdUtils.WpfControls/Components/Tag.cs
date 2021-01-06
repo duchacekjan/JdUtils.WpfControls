@@ -3,9 +3,11 @@ using JdUtils.WpfControls.Utils;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 
 namespace JdUtils.WpfControls.Components
 {
+    [ContentProperty(nameof(Text))]
     public class Tag : Control
     {
         public const string PartCloseButton = "PART_CloseButton";
@@ -14,6 +16,7 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty CommandProperty;
         public static readonly DependencyProperty CloseButtonVisibleProperty;
         public static readonly DependencyProperty IdProperty;
+        public static readonly DependencyProperty TextProperty;
 
         private bool m_buttonDown;
         private Button m_closeButton;
@@ -25,7 +28,14 @@ namespace JdUtils.WpfControls.Components
             CommandProperty = DependencyProperty.Register(nameof(Command), typeof(ICommand), owner, new FrameworkPropertyMetadata());
             CloseButtonVisibleProperty = DependencyProperty.Register(nameof(CloseButtonVisible), typeof(bool), owner, new FrameworkPropertyMetadata(true, OnCloseButtonVisiblePropertyChangedCallback));
             IdProperty = DependencyProperty.Register(nameof(Id), typeof(object), owner, new FrameworkPropertyMetadata());
+            TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), owner, new FrameworkPropertyMetadata(string.Empty));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
+        }
+
+        public string Text
+        {
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
         }
 
         public object Id
