@@ -8,7 +8,7 @@ using System.Windows.Markup;
 namespace JdUtils.WpfControls.Components
 {
     [ContentProperty(nameof(Text))]
-    public class Tag : Control
+    public class Tag : Control, ITag
     {
         public const string PartCloseButton = "PART_CloseButton";
         public const string PartBorder = "PART_Border";
