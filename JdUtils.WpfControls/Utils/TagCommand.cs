@@ -8,13 +8,13 @@
 
     public class TagCommand
     {
-        public TagCommand(ITag sender, TagCommmandSource source)
+        public TagCommand(object id, TagCommmandSource source)
         {
-            Sender = sender;
+            Id = id;
             Source = source;
         }
 
-        public ITag Sender { get; }
+        public object Id { get; }
 
         public TagCommmandSource Source { get; }
     }

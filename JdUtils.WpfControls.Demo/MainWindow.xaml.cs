@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace JdUtils.WpfControls.Demo
@@ -45,12 +44,12 @@ namespace JdUtils.WpfControls.Demo
 
         private void DoTagCommand(TagCommand tag)
         {
-            switch (tag?.Sender?.Id)
+            switch (tag?.Id)
             {
                 case null:
                     break;
                 default:
-                    TestItems.Remove(TestItems.FirstOrDefault(f => f.Id == tag?.Sender.Id));
+                    TestItems.Remove(TestItems.FirstOrDefault(f => f.Id == tag.Id));
                     break;
             }
         }

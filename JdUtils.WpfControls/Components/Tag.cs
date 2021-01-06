@@ -8,7 +8,7 @@ using System.Windows.Markup;
 namespace JdUtils.WpfControls.Components
 {
     [ContentProperty(nameof(Text))]
-    public class Tag : Control, ITag
+    public class Tag : Control
     {
         public const string PartCloseButton = "PART_CloseButton";
         public const string PartBorder = "PART_Border";
@@ -114,7 +114,7 @@ namespace JdUtils.WpfControls.Components
 
         private void InvokeCmd(TagCommmandSource source)
         {
-            var args = new TagCommand(this, source);
+            var args = new TagCommand(Id, source);
             if (Command?.CanExecute(args) == true)
             {
                 Command.Execute(args);
