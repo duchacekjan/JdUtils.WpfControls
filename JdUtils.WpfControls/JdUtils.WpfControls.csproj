@@ -3,7 +3,7 @@
     <TargetFrameworks>net5.0-windows10.0.18362;netcoreapp31;net48</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
     <Authors>Jan Duchacek</Authors>
     <Company>JGS</Company>
     <Description>Custom WPF controls</Description>
@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/duchacekjan/JdUtils.WpfControls</PackageProjectUrl>
     <RepositoryUrl>https://github.com/duchacekjan/JdUtils.WpfControls.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Fixing compatibility issues with net5.0 and JgsOpenDialog</PackageReleaseNotes>
+    <PackageReleaseNotes>TagControl and Tag component</PackageReleaseNotes>
     <PackageIcon>wpfControlIcon.png</PackageIcon>
   </PropertyGroup>
 

@@ -844,7 +844,11 @@ namespace JdUtils.WpfControls.Components
         {
             var result = HandleCoerceRange(value);
             result = HandleCoerceIsFloat(result);
+#if NET48
             result = result ?? NullValue;
+#else
+            result ??= NullValue;
+#endif
 
             if (value != result)
             {

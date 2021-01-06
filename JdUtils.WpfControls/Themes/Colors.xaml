@@ -37,9 +37,11 @@
     <SolidColorBrush x:Key="AnonymousButonPressedBrush" Color="#2b4387"/>
     <SolidColorBrush x:Key="ErrorMessageForeground" Color="#ff0000"/>
     <SolidColorBrush x:Key="ErrorMessageBackground" Color="#0fff0000"/>
-    
+
     <SolidColorBrush x:Key="CrossColor">#FB4A46</SolidColorBrush>
+    <Color x:Key="CrossColorColor">#FB4A46</Color>
     <SolidColorBrush x:Key="CrossFocusColor">#ED1D25</SolidColorBrush>
+    <Color x:Key="CrossFocusColorColor">#ED1D25</Color>
     <SolidColorBrush x:Key="BorderBrush">#ababab</SolidColorBrush>
     <SolidColorBrush x:Key="Background">#FFFFFF</SolidColorBrush>
     <SolidColorBrush x:Key="FocusedBorderBrush">#ababab</SolidColorBrush>
