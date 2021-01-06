@@ -30,8 +30,11 @@ namespace JdUtils.WpfControls.Utils
                             break;
                     }
                 }
-                //INFO CompoundAssignment 
+#if NET48
                 defaultBrush = defaultBrush ?? DefaultBackground;
+#else
+                defaultBrush ??= DefaultBackground;
+#endif
                 result = brush ?? defaultBrush;
             }
 

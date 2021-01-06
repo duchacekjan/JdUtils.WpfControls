@@ -17,8 +17,8 @@ namespace JdUtils.WpfControls.Demo
     {
         public static readonly DependencyProperty CurrentPageProperty;
 
+        private readonly Random m_rnd;
         private double m_value;
-        private Random m_rnd;
         private int m_cnt;
 
 
