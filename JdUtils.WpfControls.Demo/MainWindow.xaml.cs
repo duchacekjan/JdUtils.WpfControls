@@ -17,7 +17,10 @@ namespace JdUtils.WpfControls.Demo
     {
         public static readonly DependencyProperty CurrentPageProperty;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private double m_value;
+        private Random m_rnd;
+        private int m_cnt;
+
 
         static MainWindow()
         {
@@ -27,18 +30,23 @@ namespace JdUtils.WpfControls.Demo
 
         public MainWindow()
         {
+            var now = DateTime.Now.Second;
+            m_rnd = new Random(now);
             InitializeComponent();
             Type = typeof(Test);
             Cmd = new DelegateCommand<PageNavigatorCommand?>(DoCmd);
             TagCmd = new DelegateCommand<TagCommand>(DoTagCommand);
             TestItems = new ObservableCollection<ITag>
             {
-                new TagTest{ Id = 1, Text="A"},
-                new TagTest{ Id = 2, Text="B"}
+                new TagTest { Id = 1, Text="A", Description="Filter" },
+                new TagTest { Id = 2, Text="B", Background="#FF0000" }
             };
 
+            m_cnt = TestItems.Count;
             DataContext = this;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public DelegateCommand<TagCommand> TagCmd { get; set; }
 
@@ -60,6 +68,32 @@ namespace JdUtils.WpfControls.Demo
         {
             get => (int)GetValue(CurrentPageProperty);
             set => SetValue(CurrentPageProperty, value);
+        }
+
+        public double Value
+        {
+            get => m_value;
+            set => SetProperty(ref m_value, value);
+        }
+
+        public DelegateCommand<PageNavigatorCommand?> Cmd { get; set; }
+
+        public Test Enum { get; set; }
+
+        public Type Type { get; set; }
+
+        protected void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(field, value))
+            {
+                field = value;
+                OnPropertyChanged(propertyName);
+            }
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void DoCmd(PageNavigatorCommand? obj)
@@ -86,34 +120,6 @@ namespace JdUtils.WpfControls.Demo
             }
         }
 
-        private double m_value;
-        public double Value
-        {
-            get => m_value;
-            set => SetProperty(ref m_value, value);
-        }
-
-        protected void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, value))
-            {
-                field = value;
-                OnPropertyChanged(propertyName);
-            }
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public DelegateCommand<PageNavigatorCommand?> Cmd { get; set; }
-
-        private DelegateCommand<TagCommand> m_tagCmd;
-
-        public Test Enum { get; set; }
-        public Type Type { get; set; }
-
         private void SwitchColor(object sender, RoutedEventArgs e)
         {
             if (TagTest.Tag is string tag && tag == "1")
@@ -127,6 +133,26 @@ namespace JdUtils.WpfControls.Demo
                 TagTest.Tag = "1";
             }
         }
+
+        private void AddTag(object sender, RoutedEventArgs e)
+        {
+            TestItems.Add(new TagTest
+            {
+                Id = (int)TestItems.Max(m => m.Id) + 1,
+                Text = $"Test{m_cnt}",
+                Background = GetRandomColor(),
+                Description = "Test tag"
+            });
+            m_cnt++;
+        }
+
+        private string GetRandomColor()
+        {
+            var bytes = BitConverter.GetBytes(m_rnd.Next(0, 16777215));
+            var parts = BitConverter.ToString(bytes).Split('-').ToList();
+            parts.Remove(parts.Last());
+            return $"#{string.Join("", parts)}";
+        }
     }
 
     public class TagTest : ITag
@@ -135,7 +161,9 @@ namespace JdUtils.WpfControls.Demo
 
         public string Text { get; set; }
 
-        public Brush Background { get; set; }
+        public string Description { get; set; }
+
+        public string Background { get; set; }
     }
 
     public enum Test

@@ -1,7 +1,4 @@
-﻿using System.Windows.Input;
-using System.Windows.Media;
-
-namespace JdUtils.WpfControls.Utils
+﻿namespace JdUtils.WpfControls.Utils
 {
     public interface ITag
     {
@@ -9,6 +6,8 @@ namespace JdUtils.WpfControls.Utils
 
         string Text { get; set; }
 
-        Brush Background { get; set; }
+        string Description { get; set; }
+
+        string Background { get; set; }
     }
 }

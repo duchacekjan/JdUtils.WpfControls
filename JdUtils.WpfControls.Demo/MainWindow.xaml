@@ -112,6 +112,8 @@
                 <CheckBox x:Name="CB"
                           IsThreeState="False"
                           IsChecked="True"/>
+                <Button Content="AddTag"
+                        Click="AddTag"/>
             </StackPanel>
             <c:Tag Background="Red"
                    x:Name="TagTest"

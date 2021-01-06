@@ -13,16 +13,26 @@ namespace JdUtils.WpfControls.Utils
 
         public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var brushes = values?.OfType<Brush>().ToList();
-            var background = brushes.FirstOrDefault();
-            var result = background ?? DefaultBackground;
-            if (background == null && brushes.Count == 2)
+            var result = DefaultBackground;
+            if (values != null)
             {
-                var defaultBackground = brushes[1];
-                if (defaultBackground != null)
+                Brush brush = null;
+                Brush defaultBrush = null;
+                foreach (var value in values)
                 {
-                    result = defaultBackground;
+                    switch (value)
+                    {
+                        case Brush b:
+                            defaultBrush = b;
+                            break;
+                        case string s:
+                            brush = (Brush)new BrushConverter().ConvertFromString(s);
+                            break;
+                    }
                 }
+                //INFO CompoundAssignment 
+                defaultBrush = defaultBrush ?? DefaultBackground;
+                result = brush ?? defaultBrush;
             }
 
             return result;
