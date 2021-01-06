@@ -105,11 +105,16 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Content="ColorSwitch"
-                    HorizontalAlignment="Center"
-                    Click="SwitchColor"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="ColorSwitch"
+                        Click="SwitchColor"/>
+                <CheckBox x:Name="CB"
+                          IsThreeState="False"
+                          IsChecked="True"/>
+            </StackPanel>
             <c:Tag Background="Red"
                    x:Name="TagTest"
+                   CloseButtonVisible="{Binding ElementName=CB, Path=IsChecked}"
                    Grid.Row="1"
                Margin="100,10"/>
         </Grid>

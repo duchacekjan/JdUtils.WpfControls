@@ -71,6 +71,7 @@
                             </Button>
                             <Viewbox MinHeight="4"
                                      MinWidth="8"
+                                     x:Name="PART_ViewBox"
                                      Stretch="Uniform"
                                      StretchDirection="Both"
                                      VerticalAlignment="Center"

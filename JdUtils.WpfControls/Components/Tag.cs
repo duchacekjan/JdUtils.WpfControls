@@ -10,14 +10,26 @@ namespace JdUtils.WpfControls.Components
     {
         public const string PartCloseButton = "PART_CloseButton";
         public const string PartBorder = "PART_Border";
+        public const string PartViewBox = "PART_ViewBox";
         public static readonly DependencyProperty CommandProperty;
+        public static readonly DependencyProperty CloseButtonVisibleProperty;
+
         private bool m_buttonDown;
+        private Button m_closeButton;
+        private Viewbox m_viewbox;
 
         static Tag()
         {
             var owner = typeof(Tag);
             CommandProperty = DependencyProperty.Register(nameof(Command), typeof(ICommand), owner, new FrameworkPropertyMetadata());
+            CloseButtonVisibleProperty = DependencyProperty.Register(nameof(CloseButtonVisible), typeof(bool), owner, new FrameworkPropertyMetadata(true, OnCloseButtonVisiblePropertyChangedCallback));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
+        }
+
+        public bool CloseButtonVisible
+        {
+            get => (bool)GetValue(CloseButtonVisibleProperty);
+            set => SetValue(CloseButtonVisibleProperty, value);
         }
 
         public ICommand Command
@@ -29,8 +41,8 @@ namespace JdUtils.WpfControls.Components
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            this.FindTemplatePart<Button>(PartCloseButton)
-                .IfNotNull(b =>
+            m_closeButton = this.FindTemplatePart<Button>(PartCloseButton)
+                .AndIfNotNull(b =>
                 {
                     b.Click += (s, e) => InvokeCmd(TagCommmandSource.CloseButton);
                 });
@@ -40,6 +52,32 @@ namespace JdUtils.WpfControls.Components
                     b.MouseDown += OnBorderMouseDown;
                     b.MouseUp += OnBorderMouseUp;
                 });
+            m_viewbox = this.FindTemplatePart<Viewbox>(PartViewBox);
+        }
+
+        private static void OnCloseButtonVisiblePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is Tag control)
+            {
+                if (!Equals(e.OldValue, e.NewValue))
+                {
+                    control.OnCloseButtonVisiblePropertyChanged();
+                }
+            }
+        }
+
+        private void OnCloseButtonVisiblePropertyChanged()
+        {
+            var visibility = Visibility.Collapsed;
+            var margin = new Thickness(8, 2, 8, 2);
+            if (CloseButtonVisible)
+            {
+                visibility = Visibility.Visible;
+                margin = new Thickness(8, 2, 4, 2);
+            }
+
+            m_closeButton.SetValueSafe(s => s.Visibility, visibility);
+            m_viewbox.SetValueSafe(s => s.Margin, margin);
         }
 
         private void OnBorderMouseUp(object sender, MouseButtonEventArgs e)
