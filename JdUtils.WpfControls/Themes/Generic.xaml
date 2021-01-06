@@ -13,6 +13,7 @@
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/SuggestionInput.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/Strip.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/Tag.xaml"/>
+        <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/TagControl.xaml"/>
         <ResourceDictionary Source="/JdUtils.WpfControls;component/Components/VolumeControl.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

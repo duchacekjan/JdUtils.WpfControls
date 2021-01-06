@@ -119,5 +119,6 @@
                    Grid.Row="1"
                Margin="100,10"/>
         </Grid>
+        <c:TagControl/>
     </StackPanel>
 </Window>
