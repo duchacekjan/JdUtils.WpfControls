@@ -3,6 +3,7 @@ using JdUtils.WpfControls.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,6 +20,7 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty ItemsSourceProperty;
         public static readonly DependencyProperty ItemsProperty;
         public static readonly DependencyProperty TagCommandProperty;
+        public static readonly DependencyProperty DefaultTagBackgroundProperty;
 
         private ItemsControl m_itemsSourceControl;
         private ItemsControl m_itemsControl;
@@ -29,12 +31,19 @@ namespace JdUtils.WpfControls.Components
             ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable<ITag>), owner, new FrameworkPropertyMetadata(OnItemsSourcePropertyChangedCallback));
             ItemsProperty = DependencyProperty.Register(nameof(Items), typeof(ObservableCollection<Tag>), owner, new UIPropertyMetadata(OnItemsSourcePropertyChangedCallback));
             TagCommandProperty = DependencyProperty.Register(nameof(TagCommand), typeof(ICommand), owner, new FrameworkPropertyMetadata());
+            DefaultTagBackgroundProperty = DependencyProperty.Register(nameof(DefaultTagBackground), typeof(Brush), owner, new FrameworkPropertyMetadata(Brushes.White));
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
         }
 
         public TagControl()
         {
             Items = new ObservableCollection<Tag>();
+        }
+
+        public Brush DefaultTagBackground
+        {
+            get => (Brush)GetValue(DefaultTagBackgroundProperty);
+            set => SetValue(DefaultTagBackgroundProperty, value);
         }
 
         public ICommand TagCommand
