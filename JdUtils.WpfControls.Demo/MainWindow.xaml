@@ -119,6 +119,9 @@
                    Grid.Row="1"
                Margin="100,10"/>
         </Grid>
-        <c:TagControl/>
+        <c:TagControl>
+            <c:Tag Text="A" Background="Wheat"/>
+            <c:Tag Text="B" Background="White"/>
+        </c:TagControl>
     </StackPanel>
 </Window>
