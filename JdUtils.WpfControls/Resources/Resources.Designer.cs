@@ -97,6 +97,15 @@ namespace JdUtils.WpfControls.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Odstranit.
+        /// </summary>
+        public static string CloseTagTooltip {
+            get {
+                return ResourceManager.GetString("CloseTagTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pole nesmí být prázdné.
         /// </summary>
         public static string FieldCannotBeEmpty {

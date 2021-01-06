@@ -17,6 +17,7 @@ namespace JdUtils.WpfControls.Components
         public static readonly DependencyProperty CloseButtonVisibleProperty;
         public static readonly DependencyProperty IdProperty;
         public static readonly DependencyProperty TextProperty;
+        public static readonly DependencyProperty CloseButtonTooltipProperty;
 
         private bool m_buttonDown;
         private Button m_closeButton;
@@ -29,7 +30,14 @@ namespace JdUtils.WpfControls.Components
             CloseButtonVisibleProperty = DependencyProperty.Register(nameof(CloseButtonVisible), typeof(bool), owner, new FrameworkPropertyMetadata(true, OnCloseButtonVisiblePropertyChangedCallback));
             IdProperty = DependencyProperty.Register(nameof(Id), typeof(object), owner, new FrameworkPropertyMetadata());
             TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), owner, new FrameworkPropertyMetadata(string.Empty));
+            CloseButtonTooltipProperty = DependencyProperty.Register(nameof(CloseButtonTooltip), typeof(string), owner, new FrameworkPropertyMetadata());
             DefaultStyleKeyProperty.OverrideMetadata(owner, new FrameworkPropertyMetadata(owner));
+        }
+
+        public string CloseButtonTooltip
+        {
+            get => (string)GetValue(CloseButtonTooltipProperty);
+            set => SetValue(CloseButtonTooltipProperty, value);
         }
 
         public string Text
