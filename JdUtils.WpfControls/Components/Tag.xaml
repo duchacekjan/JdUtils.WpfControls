@@ -29,6 +29,8 @@
                                 <Setter Property="HorizontalAlignment" Value="Right"/>
                                 <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                                 <Setter Property="Focusable" Value="False"/>
+                                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:Tag}}, Path=Background, Converter={lCnv:ContrastColorConverter Dark={StaticResource CrossColorColor}}}"/>
+                                <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Background, Converter={lCnv:ContrastColorConverter}}"/>
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="{x:Type Button}">
@@ -46,6 +48,12 @@
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:Tag}}, Path=Background, Converter={lCnv:ContrastColorConverter Dark={StaticResource CrossFocusColorColor},Light=LightGray}}"/>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                    </Trigger>
+                                </Style.Triggers>
                             </Style>
                         </ResourceDictionary>
                     </ControlTemplate.Resources>
@@ -56,21 +64,8 @@
                             CornerRadius="{Binding RelativeSource={RelativeSource AncestorType={x:Type c:Tag}, Mode=FindAncestor}, Path=ActualHeight, Converter={cnv:RatioConverter Ratio=0.5}}">
                         <DockPanel>
                             <Button x:Name="PART_CloseButton"
-                                    DockPanel.Dock="Right">
-                                <Button.Style>
-                                    <Style TargetType="{x:Type Button}"
-                                           BasedOn="{StaticResource CancelButton}">
-                                        <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:Tag}}, Path=Background, Converter={lCnv:ContrastColorConverter Dark={StaticResource CrossColorColor}}}"/>
-                                        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Background, Converter={lCnv:ContrastColorConverter}}"/>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:Tag}}, Path=Background, Converter={lCnv:ContrastColorConverter Dark={StaticResource CrossFocusColorColor},Light=LightGray}}"/>
-                                                <Setter Property="Cursor" Value="Hand"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
+                                    DockPanel.Dock="Right"
+                                    Style="{StaticResource CancelButton}"/>
                             <Viewbox MinHeight="4"
                                      MinWidth="8"
                                      x:Name="PART_ViewBox"
