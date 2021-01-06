@@ -3,6 +3,7 @@ using JdUtils.WpfControls.Utils;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -30,13 +31,26 @@ namespace JdUtils.WpfControls.Demo
             InitializeComponent();
             Type = typeof(Test);
             Cmd = new DelegateCommand<PageNavigatorCommand?>(DoCmd);
+            m_tagCmd = new DelegateCommand<TagCommand>(DoTagCommand);
             TestItems = new ObservableCollection<ITag>
             {
-                new TagTest{ Id = 1, Text="A", Background = Brushes.Red},
-                new TagTest{ Id = 2, Text="B"}
+                new TagTest{ Id = 1, Text="A", Background = Brushes.Red, Command = m_tagCmd},
+                new TagTest{ Id = 2, Text="B", Command = m_tagCmd}
             };
 
             DataContext = this;
+        }
+
+        private void DoTagCommand(TagCommand tag)
+        {
+            switch (tag?.Sender?.Id)
+            {
+                case null:
+                    break;
+                default:
+                    TestItems.Remove(TestItems.FirstOrDefault(f => f.Id == tag?.Sender.Id));
+                    break;
+            }
         }
 
         public ObservableCollection<ITag> TestItems { get; set; }
@@ -93,6 +107,9 @@ namespace JdUtils.WpfControls.Demo
         }
 
         public DelegateCommand<PageNavigatorCommand?> Cmd { get; set; }
+
+        private DelegateCommand<TagCommand> m_tagCmd;
+
         public Test Enum { get; set; }
         public Type Type { get; set; }
 

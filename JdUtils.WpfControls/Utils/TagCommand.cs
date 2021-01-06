@@ -1,6 +1,4 @@
-﻿using JdUtils.WpfControls.Components;
-
-namespace JdUtils.WpfControls.Utils
+﻿namespace JdUtils.WpfControls.Utils
 {
     public enum TagCommmandSource
     {
@@ -10,13 +8,13 @@ namespace JdUtils.WpfControls.Utils
 
     public class TagCommand
     {
-        public TagCommand(Tag sender, TagCommmandSource source)
+        public TagCommand(ITag sender, TagCommmandSource source)
         {
             Sender = sender;
             Source = source;
         }
 
-        public Tag Sender { get; }
+        public ITag Sender { get; }
 
         public TagCommmandSource Source { get; }
     }
