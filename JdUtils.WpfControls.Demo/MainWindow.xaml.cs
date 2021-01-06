@@ -39,7 +39,7 @@ namespace JdUtils.WpfControls.Demo
             TestItems = new ObservableCollection<ITag>
             {
                 new TagTest { Id = 1, Text="A", Description="Filter" },
-                new TagTest { Id = 2, Text="B", Background="#FF0000" }
+                new TagTest { Id = 2, Text="B", Background="#FF0000", CloseButtonTooltip="Zrusit" }
             };
 
             m_cnt = TestItems.Count;
@@ -164,6 +164,8 @@ namespace JdUtils.WpfControls.Demo
         public string Description { get; set; }
 
         public string Background { get; set; }
+
+        public string CloseButtonTooltip { get; set; }
     }
 
     public enum Test

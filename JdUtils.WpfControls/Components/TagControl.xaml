@@ -29,6 +29,7 @@
                                         <c:Tag Id="{Binding Id}"
                                                Text="{Binding Text}"
                                                ToolTip="{Binding Description}"
+                                               CloseButtonTooltip="{Binding CloseButtonTooltip}"
                                                Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:TagControl}}, Path=TagCommand}"
                                                Margin="2,1">
                                             <c:Tag.Background>

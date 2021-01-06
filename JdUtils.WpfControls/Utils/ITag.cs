@@ -9,5 +9,7 @@
         string Description { get; set; }
 
         string Background { get; set; }
+
+        string CloseButtonTooltip { get; set; }
     }
 }
