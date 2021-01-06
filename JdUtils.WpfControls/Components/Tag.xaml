@@ -31,7 +31,7 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="{x:Type Button}">
-                                            <Border Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Foreground}"
+                                            <Border Background="{TemplateBinding Foreground}"
                                                     CornerRadius="8">
                                                 <Border Background="Transparent"
                                                         BorderBrush="{TemplateBinding BorderBrush}"
@@ -39,7 +39,7 @@
                                                         CornerRadius="8">                                                    
                                                     <Path Data="m 88.365237,111.32189 c -2.249639,-0.60586 -4.048764,-1.66981 -5.82182,-3.44287 -4.988924,-4.98892 -4.963529,-12.695785 0.05838,-17.717696 5.021911,-5.021912 12.728773,-5.047307 17.717703,-0.05838 5.03659,5.03659 5.13751,12.541706 0.23772,17.678626 -3.123118,3.27426 -7.962222,4.67944 -12.191986,3.54032 z m 5.425269,-8.25179 2.320265,2.30952 0.854662,-0.85466 0.854662,-0.85466 -2.309515,-2.32027 -2.309514,-2.320265 2.309514,-2.320265 2.309515,-2.320265 -0.854662,-0.854662 -0.854662,-0.854662 -2.320265,2.309515 -2.320265,2.309514 -2.320265,-2.309514 -2.320265,-2.309515 -0.854662,0.854662 -0.854662,0.854662 2.309515,2.320265 2.309514,2.320265 -2.309514,2.320265 -2.309515,2.32027 0.854662,0.85466 0.854662,0.85466 2.320265,-2.30952 2.320265,-2.30951 z"
                                                           Stretch="Uniform"
-                                                          Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Background}"/>
+                                                          Fill="{TemplateBinding Background}"/>
                                                 </Border>
                                             </Border>
                                         </ControlTemplate>
