@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using t = System.Windows.Threading;
 using resx = JdUtils.WpfControls.Resources.Resources;
+using System.Windows.Shapes;
 
 namespace JdUtils.WpfControls.Components
 {
@@ -64,7 +65,7 @@ namespace JdUtils.WpfControls.Components
             var owner = typeof(SuggestionInput);
             ProviderProperty = DependencyProperty.Register(nameof(Provider), typeof(Func<string, IEnumerable>), owner, new FrameworkPropertyMetadata());
             ItemTemplateProperty = DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), owner, new FrameworkPropertyMetadata());
-            IconProperty = DependencyProperty.Register(nameof(Icon), typeof(ImageSource), owner, new FrameworkPropertyMetadata());
+            IconProperty = DependencyProperty.Register(nameof(Icon), typeof(Path), owner, new FrameworkPropertyMetadata());
             ItemHighlightBrushProperty = DependencyProperty.Register(nameof(ItemHighlightBrush), typeof(Brush), owner, new FrameworkPropertyMetadata());
             IconVisibilityProperty = DependencyProperty.Register(nameof(IconVisibility), typeof(Visibility), owner, new FrameworkPropertyMetadata(Visibility.Visible));
             WatermarkProperty = DependencyProperty.Register(nameof(Watermark), typeof(string), owner, new FrameworkPropertyMetadata(resx.SuggestionInputWatermark));
@@ -109,9 +110,9 @@ namespace JdUtils.WpfControls.Components
             set => SetValue(IconVisibilityProperty, value);
         }
 
-        public ImageSource Icon
+        public Path Icon
         {
-            get => (ImageSource)GetValue(IconProperty);
+            get => (Path)GetValue(IconProperty);
             set => SetValue(IconProperty, value);
         }
 
