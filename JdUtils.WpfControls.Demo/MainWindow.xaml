@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/TextBox.xaml"/>
+                <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="{x:Type ComboBox}">
                 <Setter Property="Width" Value="150"/>
@@ -130,5 +131,6 @@
         <!--<ListBox ItemsSource="{Binding TestItems}">
             <ListBoxItem/>
         </ListBox>-->
+        <Button Style="{StaticResource BaseRoundCloseButton}"/>
     </StackPanel>
 </Window>
