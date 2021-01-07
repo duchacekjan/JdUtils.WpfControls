@@ -111,52 +111,6 @@
                         </DrawingGroup>
                     </DrawingImage.Drawing>
                 </DrawingImage>
-                <DrawingImage x:Key="Cross">
-                    <DrawingImage.Drawing>
-                        <DrawingGroup>
-                            <DrawingGroup x:Name="DrawingLayer2">
-                                <GeometryDrawing Brush="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Background}">
-                                    <GeometryDrawing.Geometry>
-                                        <PathGeometry FillRule="EvenOdd" Figures="M 70,70 150,70 150,160 70,160 z"/>
-                                    </GeometryDrawing.Geometry>
-                                </GeometryDrawing>
-                                <GeometryDrawing Brush="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Foreground}">
-                                    <GeometryDrawing.Geometry>
-                                        <PathGeometry FillRule="EvenOdd" Figures="m 108.10119 54.1125 c -36.247916 0 -65.616666 29.36875 -65.616666 65.61666 0 36.24792 29.36875 65.61667 65.616666 65.61667 36.24791 0 65.61666 -29.36875 65.61666 -65.61667 0 -36.24791 -29.36875 -65.61666 -65.61666 -65.61666 z m 32.17333 82.84104 c 1.24354 1.24354 1.24354 3.25437 0 4.49791 l -10.4775 10.45105 c -1.24354 1.24354 -3.25437 1.24354 -4.49792 0 L 108.10119 134.54583 90.876813 151.9025 c -1.24354 1.24354 -3.25437 1.24354 -4.49791 0 L 75.927857 141.425 c -1.243542 -1.24355 -1.243542 -3.25438 0 -4.49792 L 93.284523 119.72916 75.927857 102.50479 c -1.243542 -1.24354 -1.243542 -3.254374 0 -4.497915 l 10.477496 -10.4775 c 1.24355 -1.243542 3.25438 -1.243542 4.49792 0 L 108.10119 104.9125 125.32556 87.555833 c 1.24354 -1.243542 3.25438 -1.243542 4.49792 0 l 10.4775 10.4775 c 1.24354 1.243542 1.24354 3.254377 0 4.497917 l -17.38313 17.19791 z"/>
-                                    </GeometryDrawing.Geometry>
-                                </GeometryDrawing>
-                            </DrawingGroup>
-                        </DrawingGroup>
-                    </DrawingImage.Drawing>
-                </DrawingImage>
-                <Style TargetType="{x:Type Button}"
-                       x:Key="CancelButton">
-                    <Setter Property="BorderBrush" Value="Transparent"/>
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="Foreground" Value="LightGray"/>
-                    <Setter Property="MaxHeight" Value="16"/>
-                    <Setter Property="MaxWidth" Value="16"/>
-                    <Setter Property="Margin" Value="3"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="HorizontalAlignment" Value="Right"/>
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                    <Setter Property="Focusable" Value="False"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border x:Name="PART_Border"
-                            Background="Transparent"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="8">
-                                    <Image x:Name="PART_Icon"
-                               Source="{StaticResource Cross}"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
                 <Style TargetType="{x:Type TextBox}"
                        x:Key="BorderlessTextBox">
                     <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -246,20 +200,9 @@
                             <DockPanel>
                                 <Button x:Name="PART_Clear"
                                         DockPanel.Dock="Right"
-                                        Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsEnabled, Converter={cnv:BoolToVisibilityConverter}}">
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type Button}"
-                                               BasedOn="{StaticResource CancelButton}">
-                                            <Setter Property="Foreground" Value="{StaticResource CrossColor}"/>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Foreground" Value="{StaticResource CrossFocusColor}"/>
-                                                    <Setter Property="Cursor" Value="Hand"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
+                                        Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsEnabled, Converter={cnv:BoolToVisibilityConverter}}"
+                                        Style="{StaticResource BaseRoundCloseButton}"
+                                        Background="{StaticResource CrossColor}"/>
                                 <Image Source="{TemplateBinding Icon}"
                                        Visibility="{TemplateBinding IconVisibility}"
                                        Style="{StaticResource SearchIconImage}"/>

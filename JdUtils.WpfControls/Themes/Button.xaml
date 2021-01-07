@@ -92,7 +92,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Fill" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Background, Converter={u:ContrastColorConverter Dark={StaticResource CrossFocusColorColor},Light=LightGray}}" TargetName="PART_Path"/>
+                            <Setter Property="Fill" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Background, Converter={u:ContrastColorConverter Light={StaticResource CrossFocusColorColor},Dark=LightGray}}" TargetName="PART_Path"/>
                             <Setter Property="Cursor" Value="Hand"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
