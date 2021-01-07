@@ -94,7 +94,7 @@
 
         <TextBox/>
         <c:SpinEdit Value="{Binding Value}"/>
-        <c:SuggestionInput/>
+        <c:SuggestionInput Provider="{Binding Provider}"/>
         <CheckBox x:Name="Cb"
                   Content="Enabled"
                   IsChecked="True"/>

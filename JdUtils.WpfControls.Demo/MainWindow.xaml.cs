@@ -1,6 +1,8 @@
 ﻿using JdUtils.Infrastructure;
 using JdUtils.WpfControls.Utils;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -18,6 +20,12 @@ namespace JdUtils.WpfControls.Demo
         public static readonly DependencyProperty CurrentPageProperty;
 
         private readonly Random m_rnd;
+        private readonly List<string> m_suggestions = new List<string>
+        {
+            "abc",
+            "bcd",
+            "cde"
+        };
         private double m_value;
         private int m_cnt;
 
@@ -43,10 +51,13 @@ namespace JdUtils.WpfControls.Demo
             };
 
             m_cnt = TestItems.Count;
+            Provider = GetSuggestions;
             DataContext = this;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public Func<string, IEnumerable> Provider { get; set; }
 
         public DelegateCommand<TagCommand> TagCmd { get; set; }
 
@@ -152,6 +163,16 @@ namespace JdUtils.WpfControls.Demo
             var parts = BitConverter.ToString(bytes).Split('-').ToList();
             parts.Remove(parts.Last());
             return $"#{string.Join("", parts)}";
+        }
+
+        private IEnumerable GetSuggestions(string arg)
+        {
+            IEnumerable result = new List<string>();
+            if(!string.IsNullOrEmpty(arg))
+            {
+                result = m_suggestions.Where(w => w.Contains(arg.ToLower()));
+            }
+            return result;
         }
     }
 
