@@ -2,13 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:c="clr-namespace:JdUtils.WpfControls.Components" 
                     xmlns:resx="clr-namespace:JdUtils.WpfControls.Resources" 
-                    xmlns:lCnv="clr-namespace:JdUtils.WpfControls.Utils"
+                    xmlns:u="clr-namespace:JdUtils.WpfControls.Utils"
                     xmlns:cnv="jgs:converters">
     <Style TargetType="{x:Type c:Tag}">
         <Setter Property="MinHeight" Value="16"/>
         <Setter Property="Height" Value="16"/>
         <Setter Property="Background" Value="White"/>
-        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Background, Converter={lCnv:ContrastColorConverter}}"/>
+        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Background, Converter={u:ContrastColorConverter}}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type  c:Tag}">
@@ -17,47 +17,7 @@
                             <ResourceDictionary.MergedDictionaries>
                                 <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Button.xaml"/>
                                 <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Colors.xaml"/>
-                                <ResourceDictionary Source="/JdUtils.WpfControls;component/Themes/Vectors.xaml"/>
                             </ResourceDictionary.MergedDictionaries>
-                            <Style TargetType="{x:Type Button}"
-                                   x:Key="CancelButton">
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="MaxHeight" Value="16"/>
-                                <Setter Property="MaxWidth" Value="16"/>
-                                <Setter Property="Margin" Value="2"/>
-                                <Setter Property="OverridesDefaultStyle" Value="True"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                                <Setter Property="HorizontalAlignment" Value="Right"/>
-                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                                <Setter Property="Focusable" Value="False"/>
-                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:Tag}}, Path=CloseButtonTooltip, TargetNullValue={x:Static resx:Resources.CloseTagTooltip}}"/>
-                                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:Tag}}, Path=Background, Converter={lCnv:ContrastColorConverter Dark={StaticResource CrossColorColor}}}"/>
-                                <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Background, Converter={lCnv:ContrastColorConverter}}"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type Button}">
-                                            <Border Background="{TemplateBinding Foreground}"
-                                                    CornerRadius="8">
-                                                <Border Background="Transparent"
-                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                                        CornerRadius="8">
-                                                    <Path Data="{Binding Source={StaticResource CloseButton}, Path=Data}"
-                                                          Stretch="Uniform"
-                                                          Fill="{TemplateBinding Background}"/>
-                                                </Border>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:Tag}}, Path=Background, Converter={lCnv:ContrastColorConverter Dark={StaticResource CrossFocusColorColor},Light=LightGray}}"/>
-                                        <Setter Property="Cursor" Value="Hand"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
                         </ResourceDictionary>
                     </ControlTemplate.Resources>
                     <Border Background="{TemplateBinding Background}"
@@ -68,7 +28,9 @@
                         <DockPanel>
                             <Button x:Name="PART_CloseButton"
                                     DockPanel.Dock="Right"
-                                    Style="{StaticResource CancelButton}"/>
+                                    ToolTip="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:Tag}}, Path=CloseButtonTooltip, TargetNullValue={x:Static resx:Resources.CloseTagTooltip}}"
+                                    Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:Tag}}, Path=Background, Converter={u:ContrastColorConverter Dark={StaticResource CrossColorColor}}}"
+                                    Style="{StaticResource BaseRoundCloseButton}"/>
                             <Viewbox MinHeight="4"
                                      MinWidth="8"
                                      x:Name="PART_ViewBox"

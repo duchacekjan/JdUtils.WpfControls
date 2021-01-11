@@ -23,7 +23,6 @@
                 <!--ButtonBase-->
                 <Style x:Key="BaseButtonStyle" TargetType="{x:Type ButtonBase}">
                     <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-                    <!--<Setter Property="MinWidth" Value="18"/>-->
                     <Setter Property="BorderBrush" Value="Transparent"/>
                     <Setter Property="Foreground" Value="Black"/>
                     <Setter Property="BorderThickness" Value="0"/>
@@ -40,13 +39,10 @@
                 </Style>
                 <Style x:Key="BasePath" TargetType="{x:Type Path}">
                     <Setter Property="Fill" Value="{StaticResource SpinEditForegroundBrush}"/>
-                    <!--<Setter Property="Height" Value="4"/>-->
                     <Setter Property="HorizontalAlignment" Value="Center"/>
                     <Setter Property="SnapsToDevicePixels" Value="True"/>
-                    <!--<Setter Property="Stretch" Value="Fill"/>-->
                     <Setter Property="Stretch" Value="Uniform"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <!--<Setter Property="Width" Value="8"/>-->                    
+                    <Setter Property="VerticalAlignment" Value="Center"/>           
                 </Style>
 
                 <Style x:Key="UpArrow" TargetType="{x:Type Path}"

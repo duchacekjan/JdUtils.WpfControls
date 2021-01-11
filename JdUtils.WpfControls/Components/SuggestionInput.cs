@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -12,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using t = System.Windows.Threading;
 using resx = JdUtils.WpfControls.Resources.Resources;
+using System.Windows.Shapes;
+using JdUtils.BackgroundWorker;
 
 namespace JdUtils.WpfControls.Components
 {
@@ -57,14 +58,14 @@ namespace JdUtils.WpfControls.Components
         private IList<object> m_items;
         private bool m_selectingValue;
         private bool m_mouseSelectedItem;
+        private bool m_editorKeepEditing;
 
         static SuggestionInput()
         {
-
             var owner = typeof(SuggestionInput);
             ProviderProperty = DependencyProperty.Register(nameof(Provider), typeof(Func<string, IEnumerable>), owner, new FrameworkPropertyMetadata());
             ItemTemplateProperty = DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), owner, new FrameworkPropertyMetadata());
-            IconProperty = DependencyProperty.Register(nameof(Icon), typeof(ImageSource), owner, new FrameworkPropertyMetadata());
+            IconProperty = DependencyProperty.Register(nameof(Icon), typeof(Path), owner, new FrameworkPropertyMetadata());
             ItemHighlightBrushProperty = DependencyProperty.Register(nameof(ItemHighlightBrush), typeof(Brush), owner, new FrameworkPropertyMetadata());
             IconVisibilityProperty = DependencyProperty.Register(nameof(IconVisibility), typeof(Visibility), owner, new FrameworkPropertyMetadata(Visibility.Visible));
             WatermarkProperty = DependencyProperty.Register(nameof(Watermark), typeof(string), owner, new FrameworkPropertyMetadata(resx.SuggestionInputWatermark));
@@ -109,9 +110,9 @@ namespace JdUtils.WpfControls.Components
             set => SetValue(IconVisibilityProperty, value);
         }
 
-        public ImageSource Icon
+        public Path Icon
         {
-            get => (ImageSource)GetValue(IconProperty);
+            get => (Path)GetValue(IconProperty);
             set => SetValue(IconProperty, value);
         }
 
@@ -294,7 +295,7 @@ namespace JdUtils.WpfControls.Components
 
         private void ActivateDisplay()
         {
-            if (m_editor?.Visibility == Visibility.Visible)
+            if (m_editor?.Visibility == Visibility.Visible && !m_editorKeepEditing)
             {
                 m_editor.SetValueSafe(s => s.Visibility, Visibility.Collapsed);
                 m_clearButton.SetValueSafe(s => s.Visibility,Visibility.Visible);
@@ -303,6 +304,8 @@ namespace JdUtils.WpfControls.Components
                 m_display?.Focus();
                 m_selectingValue = false;
             }
+
+            m_editorKeepEditing = false;
         }
 
         private void ActivateEditor()
@@ -377,6 +380,7 @@ namespace JdUtils.WpfControls.Components
 
             if (m_popup?.IsOpen == true && string.IsNullOrEmpty(m_editor?.Text))
             {
+                m_editorKeepEditing = true;
                 m_popup.IsOpen = false;
             }
             else if (!string.IsNullOrEmpty(m_editor?.Text.Trim()))
@@ -465,60 +469,11 @@ namespace JdUtils.WpfControls.Components
 
             var tFulltext = m_editor?.Text;
             var tTake = MaxSuggestions;
-            ExecuteSafe(() => DoWork(tProvider, tFulltext, tTake), OnSuccess, OnError);
-        }
-
-        private void ExecuteSafe<T>(Func<T> worker, Action<T> success, Action<Exception> failure)
-        {
-            Task.Run(async () =>
-            {
-                try
-                {
-                    await Task.CompletedTask;
-                    if (worker != null)
-                    {
-                        var result = worker.Invoke();
-                        PostToUi(success, result);
-                    }
-                }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Debug.WriteLine(e.Message);
-
-                    PostToUi(failure, e);
-                }
-            });
-        }
-
-        /// <summary>
-        /// Invokes action on UI thread
-        /// </summary>
-        /// <param name="action"></param>
-        /// <param name="parameter"></param>
-        private void PostToUi<T>(Action<T> action, T parameter)
-        {
-            void Wrapper()
-            {
-                action?.Invoke(parameter);
-            }
-
-            PostToUi(Wrapper);
-        }
-
-        /// <summary>
-        /// Invokes action on UI thread
-        /// </summary>
-        /// <param name="action"></param>
-        private void PostToUi(Action action)
-        {
-            if (m_uiDispatcher.CheckAccess())
-            {
-                action?.Invoke();
-            }
-            else
-            {
-                m_uiDispatcher.Invoke(action);
-            }
+            BackgroundExecutor
+                .Do(() => DoWork(tProvider, tFulltext, tTake), m_uiDispatcher)
+                .OnSuccess(OnSuccess)
+                .OnError(OnError)
+                .Execute();
         }
     }
 }
